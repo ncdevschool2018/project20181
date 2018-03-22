@@ -26,7 +26,7 @@
                 <span class="heading">SIGN IN</span>
                 <div class="form-group">
                     <input type="email" class="form-control" id="inputEmail" placeholder="E-mail">
-                    <i class="fa fa-user"></i>
+                    <i class="fa fa-envelope"></i>
                 </div>
                 <div class="form-group help">
                     <input type="password" class="form-control" id="inputPassword" placeholder="Password">
