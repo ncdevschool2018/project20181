@@ -1,16 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title</title>
-    <link rel="stylesheet" href="bootstrap/bootstrap.min.css" >
-    <link rel="stylesheet" href="bootstrap/font-awesome.min.css" >
-</head>
+
+<link rel="stylesheet" type="text/css" media="all" href="../resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../resources/bootstrap/css/font-awesome.min.css">
+<script src="../resources/bootstrap/js/popper.min.js"></script>
+<script src="../resources/bootstrap/js/bootstrap.min.js"></script>
+<script src="../resources/bootstrap/js/jquery-3.2.1.min.js"></script>
 <body>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="bootstrap/bootstrap.min.js"></script>
 </body>
-</html>

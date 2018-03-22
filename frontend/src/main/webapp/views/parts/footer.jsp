@@ -1,6 +1,31 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<p>Получилось</p>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
-<script src="resources/bootstrap/js/bootstrap.min.js"></script>
+<!--Подвал-->
+<footer class="" style="background-color: rgba(5,5,5,1)">
+    <div class="container">
+        <hr>
+        <div class="row">
+            <div class="col-md-4">
+                <p class="text-muted pull-right" style="color: white"> Copyright © 2018 Practice of University.</p>
+                <p class="text-muted pull-right" style="color: white"> All rights reserved.</p>
+            </div>
+            <div class="col-md-1" >
+            </div>
+            <div class="col-md-1" align="center">
+                <a href="http://www.visa.com.ru/ru/ru-ru/index.shtml"><img src="./resources/img/visa.png" width="85" height="55"></a>
+            </div>
+            <div class="col-md-1" align="center">
+                <a href="http://www.mastercard.com/by/consumer/index.html"><img src="./resources/img/MC.png" width="85" height="55"></a>
+            </div>
+            <div class="col-md-1" align="center">
+                <a href="https://http://raschet.by/"><img src="./resources/img/erp.jpg" width="85" height="55"></a>
+            </div>
+            <div class="col-md-1" align="center">
+                <a href="https://webpay.by/ru/"><img src="./resources/img/wp.JPG" width="85" height="55"></a>
+            </div>
+            <div class="col-md-3" align="center">
+                <p style="color: white"><img src="./resources/img/tell.png" class="tell" width="42" height="25"> +375 33 381 83 87</p>
+                <p style="color: white"><img src="./resources/img/tell.png" class="tell" width="42" height="25"> +375 29 960 15 40</p>
+            </div>
+        </div>
+    </div>
+</footer>

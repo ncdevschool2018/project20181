@@ -5,6 +5,6 @@
     <title>Admin</title>
 </head>
 <body>
-
+<jsp:include page="/views/parts/header.jsp"/>
 </body>
 </html>
