@@ -1,0 +1,31 @@
+.form-horizontal{
+    background: rgba(128, 128, 128, 0.06);
+    padding-bottom: 40px;
+    border-radius: 15px;
+    text-align: center;
+}
+.form-horizontal .btn{
+
+    font-size: 12px;
+    color: #fff;
+    background: rgba(41, 112, 239, 0.47);
+    border-radius: 10px;
+    padding: 5px 20px;
+    border: none;
+    text-transform: capitalize;
+    transition: all 0.5s ease 0s;
+}
+.btn-group{
+    border: 7px;
+}
+.img-circle{
+    border-radius: 100px;
+    border: 7px solid rgba(5, 5, 5, 0.22);
+    box-shadow: 0 0 7px rgba(102, 102, 102, 0.42);
+}
+hr.color-under-image{
+    background-color: rgba(41, 112, 239, 0.47); /* Цвет линии */
+    color: rgba(41, 112, 239, 0.47); /* Цвет линии для IE6-7 */
+    height: 2px;
+}
+

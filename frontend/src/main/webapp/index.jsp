@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
     <%@include file="views/parts/meta.jsp"%>
@@ -8,41 +8,46 @@
 
 
 </head>
-<body>
 <jsp:include page="/views/parts/header.jsp"/>
-<a href="<c:url value="views/authorization.jsp"/>" target="_blank">Login</a>
+<body>
 
+<jsp:include page="/views/parts/navigation.jsp"/>
 
-
-<div class="container" align="center">
-    <div class="row">
-
-        <div class="col-md-offset-3 col-md-6">
-            <form class="form-horizontal">
-                <span class="heading">SIGN IN</span>
-                <div class="form-group">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="E-mail">
-                    <i class="fa fa-user"></i>
-                </div>
-                <div class="form-group help">
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                    <i class="fa fa-lock"></i>
-                    <a href="#" class="fa fa-question-circle"></a>
-                </div>
-                <div class="form-group">
-                    <div class="main-checkbox">
-                        <input type="checkbox" value="none" id="checkbox1" name="check"/>
-                        <label for="checkbox1"></label>
-                    </div>
-                    <span class="text">Запомнить</span>
-                    <button type="submit" class="btn btn-default">ВХОД</button>
-                </div>
-            </form>
+<div id="CEI" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="d-block w-100" src="resources/img/praсtice_1.jpg" alt="First slide">
         </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="resources/img/practice_3.jpg" alt="Second slide">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="resources/img/practice_4.jpg" alt="Third slide">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="resources/img/practice_2.jpg" alt="Fourth slide">
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#CEI" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#CEI" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
 
-    </div><!-- /.row -->
-</div><!-- /.container -->
+<a href="<c:url value="/views/authorization.jsp"/>" target="_blank">Login</a>
 
-<%@include file="views/parts/footer.jsp"%>
+
+
+<jsp:include page="views/parts/footer.jsp"/>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="<c:url value="/index.jsp"/>">
             <img src="/resources/img/logo.png" alt="" width="200" height="60">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,7 +20,7 @@
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <span style="font-size: 35px; font-family: 'Lobster'; margin-right: 150px ">Hi, ! </span>
-                <a href="<c:url value="authorization.jsp"/>">
+                <a href="<c:url value="/views/authorization.jsp"/>">
                     <span style="color: #443c7b">
                         <i class="fa fa-sign-out" aria-hidden="true" style="font-size:200%"></i>
                     </span>
@@ -29,3 +29,7 @@
         </div>
     </div>
 </nav>
+
+<hr style="height: 5px;background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));">
+
+

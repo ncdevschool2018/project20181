@@ -4,31 +4,12 @@
 <head>
     <%@include file="parts/meta.jsp"%>
     <title>Head of Practice</title>
-    <style type="text/css">
-        hr {
-            border: 3px;
-            border-top: 4px double #8c8c8c;
-            text-align: center;
-        }
-        hr:after {
-            content: '\2665';
-            display: inline-block;
-            position: relative;
-            top: -15px;
-            padding: 0 10px;
-            background: #fff;
-            color: #8c8c8c;
-            font-size: 18px;
-        }
-    </style>
 </head>
 
 <body>
 <jsp:include page="parts/header.jsp"/>
 <jsp:include page="parts/navigation.jsp"/>
-<br>
-<hr>
-<br>
+
 <table class="table table-striped">
     <thead>
     <tr>
@@ -47,10 +28,12 @@
     </tr>
     </thead>
     <tbody>
+    <c:if test="${not empty studentcontr}">
+        <c:forEach items="${studentcontr}" var="student">
     <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
+        <th>${student.id}</th>
+        <td>${student.firstnameofstudent}</td>
+        <td>${student.lastnameofstudent}</td>
         <td>@mdo</td>
         <td>@mdo</td>
         <td>@mdo</td>
@@ -61,23 +44,19 @@
         <td>@mdo</td>
         <td>@mdo</td>
     </tr>
-    <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-    </tr>
-
+        </c:forEach>
+    </c:if>
     </tbody>
 </table>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<jsp:include page="parts/footer.jsp"/>
 </body>
 </html>

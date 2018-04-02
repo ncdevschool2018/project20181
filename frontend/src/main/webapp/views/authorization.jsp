@@ -57,5 +57,9 @@
         <div class="col-md-3"></div>
     </div>
 </div>
+
+<a href="<c:url value = "/student-view"/>">headpractice</a>
+<a href="<c:url value="admin.jsp"/>">admin</a>
+<a href="<c:url value="user.jsp"/>">user</a>
 </body>
 </html>

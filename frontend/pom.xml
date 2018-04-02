@@ -14,12 +14,19 @@
 
     <artifactId>frontend</artifactId>
 
-    <!-- jstl 1.2 -->
+
     <dependencies>
+        <!-- jstl 1.2 -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>by.netcracker.dev</groupId>
+            <artifactId>backend</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

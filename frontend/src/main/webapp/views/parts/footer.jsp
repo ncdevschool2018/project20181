@@ -1,31 +1,32 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!--Подвал-->
-<footer class="" style="background-color: rgba(5,5,5,1)">
+<div class="navbar-fixed-bottom row-fluid"style="background-color: rgba(128,128,128,0.16)">
+    <div class="navbar-inner">
     <div class="container">
         <hr>
         <div class="row">
             <div class="col-md-4">
-                <p class="text-muted pull-right" style="color: white"> Copyright © 2018 Practice of University.</p>
-                <p class="text-muted pull-right" style="color: white"> All rights reserved.</p>
+                <p> Copyright © 2018 Practice of University.</p>
+                <p> All rights reserved.</p>
             </div>
-            <div class="col-md-1" >
+            <div class="col-md-2">
+                <h5 class="text-uppercase mb-4 font-weight-bold">Address</h5>
             </div>
-            <div class="col-md-1" align="center">
-                <a href="http://www.visa.com.ru/ru/ru-ru/index.shtml"><img src="./resources/img/visa.png" width="85" height="55"></a>
+            <div class="col-md-4">
+                <p>
+                    <i class="fa fa-home mr-3"></i> Belarus, Minsk, Nezalezhnosti 54</p>
+                <p>
+                    <i class="fa fa-envelope mr-3"></i> yura.lent@gmail.com</p>
+
             </div>
-            <div class="col-md-1" align="center">
-                <a href="http://www.mastercard.com/by/consumer/index.html"><img src="./resources/img/MC.png" width="85" height="55"></a>
-            </div>
-            <div class="col-md-1" align="center">
-                <a href="https://http://raschet.by/"><img src="./resources/img/erp.jpg" width="85" height="55"></a>
-            </div>
-            <div class="col-md-1" align="center">
-                <a href="https://webpay.by/ru/"><img src="./resources/img/wp.JPG" width="85" height="55"></a>
-            </div>
-            <div class="col-md-3" align="center">
-                <p style="color: white"><img src="./resources/img/tell.png" class="tell" width="42" height="25"> +375 33 381 83 87</p>
-                <p style="color: white"><img src="./resources/img/tell.png" class="tell" width="42" height="25"> +375 29 960 15 40</p>
+            <div class="col-md-2" align="center">
+                <p>
+                    <i class="fa fa-phone mr-3"></i> + 01 234 567 89</p>
+                <p>
+                    <i class="fa fa-print mr-3"></i> + 01 234 567 89</p>
             </div>
         </div>
     </div>
-</footer>
+    </div>
+</div>
+
