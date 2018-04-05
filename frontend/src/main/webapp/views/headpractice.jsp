@@ -16,6 +16,7 @@
         <th>#</th>
         <th>First Name</th>
         <th>Last Name</th>
+        <th>Patronymic</th>
         <th>Faculty</th>
         <th>Speciality</th>
         <th>Group</th>
@@ -32,17 +33,22 @@
         <c:forEach items="${studentcontr}" var="student">
     <tr>
         <th>${student.id}</th>
-        <td>${student.firstnameofstudent}</td>
-        <td>${student.lastnameofstudent}</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
+        <td>${student.firstname}</td>
+        <td>${student.lastname}</td>
+        <td>${student.patronymic}</td>
+        <td>${student.specialityEntity.facultyEntity.namefaculty}</td>
+        <td>${student.specialityEntity.namespeciality}</td>
+        <td>${student.group}</td>
+        <td>${student.isbudget}</td>
+        <td>${student.averagescore}</td>
+        <td>${student.statuspractice}</td>
+        <td>company</td>
+        <td>dates</td>
+        <td>
+            <a href="/students-view/${student.id}" target="_blank">
+                <button type="button" class="btn btn-info">Info</button>
+            </a>
+        </td>
     </tr>
         </c:forEach>
     </c:if>

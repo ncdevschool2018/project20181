@@ -13,7 +13,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <form class="form-horizontal">
+            <div class="form-horizontal">
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-outline-default">
                         <span style="font-size: 30px"><i class="fa fa-facebook"></i></span>
@@ -30,7 +30,7 @@
                     <img src="/resources/img/user.png" alt="" width="200" height="200" class="img-circle">
                 </div>
                 <div>
-                    <span>Name Surname 3</span>
+                    <span>${studoneob.firstname} ${studoneob.lastname} ${studoneob.patronymic}</span>
                 </div>
                 <div class="row">
                     <div class="col-md-3"></div>
@@ -40,28 +40,36 @@
                     <div class="col-md-3"></div>
                 </div>
                 <div>
-                    <span>Student</span>
+                    <p>Student</p>
+                    <p>${studoneob.adress}</p>
+                    <p>${studoneob.phone}</p>
                 </div>
-            </form>
+            </div>
         </div>
         <div class="col-md-8">
-            <form class="form-horizontal">
+            <div class="form-horizontal">
                 <h4>История профиля</h4>
                 <table class="table table-th-block">
                     <tbody>
                     <tr><td class="active">Зарегистрирован:</td><td>12-06-2016</td></tr>
-                    <tr><td class="active">Факультет:</td><td>1</td></tr>
-                    <tr><td class="active">Группа:</td><td>2</td></tr>
-                    <tr><td class="active">Дата практики:</td><td>3</td></tr>
-                    <tr><td class="active">Специальность:</td><td>4</td></tr>
-                    <tr><td class="active">Бюджет:</td><td>5</td></tr>
-                    <tr><td class="active">Средний бал:</td><td>6</td></tr>
+                    <tr><td class="active">Факультет:</td><td>${studoneob.specialityEntity.facultyEntity.namefaculty}</td></tr>
+                    <tr><td class="active">Группа:</td><td>${studoneob.group}</td></tr>
+                    <tr><td class="active">Дата практики:</td><td></td></tr>
+                    <tr><td class="active">Специальность:</td><td>${studoneob.specialityEntity.namespeciality}</td></tr>
+                    <tr><td class="active">Бюджет:</td><td>${studoneob.isbudget}</td></tr>
+                    <tr><td class="active">Средний бал:</td><td>${studoneob.averagescore}</td></tr>
                     <tr><td class="active">Название компании:</td><td> 7</td></tr>
-                    <tr><td class="active">Статус практики:</td><td>8</td></tr>
+                    <tr><td class="active">Статус практики:</td><td>${studoneob.statuspractice}</td></tr>
                     </tbody>
                 </table>
-            </form>
+            </div>
         </div>
+    </div>
+    <div class="row">
+            <div class="col-md-12">
+                <h5>Комментарий : </h5>
+                ${studoneob.comment}
+            </div>
     </div>
 </div>
 <jsp:include page="parts/footer.jsp"/>

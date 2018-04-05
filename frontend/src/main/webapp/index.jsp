@@ -44,7 +44,7 @@
     </a>
 </div>
 
-<a href="<c:url value="/views/authorization.jsp"/>" target="_blank">Login</a>
+<a href="<c:url value="/authorization"/>" target="_blank">Login</a>
 
 
 
