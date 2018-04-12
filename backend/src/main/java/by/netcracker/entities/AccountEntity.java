@@ -10,6 +10,11 @@ public class AccountEntity {
     private String password;
     private String email;
     private String role;
+    private String firstname;
+    private String lastname;
+    private String patronymic;
+    private StudentEntity studentEntity;
+
 
     @Id
     @Column(name = "idaccounts")
@@ -61,6 +66,37 @@ public class AccountEntity {
         this.role = role;
     }
 
+
+    @Basic
+    @Column(name = "name")
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    @Basic
+    @Column(name = "surname")
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    @Basic
+    @Column(name = "patronymic")
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,7 +108,11 @@ public class AccountEntity {
         if (login != null ? !login.equals(that.login) : that.login != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        return role != null ? role.equals(that.role) : that.role == null;
+        if (role != null ? !role.equals(that.role) : that.role != null) return false;
+        if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
+        if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
+        if (patronymic != null ? !patronymic.equals(that.patronymic) : that.patronymic != null) return false;
+        return studentEntity != null ? studentEntity.equals(that.studentEntity) : that.studentEntity == null;
     }
 
     @Override
@@ -82,6 +122,20 @@ public class AccountEntity {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (role != null ? role.hashCode() : 0);
+        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+        result = 31 * result + (patronymic != null ? patronymic.hashCode() : 0);
+        result = 31 * result + (studentEntity != null ? studentEntity.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "studentacid", referencedColumnName = "idstudent", nullable = false)
+    public StudentEntity getStudentEntity() {
+        return studentEntity;
+    }
+
+    public void setStudentEntity(StudentEntity studentEntity) {
+        this.studentEntity = studentEntity;
     }
 }

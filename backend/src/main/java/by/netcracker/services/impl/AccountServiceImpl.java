@@ -33,4 +33,14 @@ public class AccountServiceImpl implements AccountService {
         return accountEntity;
     }
 
+    @Override
+    public List<AccountEntity> findAllStudents() {
+        return (List<AccountEntity>) accountRepository.findAll();
+    }
+
+    @Override
+    public AccountEntity getStudentById(int id) {
+        return accountRepository.findOne(id);
+    }
+
 }

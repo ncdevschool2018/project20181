@@ -16,13 +16,4 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository userRepository;
 
-
-    @Override
-    public List<StudentEntity> findAllStudents() { return (List<StudentEntity>) userRepository.findAll();
-    }
-
-    @Override
-    public StudentEntity getStudentById(int id) {
-        return userRepository.findOne(id);
-    }
 }

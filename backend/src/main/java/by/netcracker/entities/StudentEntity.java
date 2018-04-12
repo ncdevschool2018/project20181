@@ -1,15 +1,15 @@
 package by.netcracker.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "student", schema = "netcracker", catalog = "")
 public class StudentEntity {
     private int id;
-    private String firstname;
-    private String lastname;
-    private String patronymic;
     private int group;
     private double averagescore;
     private String isbudget;
@@ -18,6 +18,9 @@ public class StudentEntity {
     private String phone;
     private String adress;
     private SpecialityEntity specialityEntity;
+    //private Set<RequestEntity> request_companies = new HashSet<>();
+
+
 
     @Id
     @Column(name = "idstudent")
@@ -27,36 +30,6 @@ public class StudentEntity {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "name")
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    @Basic
-    @Column(name = "surname")
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    @Basic
-    @Column(name = "patronymic")
-    public String getPatronymic() {
-        return patronymic;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
     }
 
     @Basic
@@ -128,7 +101,6 @@ public class StudentEntity {
         this.adress = adress;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -139,21 +111,43 @@ public class StudentEntity {
         if (id != that.id) return false;
         if (group != that.group) return false;
         if (Double.compare(that.averagescore, averagescore) != 0) return false;
-        if (!firstname.equals(that.firstname)) return false;
-        if (!lastname.equals(that.lastname)) return false;
-        if (!patronymic.equals(that.patronymic)) return false;
-        if (!isbudget.equals(that.isbudget)) return false;
-        if (!statuspractice.equals(that.statuspractice)) return false;
+        if (isbudget != null ? !isbudget.equals(that.isbudget) : that.isbudget != null) return false;
+        if (statuspractice != null ? !statuspractice.equals(that.statuspractice) : that.statuspractice != null)
+            return false;
         if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
         if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
         if (adress != null ? !adress.equals(that.adress) : that.adress != null) return false;
-        return specialityEntity.equals(that.specialityEntity);
+        return specialityEntity != null ? specialityEntity.equals(that.specialityEntity) : that.specialityEntity == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstname, lastname, patronymic, group, averagescore, isbudget, statuspractice, comment, adress, phone);
+        int result;
+        long temp;
+        result = id;
+        result = 31 * result + group;
+        temp = Double.doubleToLongBits(averagescore);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (isbudget != null ? isbudget.hashCode() : 0);
+        result = 31 * result + (statuspractice != null ? statuspractice.hashCode() : 0);
+        result = 31 * result + (comment != null ? comment.hashCode() : 0);
+        result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + (adress != null ? adress.hashCode() : 0);
+        result = 31 * result + (specialityEntity != null ? specialityEntity.hashCode() : 0);
+        return result;
     }
+
+    /* @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "student_request", joinColumns = @JoinColumn(name = "studentrid", referencedColumnName = "idstudent"),
+            inverseJoinColumns = @JoinColumn(name = "requestsid", referencedColumnName = "idrequest"))
+    public Set<RequestEntity> getRequest_companies() {
+        return request_companies;
+    }
+
+    public void setRequest_companies(Set<RequestEntity> request_companies) {
+        this.request_companies = request_companies;
+    }*/
 
     @ManyToOne
     @JoinColumn(name = "specid", referencedColumnName = "idSpeciality", nullable = false)
@@ -164,4 +158,5 @@ public class StudentEntity {
     public void setSpecialityEntity(SpecialityEntity specialityEntity) {
         this.specialityEntity = specialityEntity;
     }
+
 }

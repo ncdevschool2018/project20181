@@ -1,6 +1,7 @@
 package by.netcracker.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -14,6 +15,17 @@ public class RequestEntity {
     private int totalquantity;
     private String statuspractice;
     private SpecialityEntity specialityEntity;
+    private AccountEntity accountEntity;
+    private Set<StudentEntity> students;
+
+   /* @ManyToMany(fetch = FetchType.LAZY, mappedBy = "request_companies")
+    public Set<StudentEntity> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<StudentEntity> students) {
+        this.students = students;
+    }*/
 
     @Id
     @Column(name = "idrequest")
@@ -98,7 +110,11 @@ public class RequestEntity {
         if (dateto != null ? !dateto.equals(that.dateto) : that.dateto != null) return false;
         if (statuspractice != null ? !statuspractice.equals(that.statuspractice) : that.statuspractice != null)
             return false;
-        return specialityEntity != null ? specialityEntity.equals(that.specialityEntity) : that.specialityEntity == null;
+        if (specialityEntity != null ? !specialityEntity.equals(that.specialityEntity) : that.specialityEntity != null)
+            return false;
+        if (accountEntity != null ? !accountEntity.equals(that.accountEntity) : that.accountEntity != null)
+            return false;
+        return students != null ? students.equals(that.students) : that.students == null;
     }
 
     @Override
@@ -114,7 +130,19 @@ public class RequestEntity {
         result = 31 * result + totalquantity;
         result = 31 * result + (statuspractice != null ? statuspractice.hashCode() : 0);
         result = 31 * result + (specialityEntity != null ? specialityEntity.hashCode() : 0);
+        result = 31 * result + (accountEntity != null ? accountEntity.hashCode() : 0);
+        result = 31 * result + (students != null ? students.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "accountrid", referencedColumnName = "idaccounts", nullable = false)
+    public AccountEntity getAccountEntity() {
+        return accountEntity;
+    }
+
+    public void setAccountEntity(AccountEntity accountEntity) {
+        this.accountEntity = accountEntity;
     }
 
     @ManyToOne
