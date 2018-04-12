@@ -28,11 +28,11 @@ public class AccountController {
     public String authorizationAccount(@ModelAttribute("account")AccountEntity accountEntity){
 
         AccountEntity accountEntity1 = this.accountService.authorizationAccount(accountEntity);
-        if(accountEntity1.getRole().equals("user"))
-            return "/user";
+        if(accountEntity1.getRole().equals("student"))
+            return "/students-view/{}";
         if(accountEntity1.getRole().equals(("admin")))
-            return "/admin";
-        if(accountEntity1.getRole().equals("headpractice"))
+            return "redirect:/students-view-admin";
+        if(accountEntity1.getRole().equals("head"))
             return "redirect:/students-view";
 
         return "/authorization";

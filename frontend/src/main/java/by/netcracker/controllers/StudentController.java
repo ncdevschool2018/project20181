@@ -1,14 +1,14 @@
 package by.netcracker.controllers;
 
+import by.netcracker.entities.AccountEntity;
 import by.netcracker.models.StudentViewModel;
+import by.netcracker.services.AccountService;
 import by.netcracker.services.StudentService;
 
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -18,28 +18,51 @@ import java.util.List;
 public class StudentController {
 
     @Autowired
-    private StudentService studentService;
+    private AccountService accountService;
+
+    private static final String VIEW_NAME_USER = "user";
+    private static final String VIEW_NAME_ADMIN = "admin";
+
 
 
     @RequestMapping(value = "/students-view", method = RequestMethod.GET)
     public ModelAndView getStudentInformation(){
         ModelAndView studentMAV = new ModelAndView();
+
         studentMAV.setViewName("headpractice");
-        studentMAV.addObject("studentcontr", studentService.findAllStudents());
+        studentMAV.addObject("studentcontr", accountService.findAllStudents());
         return studentMAV;
     }
 
     @RequestMapping(value = "/students-view/{id}")
     public ModelAndView getStudentInformationByOne(@PathVariable("id") int id){
         ModelAndView studoneMAV = new ModelAndView();
-        studoneMAV.setViewName("user");
-        studoneMAV.addObject("studoneob", studentService.getStudentById(id));
+        studoneMAV.setViewName(VIEW_NAME_USER);
+        studoneMAV.addObject("studoneob", accountService.getStudentById(id));
         return studoneMAV;
+    }
+
+    @RequestMapping(value = "/students-view-admin", method = RequestMethod.GET)
+    public ModelAndView getStudentInformation1(){
+        ModelAndView studentMAV = new ModelAndView();
+
+        studentMAV.setViewName(VIEW_NAME_ADMIN);
+        studentMAV.addObject("studentcontr1", accountService.findAllStudents());
+        return studentMAV;
     }
 
 
 
-    private List<StudentViewModel> getStubStudent() {
+
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    @ResponseBody
+    public StudentViewModel getUsersAsJson(@RequestBody StudentViewModel userViewModel) {
+        return userViewModel;
+    }
+
+
+
+    /*private List<StudentViewModel> getStubStudent() {
         List<StudentViewModel> userViewModels = new ArrayList<>();
         StudentViewModel userViewModelIvan  = new StudentViewModel();
         userViewModelIvan.setId(113);
@@ -52,5 +75,5 @@ public class StudentController {
         userViewModels.add(userViewModelIvan);
         userViewModels.add(userViewModelLeopold);
         return userViewModels;
-    }
+    }*/
 }
