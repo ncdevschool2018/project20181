@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-horizontal">
-                <div class="btn-group" role="group" aria-label="Basic example">
+                <div class="btn-group" role="group">
                     <button type="button" class="btn btn-outline-default">
                         <span style="font-size: 30px"><i class="fa fa-facebook"></i></span>
                     </button>
@@ -41,8 +41,8 @@
                 </div>
                 <div>
                     <p>Student</p>
-                    <p>${studoneob.adress}</p>
-                    <p>${studoneob.phone}</p>
+                    <p>${studoneob.studentEntity.adress}</p>
+                    <p>${studoneob.studentEntity.phone}</p>
                 </div>
             </div>
         </div>
@@ -52,14 +52,14 @@
                 <table class="table table-th-block">
                     <tbody>
                     <tr><td class="active">Зарегистрирован:</td><td>12-06-2016</td></tr>
-                    <tr><td class="active">Факультет:</td><td>${studoneob.specialityEntity.facultyEntity.namefaculty}</td></tr>
-                    <tr><td class="active">Группа:</td><td>${studoneob.group}</td></tr>
+                    <tr><td class="active">Факультет:</td><td>${studoneob.studentEntity.specialityEntity.facultyEntity.namefaculty}</td></tr>
+                    <tr><td class="active">Группа:</td><td>${studoneob.studentEntity.group}</td></tr>
                     <tr><td class="active">Дата практики:</td><td></td></tr>
-                    <tr><td class="active">Специальность:</td><td>${studoneob.specialityEntity.namespeciality}</td></tr>
-                    <tr><td class="active">Бюджет:</td><td>${studoneob.isbudget}</td></tr>
-                    <tr><td class="active">Средний бал:</td><td>${studoneob.averagescore}</td></tr>
+                    <tr><td class="active">Специальность:</td><td>${studoneob.studentEntity.specialityEntity.namespeciality}</td></tr>
+                    <tr><td class="active">Бюджет:</td><td>${studoneob.studentEntity.isbudget}</td></tr>
+                    <tr><td class="active">Средний бал:</td><td>${studoneob.studentEntity.averagescore}</td></tr>
                     <tr><td class="active">Название компании:</td><td> 7</td></tr>
-                    <tr><td class="active">Статус практики:</td><td>${studoneob.statuspractice}</td></tr>
+                    <tr><td class="active">Статус практики:</td><td>${studoneob.studentEntity.statuspractice}</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -68,7 +68,7 @@
     <div class="row">
             <div class="col-md-12">
                 <h5>Комментарий : </h5>
-                ${studoneob.comment}
+                ${studoneob.studentEntity.comment}
             </div>
     </div>
 </div>

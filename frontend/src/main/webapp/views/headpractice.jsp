@@ -33,9 +33,9 @@
         <c:forEach items="${studentcontr}" var="student">
     <tr>
         <th>${student.id}</th>
-        <td>${student.firstname}</td>
-        <td>${student.lastname}</td>
-        <td>${student.patronymic}</td>
+        <td>${student.accountEntity.firstname}</td>
+        <td>${student.accountEntity.lastname}</td>
+        <td>${student.accountEntity.patronymic}</td>
         <td>${student.specialityEntity.facultyEntity.namefaculty}</td>
         <td>${student.specialityEntity.namespeciality}</td>
         <td>${student.group}</td>

@@ -20,7 +20,7 @@
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <span style="font-size: 30px; font-family: 'Lobster'; margin-right: 150px ">Welcome to Practice </span>
-                <a href="<c:url value="/views/authorization.jsp"/>">
+                <a href="<c:url value="/authorization"/>">
                     <span style="color: #443c7b">
                         <i class="fa fa-sign-out" aria-hidden="true" style="font-size:200%"></i>
                     </span>
