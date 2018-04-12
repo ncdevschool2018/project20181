@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+   <bean id="conversionService"
+         class="by.netcracker.converters.CustomConvertersRegister">
+
+      <property name="converters">
+
+         <set>
+            <bean class="by.netcracker.converters.FacultyEntityToFacultyViewModelConverter"/>
+            <bean class="by.netcracker.converters.FacultyViewModelToFacultyEntityConverter"/>
+            <bean class="by.netcracker.converters.SpecialityEntityToSpecialityViewModelConverter"/>
+            <bean class="by.netcracker.converters.AccountEntityToStudentViewModelConverter"/>
+         </set>
+
+      </property>
+
+   </bean>
+
+</beans>
