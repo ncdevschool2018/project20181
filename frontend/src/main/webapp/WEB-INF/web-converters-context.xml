@@ -13,6 +13,7 @@
             <bean class="by.netcracker.converters.FacultyViewModelToFacultyEntityConverter"/>
             <bean class="by.netcracker.converters.SpecialityEntityToSpecialityViewModelConverter"/>
             <bean class="by.netcracker.converters.AccountEntityToStudentViewModelConverter"/>
+            <bean class="by.netcracker.converters.RequestEntityToRequestViewModelConverter"/>
          </set>
 
       </property>

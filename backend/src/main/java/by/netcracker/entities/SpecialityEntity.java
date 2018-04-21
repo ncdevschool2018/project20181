@@ -1,6 +1,9 @@
 package by.netcracker.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -8,11 +11,14 @@ import java.util.Objects;
 public class SpecialityEntity {
     private int id;
     private String namespeciality;
-    private FacultyEntity facultyEntity;
+    private Integer facultyId;
+    private FacultyEntity facultyByFaculty;
+    private Collection<RequestEntity> practicesById;
+    private Collection<StudentEntity> studentsById;
 
 
     @Id
-    @Column(name = "idSpeciality")
+    @Column(name = "idSpeciality", nullable = false)
     public int getId() {
         return id;
     }
@@ -22,7 +28,7 @@ public class SpecialityEntity {
     }
 
     @Basic
-    @Column(name = "name_spec")
+    @Column(name = "name_spec", nullable = false)
     public String getNamespeciality() {
         return namespeciality;
     }
@@ -31,27 +37,61 @@ public class SpecialityEntity {
         this.namespeciality = namespeciality;
     }
 
+    @Column(name = "faculid")
+    public Integer getFacultyId() {
+        return facultyId;
+    }
+
+    public void setFacultyId(Integer facultyId) {
+        this.facultyId = facultyId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         SpecialityEntity that = (SpecialityEntity) o;
-        return id == that.id &&
-                Objects.equals(namespeciality, that.namespeciality);
+
+        if (id != that.id) return false;
+        if (namespeciality != null ? !namespeciality.equals(that.namespeciality) : that.namespeciality != null)
+            return false;
+        return facultyId != null ? facultyId.equals(that.facultyId) : that.facultyId == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, namespeciality);
+        int result = id;
+        result = 31 * result + (namespeciality != null ? namespeciality.hashCode() : 0);
+        result = 31 * result + (facultyId != null ? facultyId.hashCode() : 0);
+        return result;
     }
 
     @ManyToOne
-    @JoinColumn(name = "faculid", referencedColumnName = "idfaculty", nullable = false)
-    public FacultyEntity getFacultyEntity() {
-        return facultyEntity;
+    @JoinColumn(name = "faculid", referencedColumnName = "idfaculty", nullable = false, insertable = false, updatable = false)
+    public FacultyEntity getFacultyByFaculty() {
+        return facultyByFaculty;
     }
 
-    public void setFacultyEntity(FacultyEntity facultyEntity) {
-        this.facultyEntity = facultyEntity;
+    public void setFacultyByFaculty(FacultyEntity facultyByFaculty) {
+        this.facultyByFaculty = facultyByFaculty;
+    }
+
+    @OneToMany(mappedBy = "specialityEntity")
+    public Collection<RequestEntity> getPracticesById() {
+        return practicesById;
+    }
+
+    public void setPracticesById(Collection<RequestEntity> practicesById) {
+        this.practicesById = practicesById;
+    }
+
+    @OneToMany(mappedBy = "specialityEntity")
+    public Collection<StudentEntity> getStudentsById() {
+        return studentsById;
+    }
+
+    public void setStudentsById(Collection<StudentEntity> studentsById) {
+        this.studentsById = studentsById;
     }
 }

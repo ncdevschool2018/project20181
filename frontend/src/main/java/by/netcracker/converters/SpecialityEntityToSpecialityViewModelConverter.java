@@ -9,15 +9,12 @@ import org.springframework.core.convert.converter.Converter;
 
 public class SpecialityEntityToSpecialityViewModelConverter implements Converter<SpecialityEntity, SpecialityViewModel> {
 
-    @Autowired
-    private ConversionService conversionService;
-
     @Override
     public SpecialityViewModel convert(SpecialityEntity specialityEntity) {
         SpecialityViewModel specialityViewModel = new SpecialityViewModel();
         specialityViewModel.setIdSpeciality(String.valueOf(specialityEntity.getId()));
         specialityViewModel.setNamespeciality(specialityEntity.getNamespeciality());
-        specialityViewModel.setFacultyViewModel(conversionService.convert(specialityEntity.getFacultyEntity(), FacultyViewModel.class));
+        //specialityViewModel.setIdSpeciality(String.valueOf(specialityEntity.getFacultyId()));
         return specialityViewModel;
     }
 }

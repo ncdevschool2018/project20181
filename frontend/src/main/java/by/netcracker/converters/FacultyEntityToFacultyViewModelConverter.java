@@ -12,6 +12,6 @@ public class FacultyEntityToFacultyViewModelConverter implements Converter<Facul
         FacultyViewModel facultyViewModel = new FacultyViewModel();
         facultyViewModel.setIdFaculty(String.valueOf(facultyEntity.getId()));
         facultyViewModel.setNamefaculty(facultyEntity.getNamefaculty());
-        return null;
+        return facultyViewModel;
     }
 }

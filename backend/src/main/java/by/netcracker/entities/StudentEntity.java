@@ -17,10 +17,10 @@ public class StudentEntity {
     private String comment;
     private String phone;
     private String adress;
+    private Integer specialtyId;
     private SpecialityEntity specialityEntity;
-    //private Set<RequestEntity> request_companies = new HashSet<>();
-
-
+    private Set<RequestEntity> request_companies = new HashSet<>();
+    private AccountEntity accountEntity;//for oneToone
 
     @Id
     @Column(name = "idstudent")
@@ -101,6 +101,16 @@ public class StudentEntity {
         this.adress = adress;
     }
 
+    @Basic
+    @Column(name = "specid")
+    public Integer getSpecialtyId() {
+        return specialtyId;
+    }
+
+    public void setSpecialtyId(Integer specialtyId) {
+        this.specialtyId = specialtyId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -116,8 +126,7 @@ public class StudentEntity {
             return false;
         if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
         if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
-        if (adress != null ? !adress.equals(that.adress) : that.adress != null) return false;
-        return specialityEntity != null ? specialityEntity.equals(that.specialityEntity) : that.specialityEntity == null;
+        return adress != null ? adress.equals(that.adress) : that.adress == null;
     }
 
     @Override
@@ -133,30 +142,37 @@ public class StudentEntity {
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (adress != null ? adress.hashCode() : 0);
-        result = 31 * result + (specialityEntity != null ? specialityEntity.hashCode() : 0);
         return result;
     }
 
-    /* @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "student_request", joinColumns = @JoinColumn(name = "studentrid", referencedColumnName = "idstudent"),
-            inverseJoinColumns = @JoinColumn(name = "requestsid", referencedColumnName = "idrequest"))
-    public Set<RequestEntity> getRequest_companies() {
-        return request_companies;
+    @OneToOne(mappedBy = "studentEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public AccountEntity getAccountEntity() {
+        return accountEntity;
     }
 
-    public void setRequest_companies(Set<RequestEntity> request_companies) {
-        this.request_companies = request_companies;
-    }*/
+    public void setAccountEntity(AccountEntity accountEntity) {
+        this.accountEntity = accountEntity;
+    }
 
     @ManyToOne
-    @JoinColumn(name = "specid", referencedColumnName = "idSpeciality", nullable = false)
+    @JoinColumn(name = "specid", referencedColumnName = "idSpeciality",nullable = false, insertable = false, updatable = false)
     public SpecialityEntity getSpecialityEntity() {
         return specialityEntity;
     }
 
     public void setSpecialityEntity(SpecialityEntity specialityEntity) {
         this.specialityEntity = specialityEntity;
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinTable(name = "student_request", joinColumns = {@JoinColumn(name = "studentrid")},
+            inverseJoinColumns = {@JoinColumn(name = "requestsid")})
+    public Set<RequestEntity> getRequest_companies() {
+        return request_companies;
+    }
+
+    public void setRequest_companies(Set<RequestEntity> request_companies) {
+        this.request_companies = request_companies;
     }
 
 }

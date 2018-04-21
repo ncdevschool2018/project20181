@@ -1,6 +1,9 @@
 package by.netcracker.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "accounts", schema = "netcracker", catalog = "")
@@ -14,6 +17,8 @@ public class AccountEntity {
     private String lastname;
     private String patronymic;
     private StudentEntity studentEntity;
+    private Collection<RequestEntity> practicesById;
+
 
 
     @Id
@@ -129,13 +134,22 @@ public class AccountEntity {
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "studentacid", referencedColumnName = "idstudent", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "studentacid", referencedColumnName = "idstudent")
     public StudentEntity getStudentEntity() {
         return studentEntity;
     }
 
     public void setStudentEntity(StudentEntity studentEntity) {
         this.studentEntity = studentEntity;
+    }
+
+    @OneToMany(mappedBy = "accountEntity")
+    public Collection<RequestEntity> getPracticesById() {
+        return practicesById;
+    }
+
+    public void setPracticesById(Collection<RequestEntity> practicesById) {
+        this.practicesById = practicesById;
     }
 }

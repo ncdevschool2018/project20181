@@ -14,6 +14,7 @@ public class AccountEntityToStudentViewModelConverter implements Converter<Accou
 
     @Override
     public AccountViewModel convert(AccountEntity accountEntity) {
+
         StudentViewModel studentViewModel = new StudentViewModel();
         studentViewModel.setAccountId(String.valueOf(accountEntity.getId()));
         studentViewModel.setLogin(accountEntity.getLogin());
@@ -29,12 +30,16 @@ public class AccountEntityToStudentViewModelConverter implements Converter<Accou
             studentViewModel.setAveragescore(String.valueOf(studentEntity.getAveragescore()));
             studentViewModel.setIsbudget(studentEntity.getIsbudget());
             studentViewModel.setStatuspractice(studentEntity.getStatuspractice());
+            studentViewModel.setAdress(studentEntity.getAdress());
+            studentViewModel.setPhone(studentEntity.getPhone());
+            studentViewModel.setComment(studentEntity.getComment());
 
             SpecialityEntity specialityEntity = studentEntity.getSpecialityEntity();
             if(specialityEntity != null){
                 studentViewModel.setSpecialityId(String.valueOf(specialityEntity.getId()));
                 studentViewModel.setSpecialityName(specialityEntity.getNamespeciality());
-                FacultyEntity facultyEntity = new FacultyEntity();
+
+                FacultyEntity facultyEntity = specialityEntity.getFacultyByFaculty();
                 if(facultyEntity != null){
                     studentViewModel.setFacultyId(String.valueOf(facultyEntity.getId()));
                     studentViewModel.setFacultyName(facultyEntity.getNamefaculty());

@@ -33,8 +33,12 @@ import java.util.Set;
 
 public class CustomConvertersRegister implements InitializingBean {
 
-    @Autowired
     private GenericConversionService conversionService;
+
+    @Autowired
+    public void setConversionService(GenericConversionService conversionService) {
+        this.conversionService = conversionService;
+    }
 
     private Set<?> converters;
 
@@ -49,23 +53,3 @@ public class CustomConvertersRegister implements InitializingBean {
         ConversionServiceFactory.registerConverters(this.converters, this.conversionService);
     }
 }
-/*
- WITHOUT LIMITING THE FOREGOING, COPYING, REPRODUCTION, REDISTRIBUTION,
- REVERSE ENGINEERING, DISASSEMBLY, DECOMPILATION OR MODIFICATION
- OF THE SOFTWARE IS EXPRESSLY PROHIBITED, UNLESS SUCH COPYING,
- REPRODUCTION, REDISTRIBUTION, REVERSE ENGINEERING, DISASSEMBLY,
- DECOMPILATION OR MODIFICATION IS EXPRESSLY PERMITTED BY THE LICENSE
- AGREEMENT WITH NETCRACKER. 
- 
- THIS SOFTWARE IS WARRANTED, IF AT ALL, ONLY AS EXPRESSLY PROVIDED IN
- THE TERMS OF THE LICENSE AGREEMENT, EXCEPT AS WARRANTED IN THE
- LICENSE AGREEMENT, NETCRACKER HEREBY DISCLAIMS ALL WARRANTIES AND
- CONDITIONS WITH REGARD TO THE SOFTWARE, WHETHER EXPRESS, IMPLIED
- OR STATUTORY, INCLUDING WITHOUT LIMITATION ALL WARRANTIES AND
- CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
- TITLE AND NON-INFRINGEMENT.
- 
- Copyright (c) 1995-2017 NetCracker Technology Corp.
- 
- All Rights Reserved.
-*/

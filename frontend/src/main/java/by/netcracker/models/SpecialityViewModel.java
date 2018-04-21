@@ -5,7 +5,7 @@ import by.netcracker.entities.FacultyEntity;
 public class SpecialityViewModel {
     private String idSpeciality;
     private String namespeciality;
-    private FacultyViewModel facultyViewModel;
+    private int facultyId;
 
     public String getIdSpeciality() {
         return idSpeciality;
@@ -23,11 +23,11 @@ public class SpecialityViewModel {
         this.namespeciality = namespeciality;
     }
 
-    public FacultyViewModel getFacultyViewModel() {
-        return facultyViewModel;
+    public int getFacultyId() {
+        return facultyId;
     }
 
-    public void setFacultyViewModel(FacultyViewModel facultyViewModel) {
-        this.facultyViewModel = facultyViewModel;
+    public void setFacultyId(int facultyId) {
+        this.facultyId = facultyId;
     }
 }

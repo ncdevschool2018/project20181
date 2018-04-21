@@ -1,6 +1,9 @@
 package by.netcracker.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -14,18 +17,14 @@ public class RequestEntity {
     private double minaverage;
     private int totalquantity;
     private String statuspractice;
+    private Integer specialtyId;
+    private Integer headOfPracticeId;
     private SpecialityEntity specialityEntity;
     private AccountEntity accountEntity;
-    private Set<StudentEntity> students;
+    private Set<StudentEntity> students = new HashSet<>();
 
-   /* @ManyToMany(fetch = FetchType.LAZY, mappedBy = "request_companies")
-    public Set<StudentEntity> getStudents() {
-        return students;
-    }
 
-    public void setStudents(Set<StudentEntity> students) {
-        this.students = students;
-    }*/
+
 
     @Id
     @Column(name = "idrequest")
@@ -95,6 +94,26 @@ public class RequestEntity {
         this.statuspractice = statuspractice;
     }
 
+    @Basic
+    @Column(name = "specreqid")
+    public Integer getSpecialtyId() {
+        return specialtyId;
+    }
+
+    public void setSpecialtyId(Integer specialtyId) {
+        this.specialtyId = specialtyId;
+    }
+
+    @Basic
+    @Column(name = "accountrid")
+    public Integer getHeadOfPracticeId() {
+        return headOfPracticeId;
+    }
+
+    public void setHeadOfPracticeId(Integer headOfPracticeId) {
+        this.headOfPracticeId = headOfPracticeId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -110,11 +129,7 @@ public class RequestEntity {
         if (dateto != null ? !dateto.equals(that.dateto) : that.dateto != null) return false;
         if (statuspractice != null ? !statuspractice.equals(that.statuspractice) : that.statuspractice != null)
             return false;
-        if (specialityEntity != null ? !specialityEntity.equals(that.specialityEntity) : that.specialityEntity != null)
-            return false;
-        if (accountEntity != null ? !accountEntity.equals(that.accountEntity) : that.accountEntity != null)
-            return false;
-        return students != null ? students.equals(that.students) : that.students == null;
+        return specialtyId != null ? specialtyId.equals(that.specialtyId) : that.specialtyId == null;
     }
 
     @Override
@@ -129,14 +144,12 @@ public class RequestEntity {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + totalquantity;
         result = 31 * result + (statuspractice != null ? statuspractice.hashCode() : 0);
-        result = 31 * result + (specialityEntity != null ? specialityEntity.hashCode() : 0);
-        result = 31 * result + (accountEntity != null ? accountEntity.hashCode() : 0);
-        result = 31 * result + (students != null ? students.hashCode() : 0);
+        result = 31 * result + (specialtyId != null ? specialtyId.hashCode() : 0);
         return result;
     }
 
     @ManyToOne
-    @JoinColumn(name = "accountrid", referencedColumnName = "idaccounts", nullable = false)
+    @JoinColumn(name = "accountrid", referencedColumnName = "idaccounts",nullable = false, insertable = false, updatable = false)
     public AccountEntity getAccountEntity() {
         return accountEntity;
     }
@@ -146,12 +159,21 @@ public class RequestEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "specreqid", referencedColumnName = "idSpeciality", nullable = false)
+    @JoinColumn(name = "specreqid", referencedColumnName = "idSpeciality", insertable = false, updatable = false)
     public SpecialityEntity getSpecialityEntity() {
         return specialityEntity;
     }
 
     public void setSpecialityEntity(SpecialityEntity specialityEntity) {
         this.specialityEntity = specialityEntity;
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH},mappedBy = "request_companies")
+    public Set<StudentEntity> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<StudentEntity> students) {
+        this.students = students;
     }
 }
