@@ -18,9 +18,11 @@ public class StudentEntity {
     private String phone;
     private String adress;
     private Integer specialtyId;
+    private Integer accountId;
+    private  AccountEntity accountEntityByStudent;
     private SpecialityEntity specialityEntity;
     private Set<RequestEntity> request_companies = new HashSet<>();
-    private AccountEntity accountEntity;//for oneToone
+   // private AccountEntity accountEntity;//for oneToone
 
     @Id
     @Column(name = "idstudent")
@@ -111,6 +113,16 @@ public class StudentEntity {
         this.specialtyId = specialtyId;
     }
 
+    @Basic
+    @Column(name = "accountid")
+    public Integer getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -145,13 +157,23 @@ public class StudentEntity {
         return result;
     }
 
-    @OneToOne(mappedBy = "studentEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+   /* @OneToOne(mappedBy = "studentEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public AccountEntity getAccountEntity() {
         return accountEntity;
     }
 
     public void setAccountEntity(AccountEntity accountEntity) {
         this.accountEntity = accountEntity;
+    }*/
+
+    @ManyToOne
+    @JoinColumn(name = "accountid", referencedColumnName = "idaccounts",nullable = false, insertable = false, updatable = false)
+    public AccountEntity getAccountEntityByStudent() {
+        return accountEntityByStudent;
+    }
+
+    public void setAccountEntityByStudent(AccountEntity accountEntityByStudent) {
+        this.accountEntityByStudent = accountEntityByStudent;
     }
 
     @ManyToOne

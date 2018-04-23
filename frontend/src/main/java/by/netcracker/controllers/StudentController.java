@@ -2,6 +2,7 @@ package by.netcracker.controllers;
 
 import by.netcracker.entities.AccountEntity;
 import by.netcracker.entities.RequestEntity;
+import by.netcracker.entities.StudentEntity;
 import by.netcracker.models.AccountViewModel;
 import by.netcracker.models.RequestViewModel;
 import by.netcracker.models.SpecialityViewModel;
@@ -10,6 +11,7 @@ import by.netcracker.services.AccountService;
 
 
 import by.netcracker.services.RequestService;
+import by.netcracker.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
@@ -21,19 +23,17 @@ import java.util.List;
 
 @Controller
 public class StudentController {
-
     private ConversionService conversionService;
+    private StudentService studentService;
     private AccountService accountService;
-    private RequestService requestService;
-
-    @Autowired
-    public void setRequestService(RequestService requestService) {
-        this.requestService = requestService;
-    }
 
     @Autowired
     public void setConversionService(ConversionService conversionService) {
         this.conversionService = conversionService;
+    }
+    @Autowired
+    public void setStudentService(StudentService studentService) {
+        this.studentService = studentService;
     }
     @Autowired
     public void setAccountService(AccountService accountService) {
@@ -43,11 +43,8 @@ public class StudentController {
     private static final String VIEW_NAME_USER = "user";
     private static final String VIEW_NAME_ADMIN = "admin";
 
-    private final TypeDescriptor accountEntityTypeDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(AccountEntity.class));
-    private final TypeDescriptor accountViewModelTypeDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(AccountViewModel.class));
-
-    private final TypeDescriptor requestEntityTypeDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(RequestEntity.class));
-    private final TypeDescriptor requestViewModelTypeDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(RequestViewModel.class));
+    private final TypeDescriptor studentEntityTypeDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(StudentEntity.class));
+    private final TypeDescriptor studentViewModelTypeDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(StudentViewModel.class));
 
     @RequestMapping(value = "/students-view", method = RequestMethod.GET)
     public ModelAndView getStudentInformation(){
@@ -79,17 +76,9 @@ public class StudentController {
     @RequestMapping(value = "/students", method = RequestMethod.GET)
     @ResponseBody
     public List<StudentViewModel> getAllStudents(){
-        List<AccountEntity> allStudents = accountService.findAllStudents();
-        return (List<StudentViewModel>) this.conversionService.convert(allStudents, accountEntityTypeDescriptor, accountViewModelTypeDescriptor);
+        List<StudentEntity> allStudents = studentService.findAllStudents();
+        return (List<StudentViewModel>) this.conversionService.convert(allStudents, studentEntityTypeDescriptor,studentViewModelTypeDescriptor);
     }
-
-    @RequestMapping(value = "/requests", method = RequestMethod.GET)
-    @ResponseBody
-    public List<RequestViewModel> getAllRequests(){
-        List<RequestEntity> allRequests = requestService.findAllRequests();
-        return (List<RequestViewModel>) this.conversionService.convert(allRequests, requestEntityTypeDescriptor, requestViewModelTypeDescriptor);
-    }
-
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     @ResponseBody
@@ -97,10 +86,12 @@ public class StudentController {
         return userViewModel;
     }
 
-    @RequestMapping(value = "/speciality", method = RequestMethod.POST)
+
+
+   /* @RequestMapping(value = "/speciality", method = RequestMethod.POST)
     @ResponseBody
     public SpecialityViewModel addSpeciality(@RequestBody SpecialityViewModel specialityViewModel){
         return specialityViewModel;
-    }
+    }*/
 
 }

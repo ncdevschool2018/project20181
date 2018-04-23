@@ -31,13 +31,21 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
+    private final TypeDescriptor facultyEntityTypeDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(FacultyEntity.class));
+    private final TypeDescriptor facultyViewModelTypeDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(FacultyViewModel.class));
+
+
+    @RequestMapping(value = "/facultyList", method = RequestMethod.GET)
+    @ResponseBody
+    public List<FacultyViewModel> getAllFacultiesForTypeahead() {
+        List<FacultyEntity> facultyEntities = this.facultyService.getAllFaculties();
+        return (List<FacultyViewModel>) this.conversionService.convert(facultyEntities,facultyEntityTypeDescriptor,facultyViewModelTypeDescriptor);
+    }
 
     @RequestMapping(value = "/faculty", method = RequestMethod.POST)
     @ResponseBody
     public FacultyViewModel AddFaculty(@RequestBody FacultyViewModel facultyViewModel) {
        FacultyEntity faculty = this.conversionService.convert(facultyViewModel, FacultyEntity.class);
-      //FacultyEntity faculty = new FacultyEntity();
-    // faculty.setNamefaculty(facultyViewModel.getNamefaculty());
         this.facultyService.addFaculty(faculty);
         return facultyViewModel;
     }

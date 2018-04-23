@@ -16,7 +16,8 @@ public class AccountEntity {
     private String firstname;
     private String lastname;
     private String patronymic;
-    private StudentEntity studentEntity;
+   // private StudentEntity studentEntity;
+    private Collection<StudentEntity> studentsById;
     private Collection<RequestEntity> practicesById;
 
 
@@ -116,8 +117,7 @@ public class AccountEntity {
         if (role != null ? !role.equals(that.role) : that.role != null) return false;
         if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
         if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
-        if (patronymic != null ? !patronymic.equals(that.patronymic) : that.patronymic != null) return false;
-        return studentEntity != null ? studentEntity.equals(that.studentEntity) : that.studentEntity == null;
+        return patronymic != null ? patronymic.equals(that.patronymic) : that.patronymic == null;
     }
 
     @Override
@@ -130,18 +130,25 @@ public class AccountEntity {
         result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         result = 31 * result + (patronymic != null ? patronymic.hashCode() : 0);
-        result = 31 * result + (studentEntity != null ? studentEntity.hashCode() : 0);
         return result;
     }
 
-    @OneToOne
-    @JoinColumn(name = "studentacid", referencedColumnName = "idstudent")
-    public StudentEntity getStudentEntity() {
-        return studentEntity;
+    /*@OneToOne
+        @JoinColumn(name = "studentacid", referencedColumnName = "idstudent")
+        public StudentEntity getStudentEntity() {
+            return studentEntity;
+        }
+
+        public void setStudentEntity(StudentEntity studentEntity) {
+            this.studentEntity = studentEntity;
+        }*/
+    @OneToMany(mappedBy = "accountEntityByStudent")
+    public Collection<StudentEntity> getStudentsById() {
+        return studentsById;
     }
 
-    public void setStudentEntity(StudentEntity studentEntity) {
-        this.studentEntity = studentEntity;
+    public void setStudentsById(Collection<StudentEntity> studentsById) {
+        this.studentsById = studentsById;
     }
 
     @OneToMany(mappedBy = "accountEntity")

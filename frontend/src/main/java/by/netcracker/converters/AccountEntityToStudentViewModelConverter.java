@@ -10,10 +10,10 @@ import org.springframework.core.convert.converter.Converter;
 
 
 
-public class AccountEntityToStudentViewModelConverter implements Converter<AccountEntity, AccountViewModel> {
+public class AccountEntityToStudentViewModelConverter  {
 
-    @Override
-    public AccountViewModel convert(AccountEntity accountEntity) {
+
+    /*public AccountViewModel convert(AccountEntity accountEntity) {
 
         StudentViewModel studentViewModel = new StudentViewModel();
         studentViewModel.setAccountId(String.valueOf(accountEntity.getId()));
@@ -49,5 +49,5 @@ public class AccountEntityToStudentViewModelConverter implements Converter<Accou
         }
 
         return studentViewModel;
-    }
+    }*/
 }

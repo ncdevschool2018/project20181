@@ -48,12 +48,12 @@
                                 <td>${student.firstname}</td>
                                 <td>${student.lastname}</td>
                                 <td>${student.patronymic}</td>
-                                <td>${student.studentEntity.specialityEntity.facultyByFaculty.namefaculty}</td>
-                                <td>${student.studentEntity.specialityEntity.namespeciality}</td>
-                                <td>${student.studentEntity.group}</td>
-                                <td>${student.studentEntity.isbudget}</td>
-                                <td>${student.studentEntity.averagescore}</td>
-                                <td>${student.studentEntity.statuspractice}</td>
+                                <td>${student.email}</td>
+                                <td>${student.role}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td>1</td>
                                 <td>dates</td>
                                 <td>
@@ -69,24 +69,28 @@
             </div>
             <!-- Таблица студентов -->
             <div role="tabpanel" class="tab-pane fade" id="table-student">
-                <table data-click-to-select="true"  data-pagination="true" data-search="true" data-toggle="table" class="jsStudentsTable">
+                <table data-click-to-select="true"  data-pagination="true" data-search="true" data-toggle="table"
+                       data-sort-order="asc" data-sort-name="lastname" data-height="250" class="jsStudentsTable" >
                     <thead>
                     <tr>
-                        <th data-field="idAccount" data-checkbox="true"></th>
+                        <th data-field="idStudent" data-checkbox="true"></th>
                         <th data-field="firstname">First Name</th>
                         <th data-field="lastname">Last Name</th>
-                        <th data-field="email">Email</th>
-                        <th data-field="login">Username</th>
+                        <th data-field="patronymic">Patronomyc</th>
                         <th data-field="group">Group</th>
-                        <th data-field="specialityName">Speciality of Student</th>
-                        <th data-field="facultyName">Faculty of Faculty</th>
+                        <th data-field="averagescore">Average Score</th>
+                        <th data-field="isbudget">Budget</th>
+                        <th data-field="statuspractice">Status</th>
+                        <th data-field="specialityName">Speciality</th>
+                        <th data-field="facultyName">Faculty</th>
                     </tr>
                     </thead>
                 </table >
             </div>
             <!-- Таблица запросов -->
             <div role="tabpanel" class="tab-pane fade" id="table-request">
-                <table data-click-to-select="true"  data-pagination="true" data-search="true" data-toggle="table" class="jsRequestsTable">
+                <table data-click-to-select="true"  data-pagination="true" data-search="true" data-toggle="table"
+                       data-sort-order="asc" data-sort-name="namecompany" data-height="250" class="jsRequestsTable">
                     <thead>
                     <tr>
                         <th data-field="idRequest" data-checkbox="true"></th>
@@ -105,24 +109,14 @@
 </div>
 <div class="container">
 
-
         <button class="btn btn-primary jsBtnEditStudent" type="button">Edit student</button>
         <button class="btn btn-primary jsBtnDeleteStudent" type="button">Delete student</button>
 
+    <a href="#modalRequest" role="button" class="btn btn-primary jsOpenModalRequest" data-toggle="modal">Create Request</a>
+    <a href="#modalStudent" role="button" class="btn btn-primary jsOpenModalStudent" data-toggle="modal">Create Student</a>
+    <a href="#modalSpeciality" role="button" class="btn btn-primary jsOpenModalSpeciality" data-toggle="modal">Create Speciality</a>
+    <a href="#modalFaculty" role="button" class="btn btn-primary jsOpenModalFaculty" data-toggle="modal">Create Faculty</a>
 
-    <a href="#modalStudent" role="button" class="btn btn-primary" data-toggle="modal">Create Student</a>
-    <a href="#modalSpeciality" role="button" class="btn btn-primary" data-toggle="modal">Create Speciality</a>
-    <a href="#modalFaculty" role="button" class="btn btn-primary" data-toggle="modal">Create Faculty</a>
-
-<br>
-    <br>
-        <div class="row">
-            <div class="col-md-6">
-
-            </div>
-            <div class="col-md-6">
-            </div>
-        </div>
 </div>
 
 <!-- Модальные окна -->
@@ -136,8 +130,12 @@
             </div>
             <div class="modal-body">
                 <div id="sos"></div>
-                <input  class="form-control jsInputSpeciality" placeholder="Speciality" type="text">
-                <input  class="form-control jsInputTypeaHeadFaculty" placeholder="Faculty" type="text">
+                <div class="form-group">
+                    <input  class="form-control jsInputSpeciality" placeholder="Speciality" type="text">
+                </div>
+                <div class="form-group">
+                    <select class="form-control availableFaculties"></select>
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -175,19 +173,70 @@
             </div>
             <div class="modal-body">
                 <div id="hoh"></div>
-                <input  class="form-control jsInputName" placeholder="Name of student" type="text">
-                <input class="form-control jsInputSurname" placeholder="Surname of student" type="text">
-                <input  class="form-control jsInputPatronomyc" placeholder="Patronomyc of student" type="text">
-                <input class="form-control jsInputGroup" placeholder="Group of student" type="text">
-                <input class="form-control jsInputAverageScore" placeholder="Average Score of student" type="text">
-                <input class="form-control jsInputBudget" placeholder="Is budget of student" type="text">
-                <input class="form-control jsInputStatus" placeholder="Status of practice" type="text">
-                <input class="form-control jsInputNeededSpeciality" placeholder="Needed" type="text">
-                <input class="form-control jsInputNeededFaculty" placeholder="Needed Faculty" type="text">
+                <div class="form-group">
+                    <select class="form-control availableAccountStudent"></select>
+                </div>
+                <div class="form-group">
+                    <input class="form-control jsInputGroup" placeholder="Group of student" type="text">
+                </div>
+                <div class="form-group">
+                    <input class="form-control jsInputAverageScore" placeholder="Average Score of student" type="text">
+                </div>
+                <div class="form-group">
+                    <input class="form-control jsInputBudget" placeholder="Is budget of student" type="text">
+                </div>
+                <div class="form-group">
+                    <input class="form-control jsInputStatusStudent" placeholder="Status of practice student" type="text">
+                </div>
+                <div class="form-group">
+                    <select class="form-control availableSpecialities"></select>
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Close</button>
                 <button class="btn btn-success jsBtnAddStudent">Create Student</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- МО Создание запроса -->
+<div id="modalRequest" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Request</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+            </div>
+            <div class="modal-body">
+                <div id="ror"></div>
+                <div class="form-group">
+                     <input  class="form-control jsInputNameCompany" placeholder="Name of company" type="text">
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6"><input class="form-control jsInputDateFrom" placeholder="Date from" type="text"></div>
+                        <div class="col-md-6"><input  class="form-control jsInputDateTo" placeholder="Date to" type="text"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input class="form-control jsInputMinAverageScore" placeholder="Min average score" type="text">
+                </div>
+                <div class="form-group">
+                    <input class="form-control jsInputTotalQuantity" placeholder="Total quantity" type="text">
+                </div>
+                <div class="form-group">
+                    <input class="form-control jsInputStatusPractice" placeholder="Status of practice" type="text">
+                </div>
+                <div class="form-group">
+                    <select class="form-control availableSpecialities"></select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control availableHeadsOfPractice"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Close</button>
+                <button class="btn btn-success jsBtnAddRequest">Create Request</button>
             </div>
         </div>
     </div>

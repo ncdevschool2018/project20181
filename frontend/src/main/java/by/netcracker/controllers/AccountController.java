@@ -1,21 +1,35 @@
 package by.netcracker.controllers;
 
 import by.netcracker.entities.AccountEntity;
+import by.netcracker.models.AccountViewModel;
 import by.netcracker.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import java.util.List;
 
 @Controller
 public class AccountController {
-
-    @Autowired
+    private ConversionService conversionService;
     private AccountService accountService;
 
-    public static int id_Account;
+    private final TypeDescriptor accountEntityTypeDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(AccountEntity.class));
+    private final TypeDescriptor accountViewModelTypeDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(AccountViewModel.class));
+
+    @Autowired
+    public void setConversionService(ConversionService conversionService) {
+        this.conversionService = conversionService;
+    }
+    @Autowired
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
 
     @RequestMapping(value = "/authorization", method = RequestMethod.GET)
     public ModelAndView authorization(ModelAndView modelAndView){
@@ -38,4 +52,17 @@ public class AccountController {
         return "/authorization";
     }
 
+    @RequestMapping(value = "/headOfPracticeList", method = RequestMethod.GET)
+    @ResponseBody
+    public List<AccountViewModel> getAllHeadOfPracticeForTypeahead() {
+        List<AccountEntity> accountEntities = this.accountService.getAllHeadOfPractice();
+        return (List<AccountViewModel>) this.conversionService.convert(accountEntities,accountEntityTypeDescriptor,accountViewModelTypeDescriptor);
+    }
+
+    @RequestMapping(value = "/studentsList", method = RequestMethod.GET)
+    @ResponseBody
+    public List<AccountViewModel> getAllStudentForTypeahead() {
+        List<AccountEntity> accountEntities = this.accountService.getAllStudents();
+        return (List<AccountViewModel>) this.conversionService.convert(accountEntities,accountEntityTypeDescriptor,accountViewModelTypeDescriptor);
+    }
 }

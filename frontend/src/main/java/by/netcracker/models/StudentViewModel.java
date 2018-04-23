@@ -2,7 +2,7 @@ package by.netcracker.models;
 
 
 
-public class StudentViewModel extends AccountViewModel {
+public class StudentViewModel /*extends AccountViewModel*/ {
     private String idStudent;
     private String group;
     private String averagescore;
@@ -16,6 +16,10 @@ public class StudentViewModel extends AccountViewModel {
     private String facultyId;
     private String facultyName;
     private String accountId;
+    private String firstname;
+    private String lastname;
+    private String patronymic;
+
 
     public String getIdStudent() {
         return idStudent;
@@ -123,5 +127,29 @@ public class StudentViewModel extends AccountViewModel {
 
     public void setAccountId(String accountId) {
         this.accountId = accountId;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
     }
 }

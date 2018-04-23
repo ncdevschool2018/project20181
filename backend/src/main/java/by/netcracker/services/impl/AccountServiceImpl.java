@@ -7,15 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
 @Service
 public class AccountServiceImpl implements AccountService {
 
-    @Autowired
     private AccountRepository accountRepository;
+    private static final String USER_ROLE_STUDENT = "student";
+    private static final String USER_ROLE_HEAD = "head";
+
+    @Autowired
+    public void setAccountRepository(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
 
     @Override
     public AccountEntity authorizationAccount(AccountEntity accountEntity){
@@ -35,12 +40,22 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<AccountEntity> findAllStudents() {
-        return (List<AccountEntity>) accountRepository.findAll();
+        return this.accountRepository.findByRole(USER_ROLE_STUDENT);
+    }
+
+    @Override
+    public List<AccountEntity> getAllHeadOfPractice() {
+        return this.accountRepository.findByRole(USER_ROLE_HEAD);
+    }
+
+    @Override
+    public List<AccountEntity> getAllStudents() {
+        return this.accountRepository.findByRole(USER_ROLE_STUDENT);
     }
 
     @Override
     public AccountEntity getStudentById(int id) {
-        return accountRepository.findOne(id);
+        return this.accountRepository.findOne(id);
     }
 
 }
