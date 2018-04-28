@@ -1,6 +1,5 @@
 package by.netcracker.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -9,39 +8,40 @@ import java.util.Set;
 @Entity
 @Table(name = "student", schema = "netcracker", catalog = "")
 public class StudentEntity {
-    private int id;
-    private int group;
+    private int idStudent;
+    private int groupStudent;
     private double averagescore;
     private String isbudget;
-    private String statuspractice;
     private String comment;
     private String phone;
     private String adress;
-    private Integer specialtyId;
+    private String statuspractice;
+    private Integer specialityId;
     private Integer accountId;
-    private  AccountEntity accountEntityByStudent;
-    private SpecialityEntity specialityEntity;
+    private AccountEntity accountEntityByStudent;
+    private SpecialityEntity specialityEntityByStudent;
     private Set<RequestEntity> request_companies = new HashSet<>();
    // private AccountEntity accountEntity;//for oneToone
 
+
     @Id
-    @Column(name = "idstudent")
-    public int getId() {
-        return id;
+    @Column(name = "idstudents")
+    public int getIdStudent() {
+        return idStudent;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdStudent(int idStudent) {
+        this.idStudent = idStudent;
     }
 
     @Basic
-    @Column(name = "group")
-    public int getGroup() {
-        return group;
+    @Column(name = "group_student")
+    public int getGroupStudent() {
+        return groupStudent;
     }
 
-    public void setGroup(int group) {
-        this.group = group;
+    public void setGroupStudent(int groupStudent) {
+        this.groupStudent = groupStudent;
     }
 
     @Basic
@@ -55,7 +55,7 @@ public class StudentEntity {
     }
 
     @Basic
-    @Column(name = "budget")
+    @Column(name = "isbudget")
     public String getIsbudget() {
         return isbudget;
     }
@@ -65,7 +65,7 @@ public class StudentEntity {
     }
 
     @Basic
-    @Column(name = "status")
+    @Column(name = "status_student")
     public String getStatuspractice() {
         return statuspractice;
     }
@@ -74,17 +74,8 @@ public class StudentEntity {
         this.statuspractice = statuspractice;
     }
 
-    @Column(name = "comment")
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     @Basic
-    @Column(name = "phone")
+    @Column(name = "phone_student")
     public String getPhone() {
         return phone;
     }
@@ -94,7 +85,7 @@ public class StudentEntity {
     }
 
     @Basic
-    @Column(name = "adress")
+    @Column(name = "adress_student")
     public String getAdress() {
         return adress;
     }
@@ -103,18 +94,27 @@ public class StudentEntity {
         this.adress = adress;
     }
 
-    @Basic
-    @Column(name = "specid")
-    public Integer getSpecialtyId() {
-        return specialtyId;
+    @Column(name = "comment_student")
+    public String getComment() {
+        return comment;
     }
 
-    public void setSpecialtyId(Integer specialtyId) {
-        this.specialtyId = specialtyId;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     @Basic
-    @Column(name = "accountid")
+    @Column(name = "spec_id")
+    public Integer getSpecialityId() {
+        return specialityId;
+    }
+
+    public void setSpecialityId(Integer specialityId) {
+        this.specialityId = specialityId;
+    }
+
+    @Basic
+    @Column(name = "accountstud_id")
     public Integer getAccountId() {
         return accountId;
     }
@@ -130,34 +130,38 @@ public class StudentEntity {
 
         StudentEntity that = (StudentEntity) o;
 
-        if (id != that.id) return false;
-        if (group != that.group) return false;
+        if (idStudent != that.idStudent) return false;
+        if (groupStudent != that.groupStudent) return false;
         if (Double.compare(that.averagescore, averagescore) != 0) return false;
         if (isbudget != null ? !isbudget.equals(that.isbudget) : that.isbudget != null) return false;
-        if (statuspractice != null ? !statuspractice.equals(that.statuspractice) : that.statuspractice != null)
-            return false;
         if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
         if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
-        return adress != null ? adress.equals(that.adress) : that.adress == null;
+        if (adress != null ? !adress.equals(that.adress) : that.adress != null) return false;
+        if (statuspractice != null ? !statuspractice.equals(that.statuspractice) : that.statuspractice != null)
+            return false;
+        if (specialityId != null ? !specialityId.equals(that.specialityId) : that.specialityId != null) return false;
+        return accountId != null ? accountId.equals(that.accountId) : that.accountId == null;
     }
 
     @Override
     public int hashCode() {
         int result;
         long temp;
-        result = id;
-        result = 31 * result + group;
+        result = idStudent;
+        result = 31 * result + groupStudent;
         temp = Double.doubleToLongBits(averagescore);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (isbudget != null ? isbudget.hashCode() : 0);
-        result = 31 * result + (statuspractice != null ? statuspractice.hashCode() : 0);
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (adress != null ? adress.hashCode() : 0);
+        result = 31 * result + (statuspractice != null ? statuspractice.hashCode() : 0);
+        result = 31 * result + (specialityId != null ? specialityId.hashCode() : 0);
+        result = 31 * result + (accountId != null ? accountId.hashCode() : 0);
         return result;
     }
 
-   /* @OneToOne(mappedBy = "studentEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+/* @OneToOne(mappedBy = "studentEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public AccountEntity getAccountEntity() {
         return accountEntity;
     }
@@ -167,7 +171,7 @@ public class StudentEntity {
     }*/
 
     @ManyToOne
-    @JoinColumn(name = "accountid", referencedColumnName = "idaccounts",nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "accountstud_id", referencedColumnName = "idaccounts",nullable = false, insertable = false, updatable = false)
     public AccountEntity getAccountEntityByStudent() {
         return accountEntityByStudent;
     }
@@ -177,13 +181,13 @@ public class StudentEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "specid", referencedColumnName = "idSpeciality",nullable = false, insertable = false, updatable = false)
-    public SpecialityEntity getSpecialityEntity() {
-        return specialityEntity;
+    @JoinColumn(name = "spec_id", referencedColumnName = "idSpeciality",nullable = false, insertable = false, updatable = false)
+    public SpecialityEntity getSpecialityEntityByStudent() {
+        return specialityEntityByStudent;
     }
 
-    public void setSpecialityEntity(SpecialityEntity specialityEntity) {
-        this.specialityEntity = specialityEntity;
+    public void setSpecialityEntityByStudent(SpecialityEntity specialityEntityByStudent ) {
+        this.specialityEntityByStudent = specialityEntityByStudent;
     }
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})

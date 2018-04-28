@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
@@ -59,10 +56,17 @@ public class AccountController {
         return (List<AccountViewModel>) this.conversionService.convert(accountEntities,accountEntityTypeDescriptor,accountViewModelTypeDescriptor);
     }
 
-    @RequestMapping(value = "/studentsList", method = RequestMethod.GET)
+    @RequestMapping(value = "/studentsAccountList", method = RequestMethod.GET)
     @ResponseBody
     public List<AccountViewModel> getAllStudentForTypeahead() {
         List<AccountEntity> accountEntities = this.accountService.getAllStudents();
         return (List<AccountViewModel>) this.conversionService.convert(accountEntities,accountEntityTypeDescriptor,accountViewModelTypeDescriptor);
+    }
+
+    @RequestMapping(value = "/createHeadOfPractice", method = RequestMethod.POST)
+    @ResponseBody
+    public AccountEntity createHeadOfPractice(@RequestBody AccountEntity accountEntity){
+        accountService.addHeadOfPractice(accountEntity);
+        return accountEntity;
     }
 }

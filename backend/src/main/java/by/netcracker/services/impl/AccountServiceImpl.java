@@ -39,6 +39,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public void addHeadOfPractice(AccountEntity accountEntityByHeadOfPractice) {
+        accountEntityByHeadOfPractice.setRole(USER_ROLE_HEAD);
+        this.accountRepository.save(accountEntityByHeadOfPractice);
+    }
+
+    @Override
     public List<AccountEntity> findAllStudents() {
         return this.accountRepository.findByRole(USER_ROLE_STUDENT);
     }

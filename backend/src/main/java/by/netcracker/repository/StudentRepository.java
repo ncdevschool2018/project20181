@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface StudentRepository extends CrudRepository<StudentEntity,Integer> {
-    List<StudentEntity> findAllByGroup(int group);
+    //List<StudentEntity> findAllByGroup(int group);
 }

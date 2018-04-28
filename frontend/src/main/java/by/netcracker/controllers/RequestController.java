@@ -32,7 +32,7 @@ public class RequestController {
         this.conversionService = conversionService;
     }
 
-    @RequestMapping(value = "/requests", method = RequestMethod.GET)
+    @RequestMapping(value = "/requestList", method = RequestMethod.GET)
     @ResponseBody
     public List<RequestViewModel> getAllRequests(){
         List<RequestEntity> allRequests = requestService.findAllRequests();

@@ -71,28 +71,28 @@ $(document).ready(function () {
             data: JSON.stringify(objRequestSave),
             success: function (objRequestSave) {
                 $('#ror').text(objRequestSave.specialityId + objRequestSave.dateto + objRequestSave.statuspractice +objRequestSave.accountid);
-                $requestsTable.bootstrapTable('reload', objRequestSave);
             }
         });
     });
 
-    // Add Student(Post)
-    $('.jsBtnAddStudent').click(function (event) {
+    // Add Student(Post)(entity)
+    $('.jsBtnAddandEditStudent').click(function (event) {
             event.stopPropagation();
             var objStudSave = {
-               // firstname: $('.jsInputName').val(),
-                //lastname: $('.jsInputSurname').val(),
-               // patronymic:$('.jsInputPatronomyc').val(),
-                group: $('.jsInputGroup').val(),
+                idStudent: $('.jsInputIdStudent').val(),
+                groupStudent: $('.jsInputGroup').val(),
                 averagescore:$('.jsInputAverageScore').val(),
                 isbudget:$('.jsInputBudget').val(),
-                statuspractice:$('.jsInputStatus').val(),
-                //specialityName:$('.jsInputNeededSpeciality').val(),
-                //facultyName:$('.jsInputNeededFaculty').val()
+                statuspractice:$('.jsInputStatusStudent').val(),
+                adress:$('.jsInputAdress').val(),
+                phone:$('.jsInputPhone').val(),
+                comment:$('.jsInputComment').val(),
+                specialityId: $('#modalStudent').find('.availableSpecialities option:selected').attr("class"),
+                accountId: $('#modalStudent').find('.availableAccountStudent option:selected').attr("class")
             };
 
             $.ajax({
-                url: 'users',
+                url: 'createOrEditStudent',
                 type: 'POST',
                 dataType: 'json',
                 contentType: "application/json",
@@ -100,28 +100,112 @@ $(document).ready(function () {
                 data: JSON.stringify(objStudSave),
                 success: function (objStudSave) {
                     $('#hoh').text(objStudSave.firstname + objStudSave.lastname + objStudSave.patronymic
-                        + objStudSave.group + objStudSave.averagescore + objStudSave.isbudget + objStudSave.statuspractice);
+                        + objStudSave.idStudent + objStudSave.specialityId + objStudSave.accountId + objStudSave.firstname);
                 }
             });
         });
-
-
-    $('.jsOpenModalSpeciality').click(function (event) {
+    //Add Head Of Practice
+    $('.jsBtnAddHeadOfPractice').click(function (event) {
         event.stopPropagation();
+        var objHeadOfPracticeSave = {
+            firstname: $('.jsInputNameHeadOfPractice').val(),
+            lastname: $('.jsInputSurnameHeadOfPractice').val(),
+            patronymic: $('.jsInputPatronymicHeadOfPractice').val(),
+            email: $('.jsInputEmailHeadOfPractice').val(),
+            login: $('.jsInputLoginHeadOfPractice').val(),
+            password: $('.jsInputPasswordHeadOfPractice').val()
+        };
+
+        $.ajax({
+            url: 'createHeadOfPractice',
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: JSON.stringify(objHeadOfPracticeSave),
+            success: function (objHeadOfPracticeSave) {
+                $('#hop').text(objHeadOfPracticeSave.password + objHeadOfPracticeSave.patronymic);
+            }
+        });
+    });
+    //Delete Student(Post)
+    $('.jsBtnDeleteStudent').click(function () {
+    var studentIdForDelete = $studentsTable.bootstrapTable('getSelections');
+    console.log(studentIdForDelete);
+
+        $.ajax({
+            url: 'deleteStudent',
+            type: 'POST',
+            dataType: 'text',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: JSON.stringify(studentIdForDelete),
+            success: function () {
+
+            }
+        });
+
+    });
+
+
+    $('.jsBtnResetStudent').click(function (event) {
+        $('#modalStudent').find("input,textarea,select").val('');
+    });
+    /*$('.jsOpenModalStudentForEdit').click(function () {
+        var  studentIdForEdit = $studentsTable.bootstrapTable('getSelections')[0].idStudent;
+
+        $.ajax({
+           // async: false,
+            url: 'loadStudentForEdit',
+            type: 'GET',
+            dataType: 'text',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: {data1 :  studentIdForEdit},
+            success: function (objOneStudentForEdit) {
+                $('#hoh1').text(objOneStudentForEdit.firstname);
+            }
+        });
+    });*/
+
+
+
+    $('.jsOpenModalMultiSelect').click(function () {
+       getAvailableStudent();
+        getAvailableRequest();
+        typeaheadStudent();
+    });
+    $('.jsOpenModalSpeciality').click(function () {
         getAvailableFaculty();
     });
-    $('.jsOpenModalRequest').click(function (event) {
-        event.stopPropagation();
+    $('.jsOpenModalRequest').click(function () {
         getAvailableSpeciality();
         getAvailableHeadOfPractice();
     });
-    $('.jsOpenModalStudent').click(function (event) {
-        event.stopPropagation();
+    $('.jsOpenModalStudent').click(function () {
+        $('.jsTitleEditStudent').hide();
+        $('.jsDivFormGroupShowforEdit').show();
+        $('.jsTitleAddStudent').show();
         getAvailableSpeciality();
         getAvailableAccountStudents();
     });
+    $('.jsOpenModalStudentForEdit').click(function () {
+        $('.jsTitleAddStudent').hide();
+        $('.jsTitleEditStudent').show();
+        $('.jsDivFormGroupShowforEdit').show();
+        LoadStudentEntityForEditStudent();
+        getAvailableAccountStudents();
+        getAvailableSpeciality();
+    });
 
-    //typeahead Full Speciality
+    $('.jsOpenTableStudents').click(function () {
+       ListAllStudents();
+    });
+    $('.jsOpenTableRequests').click(function () {
+       ListAllRequests();
+    });
+
+    //select getFull Speciality
     function getAvailableSpeciality() {
         $.ajax({
             async: false,
@@ -132,6 +216,7 @@ $(document).ready(function () {
             mimeType: 'application/json',
             data: '',
             success: function (specialityList) {
+                console.log(typeof specialityList);
                 $(".availableSpecialities").html("");
                 specialityList ? function () {
                     specialityList.some(function (specialityList) {
@@ -141,7 +226,7 @@ $(document).ready(function () {
             }
         });
     }
-    //typeahead Full Faculty
+    //select getFull Faculties
     function getAvailableFaculty() {
         $.ajax({
             async: false,
@@ -161,7 +246,7 @@ $(document).ready(function () {
             }
         });
     }
-    //typeahead Full Head Of Practice
+    //select getFull Head Of Practices
     function getAvailableHeadOfPractice() {
         $.ajax({
             async: false,
@@ -182,11 +267,11 @@ $(document).ready(function () {
             }
         });
     }
-    //typeahead Full Account of Student
+    //select getFull Accounts of Students
     function getAvailableAccountStudents() {
         $.ajax({
             async: false,
-            url: 'studentsList',
+            url: 'studentsAccountList',
             type: 'GET',
             dataType: 'json',
             contentType: "application/json",
@@ -203,35 +288,149 @@ $(document).ready(function () {
             }
         });
     }
+    //select getFull Students
+    function getAvailableStudent() {
+        $.ajax({
+            async: false,
+            url: 'studentList',
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: '',
+            success: function (studentsList) {
+                $(".availableStudent").html("");
+                studentsList ? function () {
+                    studentsList.some(function (studentsList) {
+                        $(".availableStudent").append("<option class=\"" + studentsList.idStudent + "\">" + studentsList.firstname +
+                            " " + studentsList.lastname + " " + studentsList.patronymic + "</option>")
+                    });
+                }() : false;
+            }
+        });
+    }
+    //select getFull Students
+    function getAvailableRequest() {
+        $.ajax({
+            async: false,
+            url: 'requestList',
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: '',
+            success: function (requestsList) {
+                $(".availableRequest").html("");
+                requestsList ? function () {
+                    requestsList.some(function (requestsList) {
+                        $(".availableRequest").append("<option class=\"" + requestsList.idRequest + "\">"+ requestsList.namecompany +"</option>")
+                    });
+                }() : false;
+            }
+        });
+    }
+
+    //Load to select Student for EditStudent
+    function LoadStudentEntityForEditStudent() {
+        var  studentIdForEdit = $studentsTable.bootstrapTable('getSelections')[0].idStudent;
+
+        $.ajax({
+            async: false,
+            url: 'loadStudentForEdit',
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: {data1 :  studentIdForEdit},
+            success: function (objOneStudentForEdit) {
+                console.log(typeof objOneStudentForEdit);
+
+                var str = objOneStudentForEdit.firstname + " " + objOneStudentForEdit.lastname + " " + objOneStudentForEdit.patronymic;
+                console.log(str);
+                console.log(str === "Yura Druschits Aleksandrovich");
+                console.log(typeof str);
+
+              // $(".availableAccountStudent [value='objOneStudentForEdit.firstname objOneStudentForEdit.lastname objOneStudentForEdit.patronymic']");
+                //$(".availableAccountStudent").find("option:contains('Yura Druschits Aleksandrovich')").attr("selected", "selected");
+                $('.jsInputIdStudent').val(objOneStudentForEdit.idStudent);
+                $(".availableAccountStudent").find("option:contains('Yura Druschits Aleksandrovich')").attr("selected", "selected");
+
+
+
+                $('.jsInputGroup').val(objOneStudentForEdit.groupStudent);
+                $('.jsInputAverageScore').val(objOneStudentForEdit.averagescore);
+                $('.jsInputBudget').val(objOneStudentForEdit.isbudget);
+                $('.jsInputStatusStudent').val(objOneStudentForEdit.statuspractice);
+                $('.jsInputAdress').val(objOneStudentForEdit.adress);
+                $('.jsInputPhone').val(objOneStudentForEdit.phone);
+                $('.jsInputComment').val(objOneStudentForEdit.comment);
+
+            }
+        });
+    }
+
+
+
+
+    //typeahead Students
+    function typeaheadStudent() {
+        $('.jsInputTypeaheadStudent').typeahead({
+            source: function (query, result) {
+                $.ajax({
+                    async: false,
+                    url: 'studentList',
+                    type: 'GET',
+                    dataType: 'json',
+                    contentType: "application/json",
+                    mimeType: 'application/json',
+                    data: {query:query},
+                    success: function (data) {
+                        result($.map(data,function (item) {
+                            return item;
+                        }));
+                    }
+                })
+            }
+        });
+    }
+
 
     // bootstrap-table documentation http://bootstrap-table.wenzhixin.net.cn/documentation
-    $.ajax({
-        url: 'students',
-        type: 'GET',
-        dataType: 'json',
-        contentType: "application/json",
-        mimeType: 'application/json',
-        success: function (students) {
-            $studentsTable.bootstrapTable('load', students);
-            $studentsTable.on('click-row.bs.table', function (e, clickedUser) {
-                console.log(clickedUser);
-            });
-        }
-    });
+    function ListAllStudents() {
+        $.ajax({
+            url: 'studentList',
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            success: function (students) {
+                $studentsTable.bootstrapTable('load', students);
+                $studentsTable.on('click-row.bs.table', function (e, students) {
+                    console.log(students);
+                });
+            }
+        });
+    }
 
-    $.ajax({
-        url: 'requests',
-        type: 'GET',
-        dataType: 'json',
-        contentType: "application/json",
-        mimeType: 'application/json',
-        success: function (requests) {
-            $requestsTable.bootstrapTable('load', requests);
-            $requestsTable.on('click-row.bs.table', function (e, clickedUser) {
-                console.log(clickedUser);
-           });
-        }
-    });
+    function ListAllRequests() {
+        $.ajax({
+            url: 'requestList',
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            success: function (requests) {
+                $requestsTable.bootstrapTable('load', requests);
+                $requestsTable.on('click-row.bs.table', function (e, requests) {
+                    console.log(requests);
+                });
+            }
+        });
+    }
 
 
+
+    function showFormatter() {
+        return '<a href="/aboutStudent?id="' + 'class="btn btn-info jsMoreInfoAboutStudentButton">Info</a>';
+    }
 });

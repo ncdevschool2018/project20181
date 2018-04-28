@@ -11,8 +11,8 @@ public class StudentEntityToStudentViewModel implements Converter<StudentEntity,
     @Override
     public StudentViewModel convert(StudentEntity studentEntity) {
         StudentViewModel studentViewModel = new StudentViewModel();
-        studentViewModel.setIdStudent(String.valueOf(studentEntity.getId()));
-        studentViewModel.setGroup(String.valueOf(studentEntity.getGroup()));
+        studentViewModel.setIdStudent(String.valueOf(studentEntity.getIdStudent()));
+        studentViewModel.setGroupStudent(String.valueOf(studentEntity.getGroupStudent()));
         studentViewModel.setAveragescore(String.valueOf(studentEntity.getAveragescore()));
         studentViewModel.setIsbudget(studentEntity.getIsbudget());
         studentViewModel.setStatuspractice(studentEntity.getStatuspractice());
@@ -27,7 +27,7 @@ public class StudentEntityToStudentViewModel implements Converter<StudentEntity,
             studentViewModel.setLastname(accountEntity.getLastname());
             studentViewModel.setPatronymic(accountEntity.getPatronymic());
 
-            SpecialityEntity specialityEntity = studentEntity.getSpecialityEntity();
+            SpecialityEntity specialityEntity = studentEntity.getSpecialityEntityByStudent();
             if(specialityEntity != null){
                 studentViewModel.setSpecialityId(String.valueOf(specialityEntity.getId()));
                 studentViewModel.setSpecialityName(specialityEntity.getNamespeciality());

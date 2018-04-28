@@ -25,4 +25,19 @@ public class StudentServiceImpl implements StudentService {
     public List<StudentEntity> findAllStudents() {
         return (List<StudentEntity>) this.studentRepository.findAll();
     }
+
+    @Override
+    public StudentEntity findOneStudentForEdit(Integer idStudent) {
+        return this.studentRepository.findOne(idStudent);
+    }
+
+    @Override
+    public void addStudent(StudentEntity studentEntity) {
+        this.studentRepository.save(studentEntity);
+    }
+
+    @Override
+    public void deleteStudentList(List<StudentEntity> studentEntities) {
+       this.studentRepository.delete(studentEntities);
+    }
 }

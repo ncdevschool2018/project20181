@@ -1,6 +1,7 @@
 package by.netcracker.controllers;
 
 import by.netcracker.entities.SpecialityEntity;
+import by.netcracker.entities.StudentEntity;
 import by.netcracker.models.SpecialityViewModel;
 import by.netcracker.services.SpecialityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,7 @@ public class SpecialityController {
         List<SpecialityEntity> facultyEntities = this.specialityService.getAllSpecialities();
         return (List<SpecialityViewModel>) this.conversionService.convert(facultyEntities,specialityEntityTypeDescriptor,specialityViewModelTypeDescriptor);
     }
+
 
 
     @RequestMapping(value = "/createSpecialty", method = RequestMethod.POST)

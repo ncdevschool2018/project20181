@@ -4,7 +4,7 @@ package by.netcracker.models;
 
 public class StudentViewModel /*extends AccountViewModel*/ {
     private String idStudent;
-    private String group;
+    private String groupStudent;
     private String averagescore;
     private String isbudget;
     private String statuspractice;
@@ -29,12 +29,12 @@ public class StudentViewModel /*extends AccountViewModel*/ {
         this.idStudent = idStudent;
     }
 
-    public String getGroup() {
-        return group;
+    public String getGroupStudent() {
+        return groupStudent;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setGroupStudent(String groupStudent) {
+        this.groupStudent = groupStudent;
     }
 
     public String getAveragescore() {

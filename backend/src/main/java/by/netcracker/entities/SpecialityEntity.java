@@ -18,7 +18,7 @@ public class SpecialityEntity {
 
 
     @Id
-    @Column(name = "idSpeciality", nullable = false)
+    @Column(name = "idSpeciality")
     public int getId() {
         return id;
     }
@@ -86,7 +86,7 @@ public class SpecialityEntity {
         this.practicesById = practicesById;
     }
 
-    @OneToMany(mappedBy = "specialityEntity")
+    @OneToMany(mappedBy = "specialityEntityByStudent")
     public Collection<StudentEntity> getStudentsById() {
         return studentsById;
     }

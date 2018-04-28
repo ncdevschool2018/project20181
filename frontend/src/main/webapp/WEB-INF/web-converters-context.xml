@@ -17,6 +17,7 @@
             <bean class="by.netcracker.converters.RequestViewModelToRequestEntityConverter"/>
             <bean class="by.netcracker.converters.AccountEntityToAccountViewModelConverter"/>
             <bean class="by.netcracker.converters.StudentEntityToStudentViewModel"/>
+            <bean class="by.netcracker.converters.StudentViewModelToStudentEntityConverter"/>
          </set>
 
       </property>

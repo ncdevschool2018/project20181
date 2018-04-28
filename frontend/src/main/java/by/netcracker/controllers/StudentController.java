@@ -1,20 +1,15 @@
 package by.netcracker.controllers;
 
-import by.netcracker.entities.AccountEntity;
-import by.netcracker.entities.RequestEntity;
 import by.netcracker.entities.StudentEntity;
-import by.netcracker.models.AccountViewModel;
-import by.netcracker.models.RequestViewModel;
-import by.netcracker.models.SpecialityViewModel;
 import by.netcracker.models.StudentViewModel;
 import by.netcracker.services.AccountService;
 
 
-import by.netcracker.services.RequestService;
 import by.netcracker.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -73,25 +68,31 @@ public class StudentController {
     }
 
 
-    @RequestMapping(value = "/students", method = RequestMethod.GET)
+    @RequestMapping(value = "/studentList", method = RequestMethod.GET)
     @ResponseBody
     public List<StudentViewModel> getAllStudents(){
         List<StudentEntity> allStudents = studentService.findAllStudents();
         return (List<StudentViewModel>) this.conversionService.convert(allStudents, studentEntityTypeDescriptor,studentViewModelTypeDescriptor);
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    @RequestMapping(value = "/createOrEditStudent", method = RequestMethod.POST)
     @ResponseBody
-    public StudentViewModel getUsersAsJson(@RequestBody StudentViewModel userViewModel) {
-        return userViewModel;
+    public StudentEntity addStudent(@RequestBody StudentEntity studentEntity) {
+        //StudentEntity studentEntity = this.conversionService.convert(studentViewModel,StudentEntity.class);
+        this.studentService.addStudent(studentEntity);
+        return studentEntity;
     }
 
-
-
-   /* @RequestMapping(value = "/speciality", method = RequestMethod.POST)
+    @RequestMapping(value = "/loadStudentForEdit", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public SpecialityViewModel addSpeciality(@RequestBody SpecialityViewModel specialityViewModel){
-        return specialityViewModel;
-    }*/
+    public StudentViewModel getOneStudentForLoadEditStudent(@RequestParam("data1") String idStudent){
+        StudentEntity studentEntity = this.studentService.findOneStudentForEdit(Integer.valueOf(idStudent));
+        return this.conversionService.convert(studentEntity,StudentViewModel.class);
+    }
 
+    @RequestMapping(value = "/deleteStudent", method = RequestMethod.POST)
+    public void deleteStudentList(@RequestBody List<StudentEntity> studentEntities){
+        this.studentService.deleteStudentList(studentEntities);
+    }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface AccountService {
      AccountEntity authorizationAccount(AccountEntity accountEntity);
+     void addHeadOfPractice(AccountEntity accountEntityByHeadOfPractice);
      List<AccountEntity> findAllStudents();
      List<AccountEntity> getAllHeadOfPractice();
      List<AccountEntity> getAllStudents();

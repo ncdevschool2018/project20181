@@ -1,6 +1,5 @@
 package by.netcracker.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -22,9 +21,6 @@ public class RequestEntity {
     private SpecialityEntity specialityEntity;
     private AccountEntity accountEntity;
     private Set<StudentEntity> students = new HashSet<>();
-
-
-
 
     @Id
     @Column(name = "idrequest")
