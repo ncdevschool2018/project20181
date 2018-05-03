@@ -20,20 +20,22 @@
 <br>
 <br>
 <br>
-<c:url var="inputAction111" value="/authorization/start"/>
-<sf:form action="${inputAction111}" modelAttribute="account" method="post">
+
 <div class="container" align="center">
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="form-horizontal">
                 <span class="heading">SIGN IN</span>
+
                 <div class="form-group">
-                    <sf:input path="email" type="email" class="form-control" id="inputEmail" placeholder="E-mail"/>
+
+                    <input name="username" class="form-control jsInputUsername" placeholder="Username">
                     <i class="fa fa-envelope"></i>
                 </div>
                 <div class="form-group help">
-                    <sf:input path="password" type="password" class="form-control" id="inputPassword" placeholder="Password"/>
+
+                    <input name="password" class="form-control jsInputPassword" placeholder="Password">
                     <i class="fa fa-lock"></i>
                     <a href="#" class="fa fa-question-circle"></a>
                 </div>
@@ -43,14 +45,14 @@
                         <label for="checkbox1"></label>
                     </div>
                     <span class="text">Remember me</span>
-                    <button type="submit" class="btn btn-default">Login</button>
+                    <button type="submit" class="btn btn-default jsBtnLogin">Login</button>
                 </div>
             </div>
         </div>
         <div class="col-md-3"></div>
     </div>
 </div>
-</sf:form>
+
 <br>
 <div class="container" align="center">
     <div class="row">
@@ -63,6 +65,8 @@
     </div>
 </div>
 
+
+<script src="../resources/js/admin-page.js"></script>
 <a href="<c:url value = "/students-view"/>">headpractice</a>
 <a href="<c:url value="admin.jsp"/>">admin</a>
 <a href="<c:url value="user.jsp"/>">user</a>

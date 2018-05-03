@@ -9,14 +9,14 @@ import java.util.Set;
 @Entity
 @Table(name = "request", schema = "netcracker", catalog = "")
 public class RequestEntity {
-    private int id;
+    private int idRequest;
     private String namecompany;
     private String datefrom;
     private String dateto;
     private double minaverage;
     private int totalquantity;
     private String statuspractice;
-    private Integer specialtyId;
+    private Integer specialityId;
     private Integer headOfPracticeId;
     private SpecialityEntity specialityEntity;
     private AccountEntity accountEntity;
@@ -24,12 +24,12 @@ public class RequestEntity {
 
     @Id
     @Column(name = "idrequest")
-    public int getId() {
-        return id;
+    public int getIdRequest() {
+        return idRequest;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdRequest(int idRequest) {
+        this.idRequest = idRequest;
     }
 
     @Basic
@@ -92,13 +92,14 @@ public class RequestEntity {
 
     @Basic
     @Column(name = "specreqid")
-    public Integer getSpecialtyId() {
-        return specialtyId;
+    public Integer getSpecialityId() {
+        return specialityId;
     }
 
-    public void setSpecialtyId(Integer specialtyId) {
-        this.specialtyId = specialtyId;
+    public void setSpecialityId(Integer specialityId) {
+        this.specialityId = specialityId;
     }
+
 
     @Basic
     @Column(name = "accountrid")
@@ -117,7 +118,7 @@ public class RequestEntity {
 
         RequestEntity that = (RequestEntity) o;
 
-        if (id != that.id) return false;
+        if (idRequest != that.idRequest) return false;
         if (Double.compare(that.minaverage, minaverage) != 0) return false;
         if (totalquantity != that.totalquantity) return false;
         if (namecompany != null ? !namecompany.equals(that.namecompany) : that.namecompany != null) return false;
@@ -125,14 +126,17 @@ public class RequestEntity {
         if (dateto != null ? !dateto.equals(that.dateto) : that.dateto != null) return false;
         if (statuspractice != null ? !statuspractice.equals(that.statuspractice) : that.statuspractice != null)
             return false;
-        return specialtyId != null ? specialtyId.equals(that.specialtyId) : that.specialtyId == null;
+        if (specialityId != null ? !specialityId.equals(that.specialityId) : that.specialityId != null) return false;
+        if (headOfPracticeId != null ? !headOfPracticeId.equals(that.headOfPracticeId) : that.headOfPracticeId != null)
+            return false;
+        return students != null ? students.equals(that.students) : that.students == null;
     }
 
     @Override
     public int hashCode() {
         int result;
         long temp;
-        result = id;
+        result = idRequest;
         result = 31 * result + (namecompany != null ? namecompany.hashCode() : 0);
         result = 31 * result + (datefrom != null ? datefrom.hashCode() : 0);
         result = 31 * result + (dateto != null ? dateto.hashCode() : 0);
@@ -140,7 +144,9 @@ public class RequestEntity {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + totalquantity;
         result = 31 * result + (statuspractice != null ? statuspractice.hashCode() : 0);
-        result = 31 * result + (specialtyId != null ? specialtyId.hashCode() : 0);
+        result = 31 * result + (specialityId != null ? specialityId.hashCode() : 0);
+        result = 31 * result + (headOfPracticeId != null ? headOfPracticeId.hashCode() : 0);
+        result = 31 * result + (students != null ? students.hashCode() : 0);
         return result;
     }
 

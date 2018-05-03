@@ -1,16 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <%@include file="parts/meta.jsp"%>
     <title>Admin</title>
         <style>
-            a.btn:hover {
+            button.btn:hover {
                 -webkit-transform: scale(1.1);
                 -moz-transform: scale(1.1);
                 -o-transform: scale(1.1);
             }
-            a.btn {
+            button.btn {
                 -webkit-transform: scale(0.8);
                 -moz-transform: scale(0.8);
                 -o-transform: scale(0.8);
@@ -24,56 +25,64 @@
 <body>
 <jsp:include page="/views/parts/header.jsp"/>
 <jsp:include page="parts/navigation.jsp"/>
-
+<sec:authentication var="user" property="principal"/>
+You are logged as ${user.username}
+<br>
 <!-- Вкладки с таблицами-->
 <div class="container-fluid">
         <ul class="nav nav-pills">
-            <!--<li class="nav-item"><a href="#table-student1" class="nav-link active" data-toggle="pill">Таблица студентов</a> </li>-->
+            <li class="nav-item"><a href="#table-student1" class="nav-link jsOpenTableStudentForMAV" data-toggle="pill"><i class="fa fa-list" aria-hidden="true"></i><span>   Таблица студентов</span></a> </li>
             <li class="nav-item"><a href="#table-student" class="nav-link active jsOpenTableStudents" data-toggle="pill"><i class="fa fa-list" aria-hidden="true"></i><span>   Table of Students</span></a> </li>
             <li class="nav-item"><a href="#table-request" class="nav-link jsOpenTableRequests" data-toggle="pill"><i class="fa fa-list" aria-hidden="true"></i><span>   Table of Requests</span></a> </li>
         </ul>
         <div class="tab-content">
-            <!-- Таблица студентов1
+            <!-- Таблица студентов1 -->
             <div role="tabpanel" class="tab-pane fade in active" id="table-student1">
-                <table class="table table-striped">
+                <table data-click-to-select="true"
+                       data-pagination="true"
+                       data-side-pagination="client"
+                       data-page-list="[5, 10, 20, 50, 100, 200]"
+                       data-search="true"
+                       data-toggle="table"
+                       data-sort-order="asc"
+                       data-sort-name="lastname"
+                       data-height="350"
+                       data-classes="table table-bordered table-hover jsStudentTableForMAV" >
                     <thead>
                     <tr>
-                        <th style="width:20px;"><input type="checkbox" id="head_checkbox"></th>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Patronymic</th>
-                        <th>Faculty</th>
-                        <th>Speciality</th>
-                        <th>Group</th>
-                        <th>Is budget</th>
-                        <th>Average score</th>
-                        <th>Status</th>
-                        <th>Name of company</th>
-                        <th>Practice period</th>
-                        <th>Btn "Show info"</th>
+                       <!-- <th style="width:20px;"><input type="checkbox" id="head_checkbox"></th>-->
+                        <th data-field="checkbox" data-checkbox="idStudent"></th>
+                        <th data-field="idStudent">#</th>
+                        <th data-field="firstname" data-sortable="true">First Name</th>
+                        <th data-field="lastname" data-sortable="true">Last Name</th>
+                        <th data-field="patronymic" data-sortable="true">Patronymic</th>
+                        <th data-field="groupStudent" data-sortable="true">Group</th>
+                        <th data-field="averagescore" data-sortable="true">Average Score</th>
+                        <th data-field="isbudget" data-sortable="true">Budget</th>
+                        <th data-field="statuspractice" data-sortable="true">Status</th>
+                        <th data-field="specialityName" data-sortable="true"> Speciality</th>
+                        <th data-field="facultyName" data-sortable="true">Faculty</th>
+                        <th>Info</th>
                     </tr>
                     </thead>
                     <tbody id="body_student_table">
-                    <c:if test="${not empty studentcontr1}">
-                        <c:forEach items="${studentcontr1}" var="student">
+                    <c:if test="${not empty studentListForMAV}">
+                        <c:forEach items="${studentListForMAV}" var="student">
                             <tr>
-                                <td><input type="checkbox" class="body_checkbox"></td>
-                                <th>${student.id}</th>
-                                <td>${student.firstname}</td>
-                                <td>${student.lastname}</td>
-                                <td>${student.patronymic}</td>
-                                <td>${student.email}</td>
-                                <td>${student.role}</td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>1</td>
-                                <td>dates</td>
+                                <td>${student.idStudent}</td>
+                                <td>${student.accountEntityByStudent.firstname}</td>
+                                <td>${student.accountEntityByStudent.lastname}</td>
+                                <td>${student.accountEntityByStudent.patronymic}</td>
+                                <td>${student.groupStudent}</td>
+                                <td>${student.averagescore}</td>
+                                <td>${student.isbudget}</td>
+                                <td>${student.statuspractice}</td>
+                                <td>${student.specialityEntityByStudent.namespeciality}</td>
+                                <td>${student.specialityEntityByStudent.facultyByFaculty.namefaculty}</td>
                                 <td>
-                                    <a href="/students-view/${student.id}" target="_blank">
-                                        <button type="button" class="btn btn-info">Info</button>
+                                    <a href="/students-view/${student.idStudent}" target="_blank">
+                                        <button type="button" class="btn btn-info"><i class="fa fa-info" aria-hidden="true"></i>   Info</button>
                                     </a>
                                 </td>
                             </tr>
@@ -81,7 +90,7 @@
                     </c:if>
                     </tbody>
                 </table>
-            </div>-->
+            </div>
             <!-- Таблица студентов -->
             <div role="tabpanel" class="tab-pane fade" id="table-student">
                 <table data-click-to-select="true"
@@ -106,8 +115,6 @@
                         <th data-field="statuspractice" data-sortable="true">Status</th>
                         <th data-field="specialityName" data-sortable="true">Speciality</th>
                         <th data-field="facultyName" data-sortable="true">Faculty</th>
-                        <th data-field="idStudent" data-formatter="practiceFormatter" class="text-center">About practice</th>
-                        <th data-field="idStudent" data-formatter="showFormatter" class="text-center">About student</th>
                     </tr>
                     </thead>
                 </table >
@@ -132,8 +139,10 @@
                         <th data-field="datefrom" data-sortable="true">Date from</th>
                         <th data-field="dateto" data-sortable="true">Date to</th>
                         <th data-field="totalquantity" data-sortable="true">Total quantity</th>
-                        <th data-field="nameSpeciality" data-sortable="true">Needed Speciality</th>
-                        <th data-field="nameFaculty" data-sortable="true">Needed Faculty</th>
+                        <th data-field="availablequantity">Available quantity</th>
+                        <th data-field="statuspractice">Status</th>
+                        <th data-field="nameSpeciality" data-sortable="true">Speciality</th>
+                        <th data-field="nameFaculty" data-sortable="true">Faculty</th>
                     </tr>
                     </thead>
                 </table >
@@ -142,20 +151,28 @@
 </div>
 <div class="container">
 
-    <a href="#" role="button" class="btn btn-primary jsBtnDeleteStudent"><i class="fa fa-trash" aria-hidden="true"></i>   Delete Students</a>
-    <a href="#modalMultiSelect" role="button" class="btn btn-primary jsOpenModalMultiSelect" data-toggle="modal"><i class="fa fa-plus-circle" aria-hidden="true"></i>   Assign Students</a>
-    <a href="#modalHeadOfPractice" role="button" class="btn btn-primary jsOpenModalHeadOfPractice" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Head of Practice</a>
 
-    <a href="#modalStudent" role="button" class="btn btn-primary jsOpenModalStudentForEdit" data-toggle="modal"><i class="fa fa-pencil" aria-hidden="true"></i>   Edit student</a>
-    <a href="#modalRequest" role="button" class="btn btn-primary jsOpenModalRequest" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Request</a>
-    <a href="#modalStudent" role="button" class="btn btn-primary jsOpenModalStudent" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Student</a>
-    <a href="#modalSpeciality" role="button" class="btn btn-primary jsOpenModalSpeciality" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Speciality</a>
-    <a href="#modalFaculty" role="button" class="btn btn-primary jsOpenModalFaculty" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Faculty</a>
+    <button href="#" role="button" class="btn btn-primary jsBtnDeleteStudent"><i class="fa fa-trash" aria-hidden="true"></i>   Delete Students</button>
+    <button href="#" role="button" class="btn btn-primary jsBtnDeleteRequest"><i class="fa fa-trash" aria-hidden="true"></i>   Delete Requests</button>
+
+    <button href="#" role="button" class="btn btn-primary jsBtnReleaseStudent"><i class="fa fa-eraser" aria-hidden="true"></i>   Release Student</button>
+
+    <button href="#modalMultiSelect" role="button" class="btn btn-primary jsOpenModalMultiSelectForReassign" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>   Reassign Student</button>
+    <button href="#modalMultiSelect" role="button" class="btn btn-primary jsOpenModalMultiSelect" data-toggle="modal"><i class="fa fa-plus-circle" aria-hidden="true"></i>   Assign Student</button>
+    <button href="#modalHeadOfPractice" role="button" class="btn btn-primary jsOpenModalHeadOfPractice" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Head of Practice</button>
+
+    <button href="#modalStudent" role="button" class="btn btn-primary jsOpenModalStudentForEdit" data-toggle="modal"><i class="fa fa-pencil" aria-hidden="true"></i>   Edit Student</button>
+    <button href="#modalRequest" role="button" class="btn btn-primary jsOpenModalRequestForEdit" data-toggle="modal"><i class="fa fa-pencil" aria-hidden="true"></i>   Edit Request</button>
+    <button href="#modalRequest" role="button" class="btn btn-primary jsOpenModalRequest" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Request</button>
+    <button href="#modalStudent" role="button" class="btn btn-primary jsOpenModalStudent" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Student</button>
+    <button href="#modalSpeciality" role="button" class="btn btn-primary jsOpenModalSpeciality" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Speciality</button>
+
+    <button href="#modalFaculty" role="button" class="btn btn-primary jsOpenModalFaculty" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Faculty</button>
 
 </div>
 
 <!-- Модальные окна -->
-<!-- МО Создание специальности -->
+<!-- МО Создание руководителя практики -->
 <div id="modalHeadOfPractice" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -246,9 +263,13 @@
             <div class="modal-body">
                 <div id="hoh"></div>
                 <div id="hoh1"></div>
-                <div class="form-group jsDivFormGroupShowforEdit">
+                <div class="form-group jsDivIdStudentforEdit">
                     <label>Id Student : </label>
                     <input type="text" class="form-control jsInputIdStudent" placeholder="Id Student" readonly/>
+                </div>
+                <div class="form-group jsDivStatusRequest">
+                    <label>Status Student : </label>
+                    <input type="text" class="form-control jsInputStatusStudent" placeholder="Status Student" value="Available" readonly>
                 </div>
                 <div class="form-group">
                     <select class="form-control availableAccountStudent"></select>
@@ -261,9 +282,6 @@
                 </div>
                 <div class="form-group">
                     <input class="form-control jsInputBudget" placeholder="Is budget of student" type="text">
-                </div>
-                <div class="form-group">
-                    <input class="form-control jsInputStatusStudent" placeholder="Status of practice student" type="text">
                 </div>
                <div class="form-group">
                     <input class="form-control jsInputAdress" placeholder="Adress" type="text">
@@ -281,7 +299,7 @@
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Close</button>
                 <button class="btn btn-secondary jsBtnResetStudent">Reset Student</button>
-                <button class="btn btn-success jsBtnAddandEditStudent">Create/Edit Student</button>
+                <button class="btn btn-success jsBtnAddAndEditStudent">Create/Edit Student</button>
             </div>
         </div>
     </div>
@@ -291,11 +309,20 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Add Request</h4>
+                <h4 class="modal-title jsTitleAddRequest">Add Request</h4>
+                <h4 class="modal-title jsTitleEditRequest">Edit Request</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
             </div>
             <div class="modal-body">
                 <div id="ror"></div>
+                <div class="form-group jsDivIdRequestforEdit">
+                    <label>Id Request : </label>
+                    <input type="text" class="form-control jsInputIdRequest" placeholder="Id Request" readonly/>
+                </div>
+                <div class="form-group jsDivStatusRequest">
+                    <label>Status Request : </label>
+                    <input type="text" class="form-control jsInputStatusRequest" placeholder="Status Request" value="Available" readonly/>
+                </div>
                 <div class="form-group">
                      <input  class="form-control jsInputNameCompany" placeholder="Name of company" type="text">
                 </div>
@@ -312,9 +339,6 @@
                     <input class="form-control jsInputTotalQuantity" placeholder="Total quantity" type="text">
                 </div>
                 <div class="form-group">
-                    <input class="form-control jsInputStatusPractice" placeholder="Status of practice" type="text">
-                </div>
-                <div class="form-group">
                     <select class="form-control availableSpecialities"></select>
                 </div>
                 <div class="form-group">
@@ -323,7 +347,8 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Close</button>
-                <button class="btn btn-success jsBtnAddRequest">Create Request</button>
+                <button class="btn btn-secondary jsBtnResetRequest">Reset Student</button>
+                <button class="btn btn-success jsBtnAddAndEditRequest">Create/Edit Request</button>
             </div>
         </div>
     </div>
@@ -353,7 +378,8 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Close</button>
-                <button class="btn btn-success jsBtnMS">MS</button>
+                <button class="btn btn-success jsBtnAssignStudentOnPractice">Assign Student</button>
+                <button class="btn btn-success jsBtnReAssignStudentOnPractice">Reassign Student</button>
             </div>
         </div>
     </div>

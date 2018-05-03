@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface StudentRepository extends CrudRepository<StudentEntity,Integer> {
     //List<StudentEntity> findAllByGroup(int group);
+    //StudentEntity find(StudentEntity studentEntity);
+    List<StudentEntity> findAllByStatuspractice(String status);
 }

@@ -30,7 +30,7 @@
                     <img src="/resources/img/user.png" alt="" width="200" height="200" class="img-circle">
                 </div>
                 <div>
-                    <span>${studoneob.firstname} ${studoneob.lastname} ${studoneob.patronymic}</span>
+                    <span>${objAboutStudent.accountEntityByStudent.firstname} ${objAboutStudent.accountEntityByStudent.lastname} ${objAboutStudent.accountEntityByStudent.patronymic}</span>
                 </div>
                 <div class="row">
                     <div class="col-md-3"></div>
@@ -41,8 +41,8 @@
                 </div>
                 <div>
                     <p>Student</p>
-                    <p>${studoneob.studentEntity.adress}</p>
-                    <p>${studoneob.studentEntity.phone}</p>
+                    <p>${objAboutStudent.adress}</p>
+                    <p>${objAboutStudent.phone}</p>
                 </div>
             </div>
         </div>
@@ -52,14 +52,14 @@
                 <table class="table table-th-block">
                     <tbody>
                     <tr><td class="active">Зарегистрирован:</td><td>12-06-2016</td></tr>
-                    <tr><td class="active">Факультет:</td><td>${studoneob.studentEntity.specialityEntity.facultyEntity.namefaculty}</td></tr>
-                    <tr><td class="active">Группа:</td><td>${studoneob.studentEntity.group}</td></tr>
+                    <tr><td class="active">Факультет:</td><td>${objAboutStudent.specialityEntityByStudent.facultyByFaculty.namefaculty}</td></tr>
+                    <tr><td class="active">Группа:</td><td>${objAboutStudent.groupStudent}</td></tr>
                     <tr><td class="active">Дата практики:</td><td></td></tr>
-                    <tr><td class="active">Специальность:</td><td>${studoneob.studentEntity.specialityEntity.namespeciality}</td></tr>
-                    <tr><td class="active">Бюджет:</td><td>${studoneob.studentEntity.isbudget}</td></tr>
-                    <tr><td class="active">Средний бал:</td><td>${studoneob.studentEntity.averagescore}</td></tr>
+                    <tr><td class="active">Специальность:</td><td>${objAboutStudent.specialityEntityByStudent.namespeciality}</td></tr>
+                    <tr><td class="active">Бюджет:</td><td>${objAboutStudent.isbudget}</td></tr>
+                    <tr><td class="active">Средний бал:</td><td>${objAboutStudent.averagescore}</td></tr>
                     <tr><td class="active">Название компании:</td><td> 7</td></tr>
-                    <tr><td class="active">Статус практики:</td><td>${studoneob.studentEntity.statuspractice}</td></tr>
+                    <tr><td class="active">Статус практики:</td><td>${objAboutStudent.statuspractice}</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -68,7 +68,7 @@
     <div class="row">
             <div class="col-md-12">
                 <h5>Комментарий : </h5>
-                ${studoneob.studentEntity.comment}
+                ${objAboutStudent.comment}
             </div>
     </div>
 </div>

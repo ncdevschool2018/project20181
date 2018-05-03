@@ -12,13 +12,16 @@ public class RequestEntityToRequestViewModelConverter implements Converter<Reque
     public RequestViewModel convert(RequestEntity requestEntity) {
 
         RequestViewModel requestViewModel = new RequestViewModel();
-        requestViewModel.setIdRequest(String.valueOf(requestEntity.getId()));
+        requestViewModel.setIdRequest(String.valueOf(requestEntity.getIdRequest()));
         requestViewModel.setNamecompany(requestEntity.getNamecompany());
         requestViewModel.setDatefrom(String.valueOf(requestEntity.getDatefrom()));
         requestViewModel.setDateto(String.valueOf(requestEntity.getDateto()));
         requestViewModel.setMinaverage(String.valueOf(requestEntity.getMinaverage()));
         requestViewModel.setStatuspractice(requestEntity.getStatuspractice());
         requestViewModel.setTotalquantity(String.valueOf(requestEntity.getTotalquantity()));
+        requestViewModel.setHeadOfPracticeId(String.valueOf(requestEntity.getHeadOfPracticeId()));
+
+        requestViewModel.setAvailablequantity(String.valueOf(requestEntity.getTotalquantity() - requestEntity.getStudents().size()));
 
         SpecialityEntity specialityEntity = requestEntity.getSpecialityEntity();
         if(specialityEntity != null)

@@ -1,14 +1,25 @@
 package by.netcracker.models;
 
-public class AccountViewModel {
+import by.netcracker.security.impl.CustomUser;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.List;
+
+public class AccountViewModel extends CustomUser {
     private String idAccount;
-    private String login;
-    private String password;
+    //private String login;
+    //private String password;
     private String email;
     private String role;
     private String firstname;
     private String lastname;
     private String patronymic;
+
+    public AccountViewModel(){}
+
+    public AccountViewModel(String username, String password, List<GrantedAuthority> authorities) {
+        super(username, password, authorities);
+    }
 
     public String getIdAccount() {
         return idAccount;
@@ -16,22 +27,6 @@ public class AccountViewModel {
 
     public void setIdAccount(String idAccount) {
         this.idAccount = idAccount;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {

@@ -35,7 +35,7 @@ public class AccountController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/authorization/start", method = RequestMethod.POST)
+   /* @RequestMapping(value = "/authorization/start", method = RequestMethod.POST)
     public String authorizationAccount(@ModelAttribute("account")AccountEntity accountEntity){
 
         AccountEntity accountEntity1 = this.accountService.authorizationAccount(accountEntity);
@@ -47,7 +47,7 @@ public class AccountController {
             return "redirect:/students-view";
 
         return "/authorization";
-    }
+    }*/
 
     @RequestMapping(value = "/headOfPracticeList", method = RequestMethod.GET)
     @ResponseBody

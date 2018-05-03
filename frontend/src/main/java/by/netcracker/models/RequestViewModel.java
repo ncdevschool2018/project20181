@@ -13,7 +13,9 @@ public class RequestViewModel {
     private String nameSpeciality;
     private String facultyId;
     private String nameFaculty;
-    private String accountid;
+    private String headOfPracticeId;
+
+    private String availablequantity;
 
     public String getIdRequest() {
         return idRequest;
@@ -103,11 +105,20 @@ public class RequestViewModel {
         this.nameFaculty = nameFaculty;
     }
 
-    public String getAccountid() {
-        return accountid;
+    public String getHeadOfPracticeId() {
+        return headOfPracticeId;
     }
 
-    public void setAccountid(String accountid) {
-        this.accountid = accountid;
+    public void setHeadOfPracticeId(String headOfPracticeId) {
+        this.headOfPracticeId = headOfPracticeId;
+    }
+
+
+    public String getAvailablequantity() {
+        return availablequantity;
+    }
+
+    public void setAvailablequantity(String availablequantity) {
+        this.availablequantity = availablequantity;
     }
 }

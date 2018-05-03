@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface AccountRepository extends CrudRepository<AccountEntity,Integer> {
     List<AccountEntity> findByRole(String role);
+    List<AccountEntity> findByLogin(String username);
 }

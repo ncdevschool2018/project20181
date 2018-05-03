@@ -50,6 +50,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public List<AccountEntity> findUserByUserName(String username) {
+        return this.accountRepository.findByLogin(username);
+    }
+
+    @Override
     public List<AccountEntity> getAllHeadOfPractice() {
         return this.accountRepository.findByRole(USER_ROLE_HEAD);
     }

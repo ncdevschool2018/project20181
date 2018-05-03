@@ -25,7 +25,27 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    public List<RequestEntity> findAllRequestsByAvailable() {
+        return this.requestRepository.findAllByStatuspractice("Available");
+    }
+
+    @Override
+    public RequestEntity findOneRequest(Integer idRequest) {
+        return this.requestRepository.findOne(idRequest);
+    }
+
+    @Override
     public void addRequest(RequestEntity requestEntity) {
         this.requestRepository.save(requestEntity);
+    }
+
+    @Override
+    public void deleteRequestList(List<RequestEntity> requestEntities) {
+        this.requestRepository.delete(requestEntities);
+    }
+
+    @Override
+    public void deleteRequestById(Integer idRequest) {
+        this.requestRepository.delete(idRequest);
     }
 }

@@ -6,7 +6,11 @@ import java.util.List;
 
 public interface StudentService {
     List<StudentEntity> findAllStudents();
-    StudentEntity findOneStudentForEdit(Integer idStudent);
+    List<StudentEntity> findAllStudentsByAvailable();
+    StudentEntity findOneStudent(Integer idStudent);
     void addStudent(StudentEntity studentEntity);
     void deleteStudentList(List<StudentEntity> studentEntities);
+    void deleteStudentById(Integer idStudent);
+
+    List<StudentEntity> getPaginationAndSortedPageList(String sort, String order, Integer offset, Integer limit);
 }

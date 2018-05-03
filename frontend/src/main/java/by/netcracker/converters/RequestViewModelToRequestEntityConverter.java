@@ -9,14 +9,15 @@ public class RequestViewModelToRequestEntityConverter implements Converter<Reque
     @Override
     public RequestEntity convert(RequestViewModel requestViewModel) {
         RequestEntity requestEntity = new RequestEntity();
+        requestEntity.setIdRequest(Integer.parseInt(requestViewModel.getIdRequest()));
         requestEntity.setNamecompany(requestViewModel.getNamecompany());
         requestEntity.setDatefrom(requestViewModel.getDatefrom());
         requestEntity.setDateto(requestViewModel.getDateto());
         requestEntity.setMinaverage(Double.parseDouble(requestViewModel.getMinaverage()));
         requestEntity.setTotalquantity(Integer.parseInt(requestViewModel.getTotalquantity()));
         requestEntity.setStatuspractice(requestViewModel.getStatuspractice());
-        requestEntity.setSpecialtyId(Integer.valueOf(requestViewModel.getSpecialityId()));
-        requestEntity.setHeadOfPracticeId(Integer.valueOf(requestViewModel.getAccountid()));
+        requestEntity.setSpecialityId(Integer.valueOf(requestViewModel.getSpecialityId()));
+        requestEntity.setHeadOfPracticeId(Integer.valueOf(requestViewModel.getHeadOfPracticeId()));
         return requestEntity;
     }
 }

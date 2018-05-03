@@ -8,6 +8,7 @@ public class StudentViewModelToStudentEntityConverter implements Converter<Stude
     @Override
     public StudentEntity convert(StudentViewModel studentViewModel) {
         StudentEntity studentEntity = new StudentEntity();
+        studentEntity.setIdStudent(Integer.parseInt(studentViewModel.getIdStudent()));
         studentEntity.setGroupStudent(Integer.parseInt(studentViewModel.getGroupStudent()));
         studentEntity.setAveragescore(Double.parseDouble(studentViewModel.getAveragescore()));
         studentEntity.setIsbudget(studentViewModel.getIsbudget());
