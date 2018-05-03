@@ -12,10 +12,11 @@
 
     <mvc:annotation-driven />
 
-    <context:component-scan base-package="by.netcracker" />
+    <context:component-scan base-package="by.netcracker.controllers" />
+    <context:component-scan base-package="by.netcracker.security" />
     <import resource="classpath:backend-spring-context.xml"/>
     <import resource="web-converters-context.xml"/>
-    <!--<import resource="web-security-context.xml"/>-->
+    <import resource="web-security-context.xml"/>
 
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
