@@ -20,7 +20,8 @@
 <br>
 <br>
 <br>
-
+<!--<spring:url value="/static/j_spring_security_check" var="authUrl"/>
+<form class="signin" method="post" action="${authUrl}">-->
 <div class="container" align="center">
     <div class="row">
         <div class="col-md-3"></div>
@@ -30,12 +31,12 @@
 
                 <div class="form-group">
 
-                    <input name="username" class="form-control jsInputUsername" placeholder="Username">
+                    <input name="j_username" class="form-control jsInputUsername" placeholder="Username" id="username">
                     <i class="fa fa-envelope"></i>
                 </div>
                 <div class="form-group help">
 
-                    <input name="password" class="form-control jsInputPassword" placeholder="Password">
+                    <input name="j_password" class="form-control jsInputPassword" placeholder="Password" id="password">
                     <i class="fa fa-lock"></i>
                     <a href="#" class="fa fa-question-circle"></a>
                 </div>
@@ -52,22 +53,21 @@
         <div class="col-md-3"></div>
     </div>
 </div>
-
+<!--</form>-->
 <br>
 <div class="container" align="center">
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-3">Don't have an account?</div>
         <div class="col-md-3">
-            <a href="<c:url value="registration.jsp"/>">Signup</a>
+            <a href="<c:url value="/views/registration.jsp"/>">Signup</a>
         </div>
         <div class="col-md-3"></div>
     </div>
 </div>
 
-
 <script src="../resources/js/admin-page.js"></script>
-<a href="<c:url value = "/students-view"/>">headpractice</a>
+<a href="<c:url value = "/students-view-head"/>">headpractice</a>
 <a href="<c:url value="admin.jsp"/>">admin</a>
 <a href="<c:url value="user.jsp"/>">user</a>
 </body>

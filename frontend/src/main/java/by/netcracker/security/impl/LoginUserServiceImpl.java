@@ -24,6 +24,8 @@
 package by.netcracker.security.impl;
 
 
+import by.netcracker.enumiration.AccountRole;
+import by.netcracker.enumiration.ViewName;
 import by.netcracker.security.LoginUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -44,15 +46,6 @@ import java.util.List;
 @Service
 public class LoginUserServiceImpl implements LoginUserService {
 
-
-    private static final String VIEW_NAME_HOME_ADMIN = "admin";
-    private static final String VIEW_NAME_HOME_STUDENT = "user";
-
-    private static final String ROLE_STUDENT = "student";//todo create general enum
-    private static final String ROLE_ADMIN = "admin";
-
-
-
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -72,11 +65,11 @@ public class LoginUserServiceImpl implements LoginUserService {
     public String resolveHomeView(List<GrantedAuthority> authorities) {
         if (!CollectionUtils.isEmpty(authorities)) {
             String authority = authorities.get(0).getAuthority();
-            if (authority.equalsIgnoreCase(ROLE_STUDENT)) {
-                return VIEW_NAME_HOME_STUDENT;
+            if (authority.equalsIgnoreCase(AccountRole.ROLE_STUDENT)) {
+                return ViewName.VIEW_NAME_USER;
             }
-            if (authority.equalsIgnoreCase(ROLE_ADMIN)) {
-                return VIEW_NAME_HOME_ADMIN;
+            if (authority.equalsIgnoreCase(AccountRole.ROLE_ADMIN)) {
+                return ViewName.VIEW_NAME_ADMIN;
             }
         }
         return "redirect:/authorization";

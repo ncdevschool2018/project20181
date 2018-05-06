@@ -29,4 +29,11 @@ public class SpecialityServiceImpl implements SpecialityService {
     public List<SpecialityEntity> getAllSpecialities() {
         return (List<SpecialityEntity>) this.specialityRepository.findAll();
     }
+
+    @Override
+    public List<SpecialityEntity> getAllSpecialitiesByIdFaculty(Integer idFaculty) {
+        return this.specialityRepository.findAllByFacultyId(idFaculty);
+    }
+
+
 }
