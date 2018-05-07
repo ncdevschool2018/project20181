@@ -124,7 +124,8 @@ public class RequestController {
     }
 
     @RequestMapping(value = "/deleteRequest", method = RequestMethod.POST)
-    public void deleteRequestList(@RequestBody List<RequestViewModel> requestViewModels){
+    @ResponseBody
+    public boolean deleteRequestList(@RequestBody List<RequestViewModel> requestViewModels){
         int[] masForDeleteRequest = new int[requestViewModels.size()];
         int i = 0;
 
@@ -143,9 +144,9 @@ public class RequestController {
                 this.studentService.addStudent(studentEntity);
             }
             this.requestService.deleteRequestById(masForDeleteRequest[i]);
+            return true;
         }
-
-
+        return false;
         //this.requestService.deleteRequestList((List<RequestEntity>) this.conversionService.convert(requestViewModels,requestViewModelTypeDescriptor,requestEntityTypeDescriptor));
     }
 }

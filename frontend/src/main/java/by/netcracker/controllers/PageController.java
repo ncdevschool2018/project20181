@@ -29,7 +29,7 @@ public class PageController {
         if (authentication != null) {
             redirectView = this.loginUserService.resolveHomeView(((List<GrantedAuthority>) authentication.getAuthorities()));
         }
-        return "redirect:/students-view-admin";
+        return redirectView;
     }
 
 
