@@ -18,8 +18,6 @@
                 -webkit-transition-duration: 5s;
                 -moz-transition-duration: 5s;
                 -o-transition-duration: 5s;
-                width: 10em;
-                height: 2.5em;
             }
         </style>
 </head>
@@ -29,44 +27,11 @@
 <jsp:include page="parts/navigation.jsp"/>
 <sec:authentication var="user" property="principal"/>
 You are logged as ${user.username}
-<div class="container-fluid">
-    <div class="row ">
-        <div class="col-md-4">
-            <h6>Кнопки Для работы со студентом</h6>
-
-            <button href="#" role="button" class="btn btn-primary jsBtnAboutStudent"><i class="fa fa-eraser" aria-hidden="true"></i>   About Student</button>
-
-            <button href="#modalMultiSelect" role="button" class="btn btn-primary jsOpenModalMultiSelectForReassign" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>   Reassign Student</button>
-            <button href="#" role="button" class="btn btn-primary jsBtnReleaseStudent"><i class="fa fa-eraser" aria-hidden="true"></i>   Release Student</button>
-            <button href="#modalMultiSelect" role="button" class="btn btn-primary jsOpenModalMultiSelect" data-toggle="modal"><i class="fa fa-plus-circle" aria-hidden="true"></i>   Assign Student</button>
-            <button href="#modalStudent" role="button" class="btn btn-primary jsOpenModalStudentForEdit" data-toggle="modal"><i class="fa fa-pencil" aria-hidden="true"></i>   Edit Student</button>
-            <button href="#modalStudent" role="button" class="btn btn-primary jsOpenModalStudent" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Student</button>
-            <button href="#" role="button" class="btn btn-primary jsBtnDeleteStudent"><i class="fa fa-trash" aria-hidden="true"></i>   Delete Students</button>
-        </div>
-        <div class="col-md-4">
-            <h6>Кнопки Для доб</h6>
-            <button href="#modalSpeciality" role="button" class="btn btn-primary jsOpenModalSpeciality" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Speciality</button>
-            <button href="#modalFaculty" role="button" class="btn btn-primary jsOpenModalFaculty" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Faculty</button>
-            <button href="#modalHeadOfPractice" role="button" class="btn btn-primary jsOpenModalHeadOfPractice" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Head</button>
-        </div>
-        <div class="col-md-4">
-            <h6>Кнопки Для работы со запросом</h6>
-            <button href="#" role="button" class="btn btn-primary jsBtnDeleteRequest"><i class="fa fa-trash" aria-hidden="true"></i>   Delete Requests</button>
-            <button href="#modalRequest" role="button" class="btn btn-primary jsOpenModalRequestForEdit" data-toggle="modal"><i class="fa fa-pencil" aria-hidden="true"></i>   Edit Request</button>
-            <button href="#modalRequest" role="button" class="btn btn-primary jsOpenModalRequest" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Request</button>
-        </div>
-    </div>
-
-
-
-
-
-</div>
 <br>
 <!-- Вкладки с таблицами-->
 <div class="container-fluid">
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="#table-student1" class="nav-link jsOpenTableStudentForMAV" data-toggle="pill"><i class="fa fa-list" aria-hidden="true"></i><span>   Table of StudentsMAV</span></a> </li>
+            <li class="nav-item"><a href="#table-student1" class="nav-link jsOpenTableStudentForMAV" data-toggle="pill"><i class="fa fa-list" aria-hidden="true"></i><span>   Таблица студентов</span></a> </li>
             <li class="nav-item"><a href="#table-student" class="nav-link active jsOpenTableStudents" data-toggle="pill"><i class="fa fa-list" aria-hidden="true"></i><span>   Table of Students</span></a> </li>
             <li class="nav-item"><a href="#table-request" class="nav-link jsOpenTableRequests" data-toggle="pill"><i class="fa fa-list" aria-hidden="true"></i><span>   Table of Requests</span></a> </li>
         </ul>
@@ -130,10 +95,9 @@ You are logged as ${user.username}
             <div role="tabpanel" class="tab-pane fade" id="table-student">
                 <table data-click-to-select="true"
                        data-pagination="true"
-                       data-side-pagination="server"
+                       data-side-pagination="client"
                        data-page-list="[5, 10, 20, 50, 100, 200]"
                        data-search="true"
-                       data-url = "/studentTable"
                        data-toggle="table"
                        data-sort-order="asc"
                        data-sort-name="lastname"
@@ -185,7 +149,27 @@ You are logged as ${user.username}
             </div>
         </div>
 </div>
+<div class="container">
 
+
+    <button href="#" role="button" class="btn btn-primary jsBtnDeleteStudent"><i class="fa fa-trash" aria-hidden="true"></i>   Delete Students</button>
+    <button href="#" role="button" class="btn btn-primary jsBtnDeleteRequest"><i class="fa fa-trash" aria-hidden="true"></i>   Delete Requests</button>
+
+    <button href="#" role="button" class="btn btn-primary jsBtnReleaseStudent"><i class="fa fa-eraser" aria-hidden="true"></i>   Release Student</button>
+
+    <button href="#modalMultiSelect" role="button" class="btn btn-primary jsOpenModalMultiSelectForReassign" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>   Reassign Student</button>
+    <button href="#modalMultiSelect" role="button" class="btn btn-primary jsOpenModalMultiSelect" data-toggle="modal"><i class="fa fa-plus-circle" aria-hidden="true"></i>   Assign Student</button>
+    <button href="#modalHeadOfPractice" role="button" class="btn btn-primary jsOpenModalHeadOfPractice" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Head of Practice</button>
+
+    <button href="#modalStudent" role="button" class="btn btn-primary jsOpenModalStudentForEdit" data-toggle="modal"><i class="fa fa-pencil" aria-hidden="true"></i>   Edit Student</button>
+    <button href="#modalRequest" role="button" class="btn btn-primary jsOpenModalRequestForEdit" data-toggle="modal"><i class="fa fa-pencil" aria-hidden="true"></i>   Edit Request</button>
+    <button href="#modalRequest" role="button" class="btn btn-primary jsOpenModalRequest" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Request</button>
+    <button href="#modalStudent" role="button" class="btn btn-primary jsOpenModalStudent" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Student</button>
+    <button href="#modalSpeciality" role="button" class="btn btn-primary jsOpenModalSpeciality" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Speciality</button>
+
+    <button href="#modalFaculty" role="button" class="btn btn-primary jsOpenModalFaculty" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i>   Create Faculty</button>
+
+</div>
 
 <!-- Модальные окна -->
 <!-- МО Создание руководителя практики -->
@@ -219,7 +203,7 @@ You are logged as ${user.username}
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Close</button>
-                <button class="btn btn-success jsBtnAddHeadOfPractice">Create Head</button>
+                <button class="btn btn-success jsBtnAddHeadOfPractice">Create Head of Practice</button>
             </div>
         </div>
     </div>
@@ -297,28 +281,13 @@ You are logged as ${user.username}
                     <input class="form-control jsInputAverageScore" placeholder="Average Score of student" type="text">
                 </div>
                 <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="btn btn-outline-info btn-md btn-block">
-                                <input type="radio" name="isBudget" value="yes" checked> Budget
-                            </label>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="btn btn-outline-info btn-md btn-block">
-                                <input type="radio" name="isBudget" value="no"> Paid
-                            </label>
-                        </div>
-                    </div>
-                    <!--<input class="form-control jsInputBudget" placeholder="Is budget of student" type="text">-->
+                    <input class="form-control jsInputBudget" placeholder="Is budget of student" type="text">
                 </div>
                <div class="form-group">
                     <input class="form-control jsInputAdress" placeholder="Adress" type="text">
                 </div>
                 <div class="form-group">
                     <input class="form-control jsInputPhone" placeholder="Phone" type="text">
-                </div>
-                <div class="form-group">
-                    <select class="form-control availableFacultiesStudent"></select>
                 </div>
                 <div class="form-group">
                     <select class="form-control availableSpecialities"></select>
@@ -368,9 +337,6 @@ You are logged as ${user.username}
                 </div>
                 <div class="form-group">
                     <input class="form-control jsInputTotalQuantity" placeholder="Total quantity" type="text">
-                </div>
-                <div class="form-group">
-                    <select class="form-control availableFacultiesRequest"></select>
                 </div>
                 <div class="form-group">
                     <select class="form-control availableSpecialities"></select>

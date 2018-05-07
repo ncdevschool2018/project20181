@@ -14,9 +14,6 @@ public class RequestViewModel {
     private String facultyId;
     private String nameFaculty;
     private String headOfPracticeId;
-    private String firstnameHeadOfPractice;
-    private String lastnameHeadOfPractice;
-    private String patronymicHeadOfPractice;
 
     private String availablequantity;
 
@@ -123,29 +120,5 @@ public class RequestViewModel {
 
     public void setAvailablequantity(String availablequantity) {
         this.availablequantity = availablequantity;
-    }
-
-    public String getFirstnameHeadOfPractice() {
-        return firstnameHeadOfPractice;
-    }
-
-    public void setFirstnameHeadOfPractice(String firstnameHeadOfPractice) {
-        this.firstnameHeadOfPractice = firstnameHeadOfPractice;
-    }
-
-    public String getLastnameHeadOfPractice() {
-        return lastnameHeadOfPractice;
-    }
-
-    public void setLastnameHeadOfPractice(String lastnameHeadOfPractice) {
-        this.lastnameHeadOfPractice = lastnameHeadOfPractice;
-    }
-
-    public String getPatronymicHeadOfPractice() {
-        return patronymicHeadOfPractice;
-    }
-
-    public void setPatronymicHeadOfPractice(String patronymicHeadOfPractice) {
-        this.patronymicHeadOfPractice = patronymicHeadOfPractice;
     }
 }

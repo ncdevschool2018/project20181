@@ -44,9 +44,9 @@ public class FacultyController {
 
     @RequestMapping(value = "/faculty", method = RequestMethod.POST)
     @ResponseBody
-    public boolean AddFaculty(@RequestBody FacultyViewModel facultyViewModel) {
+    public FacultyViewModel AddFaculty(@RequestBody FacultyViewModel facultyViewModel) {
        FacultyEntity faculty = this.conversionService.convert(facultyViewModel, FacultyEntity.class);
         this.facultyService.addFaculty(faculty);
-        return true;
+        return facultyViewModel;
     }
 }

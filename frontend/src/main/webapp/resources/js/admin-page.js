@@ -1,29 +1,15 @@
 $(document).ready(function () {
 
 
+
     var ELEMENTS = {
         STUDENTS_TABLE: '.jsStudentsTable',
         REQUESTS_TABLE: '.jsRequestsTable',
         STUDENT_TABLE_MAV: '.jsStudentTableForMAV'
     };
-    var MODAL_ELEMENT = {
-        MODAL_REQUEST: '#modalRequest',
-        MODAL_STUDENT: '#modalStudent',
-        MODAL_FACULTY: '#modalFaculty',
-        MODAL_SPECIALITY: '#modalSpeciality',
-        MODAL_HEAD: '#modalHeadOfPractice',
-        MODAL_MULTI: '#modalMultiSelect'
-    };
     var  $studentsTable = $(ELEMENTS.STUDENTS_TABLE),
          $requestsTable = $(ELEMENTS.REQUESTS_TABLE),
-         $studentsTableForMAV = $(ELEMENTS.STUDENT_TABLE_MAV),
-         $modalRequest = $(MODAL_ELEMENT.MODAL_REQUEST),
-         $modalStudent = $(MODAL_ELEMENT.MODAL_STUDENT),
-         $modalFaculty = $(MODAL_ELEMENT.MODAL_FACULTY),
-         $modalSpeciality = $(MODAL_ELEMENT.MODAL_SPECIALITY),
-         $modalHead = $(MODAL_ELEMENT.MODAL_HEAD),
-         $modalMulti = $(MODAL_ELEMENT.MODAL_MULTI)
-    ;
+         $studentsTableForMAV = $(ELEMENTS.STUDENT_TABLE_ONE);
 
 
 
@@ -66,9 +52,8 @@ $(document).ready(function () {
             contentType: "application/json",
             mimeType: 'application/json',
             data: JSON.stringify(objFacultySave),
-            success: function (confirmAddFaculty) {
-                if(confirmAddFaculty === true) {alert("Adding Faculty was successful");}
-                else {alert("Adding Faculty was unsuccessful")}
+            success: function (objFacultySave) {
+                $('#fof1').text(objFacultySave.namefaculty);
             }
         });
     });
@@ -87,13 +72,12 @@ $(document).ready(function () {
             contentType: "application/json",
             mimeType: 'application/json',
             data: JSON.stringify(objSpecialitySave),
-            success: function (confirmAddSpeciality) {
-                if(confirmAddSpeciality === true) {alert("Adding Speciality was successful");}
-                else {alert("Adding Speciality was unsuccessful")}
+            success: function (objSpecialitySave) {
+                $('#sos').text(objSpecialitySave.facultyId + objSpecialitySave.namespeciality);
             }
         });
     });
-    // Add and Edit Request(Post)(viewmodel)
+    // Add Request(Post)(viewmodel)
     $('.jsBtnAddAndEditRequest').click(function (event) {
         event.stopPropagation();
         var objRequestSave = {
@@ -107,6 +91,7 @@ $(document).ready(function () {
             specialityId: $('#modalRequest').find('.availableSpecialities option:selected').attr("class"),
             headOfPracticeId: $('#modalRequest').find('.availableHeadsOfPractice option:selected').attr("class")
         };
+
         $.ajax({
             url: 'createRequest',
             type: 'POST',
@@ -116,19 +101,17 @@ $(document).ready(function () {
             data: JSON.stringify(objRequestSave),
             success: function (objRequestSave) {
                 $('#ror').text(objRequestSave.specialityId + objRequestSave.dateto + objRequestSave.statuspractice +objRequestSave.headOfPracticeId);
-                ListAllRequests();
-                $('.jsBtnResetRequest').trigger('click');
             }
         });
     });
-    // Add and Edit Student(Post)(entity)
+    // Add Student(Post)(entity)
     $('.jsBtnAddAndEditStudent').click(function (event) {
             event.stopPropagation();
             var objStudSave = {
                 idStudent: $('.jsInputIdStudent').val(),
                 groupStudent: $('.jsInputGroup').val(),
                 averagescore:$('.jsInputAverageScore').val(),
-                isbudget:$('input[name=isBudget]:checked').val(),
+                isbudget:$('.jsInputBudget').val(),
                 statuspractice:$('.jsInputStatusStudent').val(),
                 adress:$('.jsInputAdress').val(),
                 phone:$('.jsInputPhone').val(),
@@ -145,23 +128,23 @@ $(document).ready(function () {
                 mimeType: 'application/json',
                 data: JSON.stringify(objStudSave),
                 success: function (objStudSave) {
-                    if(objStudSave.idStudent !== null){
-                       var row = {
-                            checkbox : "-",
-                            firstname : objStudSave.firstname,
-                            lastname : objStudSave.lastname,
-                            patronymic : objStudSave.patronymic,
-                            groupStudent : objStudSave.groupStudent,
-                            averagescore : objStudSave.averagescore,
-                            isbudget : objStudSave.isbudget,
-                            statuspractice : objStudSave.statuspractice,
-                            specialityName : objStudSave.specialityName,
-                            facultyName : objStudSave.facultyName,
-                            //moreInfo : "-",
-                            idStudent : objStudSave.idStudent
-                        };
-                        $studentsTable.bootstrapTable('prepend', row);
-                    }
+                   /* $('#hoh').text(objStudSave.firstname + objStudSave.lastname + objStudSave.patronymic
+                        + objStudSave.idStudent + objStudSave.specialityId + objStudSave.accountId + objStudSave.firstname);*/
+                    var row = {
+                        checkbox : "-",
+                        firstname : objStudSave.firstname,
+                        lastname : objStudSave.lastname,
+                        patronymic : objStudSave.patronymic,
+                        groupStudent : objStudSave.groupStudent,
+                        averagescore : objStudSave.averagescore,
+                        isbudget : objStudSave.isbudget,
+                        statuspractice : objStudSave.statuspractice,
+                        specialityName : objStudSave.specialityName,
+                        facultyName : objStudSave.facultyName,
+                        //moreInfo : "-",
+                        idStudent : objStudSave.idStudent
+                    };
+                    $studentsTable.bootstrapTable('prepend', row);
                 }
             });
         });
@@ -184,9 +167,8 @@ $(document).ready(function () {
             contentType: "application/json",
             mimeType: 'application/json',
             data: JSON.stringify(objHeadOfPracticeSave),
-            success: function (confirmAddHead) {
-                if(confirmAddHead === true) {alert("Adding Faculty was successful");}
-                else {alert("Adding Faculty was unsuccessful")}
+            success: function (objHeadOfPracticeSave) {
+                $('#hop').text(objHeadOfPracticeSave.password + objHeadOfPracticeSave.patronymic);
             }
         });
     });
@@ -202,18 +184,11 @@ $(document).ready(function () {
             contentType: "application/json",
             mimeType: 'application/json',
             data: JSON.stringify(studentIdForDelete),
-            success: function (studentsList) {
-                /*$studentsTable.bootstrapTable('remove', {
+            success: function () {
+                $studentsTable.bootstrapTable('remove', {
                     field: 'idStudent',
-                    values: students.idStudent
-                });*/
-                //$studentsTable.bootstrapTable('removeByUniqueId', 18)
-                console.log(studentsList);
-                studentsList ? function () {
-                    studentsList.some(function (studentsList) {
-                            alert("Delete of Students was successfully");
-                    });
-                }() : alert("Delete of Students was unsuccessfully");
+                    values: studentIdForDelete
+                });
             }
         });
 
@@ -230,12 +205,11 @@ $(document).ready(function () {
             contentType: "application/json",
             mimeType: 'application/json',
             data: JSON.stringify(requestIdForDelete),
-            success: function (confirmDeleteRequest) {
-                if(confirmDeleteRequest === true){
-                    alert("Delete of Requests was successfully");
-                    ListAllRequests();
-                }
-                else {alert("Delete of Requests was unsuccessfully");}
+            success: function () {
+                $studentsTable.bootstrapTable('remove', {
+                    field: 'idRequest',
+                    values: requestIdForDelete
+                });
             }
         });
 
@@ -252,11 +226,8 @@ $(document).ready(function () {
             contentType: "application/json",
             mimeType: 'application/json',
             data: {data1 :  studentIdForRelease},
-            success: function (confirmReleaseStudent) {
-                if(confirmReleaseStudent === true){
-                    alert("Release of Student was successfully");
-                }
-                else alert("Student has no practice");
+            success: function (objOneRequestForEdit) {
+                console.log(typeof objOneRequestForEdit);
             }
         });
     });
@@ -294,33 +265,15 @@ $(document).ready(function () {
             }
         });
     });
-    //AboutStudent?????
-    $('.jsBtnAboutStudent').click(function (event) {
-        var studentIdForRelease = $studentsTable.bootstrapTable('getSelections')[0].idStudent;
-
-        $.ajax({
-            url: 'aboutStudent',
-            type: 'GET',
-            dataType: 'json',
-            contentType: "application/json",
-            mimeType: 'application/json',
-            data: {studentId :  studentIdForRelease},
-            success: function () {
-                // $(location).attr('pathname', 'aboutStudent');
-            }
-        });
-    });
 
 //--------------------------------------------------------RESET-----------------------------------------------------------------------------------------------------------------------
     //Очистка полей в модальном окне студента
-    $('.jsBtnResetStudent').on('click',function (event) {
+    $('.jsBtnResetStudent').click(function (event) {
         $('#modalStudent').find("input,textarea,select").val('');
-        $('.jsInputStatusStudent').val("Available");
     });
     //Очистка полей в модальном окне запроса
-    $('.jsBtnResetRequest').on('click',function (event) {
+    $('.jsBtnResetRequest').click(function (event) {
         $('#modalRequest').find("input,textarea,select").val('');
-        $('.jsinputstatusrequest').val("Available");
     });
 
 //--------------------------------------------------------OPEN MODAL-----------------------------------------------------------------------------------------------------------------------
@@ -345,35 +298,31 @@ $(document).ready(function () {
         $('.jsTitleEditRequest').hide();
         $('.jsDivIdRequestforEdit').show();
         $('.jsTitleAddRequest').show();
+        getAvailableSpeciality();
         getAvailableHeadOfPractice();
-        getAvailableFaculty();
-        $('.availableFacultiesRequest').trigger('change');
     });
     $('.jsOpenModalRequestForEdit').click(function () {
         $('.jsTitleEditRequest').show();
         $('.jsDivIdRequestforEdit').show();
         $('.jsTitleAddRequest').hide();
-        getAvailableHeadOfPractice();
-        getAvailableFaculty();
         LoadRequestEntityForEditRequest();
-
-
+        getAvailableSpeciality();
+        getAvailableHeadOfPractice();
     });
     $('.jsOpenModalStudent').click(function () {
         $('.jsTitleEditStudent').hide();
         $('.jsDivIdStudentforEdit').show();
         $('.jsTitleAddStudent').show();
+        getAvailableSpeciality();
         getAvailableAccountStudents();
-        getAvailableFaculty();
-        $('.availableFacultiesStudent').trigger('change');
     });
     $('.jsOpenModalStudentForEdit').click(function () {
         $('.jsTitleAddStudent').hide();
         $('.jsTitleEditStudent').show();
         $('.jsDivFormGroupShowforEdit').show();
-        getAvailableAccountStudents();
-        getAvailableFaculty();
         LoadStudentEntityForEditStudent();
+        getAvailableAccountStudents();
+        getAvailableSpeciality();
     });
 
     $('.jsOpenTableStudentForMAV').click(function () {
@@ -386,19 +335,10 @@ $(document).ready(function () {
        ListAllRequests();
     });
 
-//--------------------------------------------------------TRIGGERS-----------------------------------------------------------------------
-    $('.availableFacultiesStudent').on('change', function () {
-        var facultyId = $('#modalStudent').find(".availableFacultiesStudent option:selected").attr("class");
-        getAvailableSpeciality(facultyId);
-    });
-    $('.availableFacultiesRequest').on('change', function () {
-        var facultyId = $('#modalRequest').find(".availableFacultiesRequest option:selected").attr("class");
-        getAvailableSpeciality(facultyId);
-    });
 
 //--------------------------------------------------------lOAD TO SELECT and EDIT FUNCTION-----------------------------------------------------------------------------------------------------------------------
     //select getFull Speciality
-    function getAvailableSpeciality(idFaculty) {
+    function getAvailableSpeciality() {
         $.ajax({
             async: false,
             url: 'specialtyList',
@@ -406,15 +346,14 @@ $(document).ready(function () {
             dataType: 'json',
             contentType: "application/json",
             mimeType: 'application/json',
-            data: {facultyId :  idFaculty},
+            data: '',
             success: function (specialityList) {
                 console.log(typeof specialityList);
                 $(".availableSpecialities").html("");
-
                 specialityList ? function () {
                     specialityList.some(function (specialityList) {
                         $(".availableSpecialities").append("<option class=\"" + specialityList.idSpeciality + "\">" + specialityList.namespeciality + "</option>")
-                        });
+                    });
                 }() : false;
             }
         });
@@ -431,14 +370,9 @@ $(document).ready(function () {
             data: '',
             success: function (facultyList) {
                 $(".availableFaculties").html("");
-                $(".availableFacultiesStudent").html("");
-                $(".availableFacultiesRequest").html("");
                 facultyList ? function () {
                     facultyList.some(function (facultyList) {
-                        $(".availableFaculties").append("<option class=\"" + facultyList.idFaculty + "\">" + facultyList.namefaculty + "</option>");
-                        $(".availableFacultiesStudent").append("<option class=\"" + facultyList.idFaculty + "\">" + facultyList.namefaculty + "</option>");
-                        $(".availableFacultiesRequest").append("<option class=\"" + facultyList.idFaculty + "\">" + facultyList.namefaculty + "</option>");
-
+                        $(".availableFaculties").append("<option class=\"" + facultyList.idFaculty + "\">" + facultyList.namefaculty + "</option>")
                     });
                 }() : false;
             }
@@ -530,7 +464,7 @@ $(document).ready(function () {
 
     //Load to select Student for EditStudent
     function LoadStudentEntityForEditStudent() {
-        var  studentIdForEdit = $studentsTableForMAV.bootstrapTable('getSelections')[0].idStudent;
+        var  studentIdForEdit = $studentsTable.bootstrapTable('getSelections')[0].idStudent;
 
         $.ajax({
             async: false,
@@ -541,26 +475,29 @@ $(document).ready(function () {
             mimeType: 'application/json',
             data: {data1 :  studentIdForEdit},
             success: function (objOneStudentForEdit) {
-                //$(".availableAccountStudent").find("option:contains('Ugor Zaranko Igorevich')").attr("selected", "selected");
-                var specialityNameForAddToSelect = objOneStudentForEdit.specialityName;
-                var accountStudentForAddToSelect = objOneStudentForEdit.firstname + " " + objOneStudentForEdit.lastname + " " + objOneStudentForEdit.patronymic;
-                var facultyNameForAddToSelect = objOneStudentForEdit.facultyName;
-                $(".availableAccountStudent").append("<option class=\"" + objOneStudentForEdit.accountId + "\">" + objOneStudentForEdit.firstname +
-                    " " + objOneStudentForEdit.lastname + " " + objOneStudentForEdit.patronymic + "</option>");
-                getAvailableSpeciality(objOneStudentForEdit.facultyId);
+                console.log(typeof objOneStudentForEdit);
+                var str = objOneStudentForEdit.firstname + " " + objOneStudentForEdit.lastname + " " + objOneStudentForEdit.patronymic;
+                console.log(str);
+                console.log(str === "Yura Druschits Aleksandrovich");
+                console.log(typeof str);
 
-
-                $('.availableAccountStudent option').filter(function() {return this.text === accountStudentForAddToSelect;}).prop("selected", true);
+              // $(".availableAccountStudent [value='objOneStudentForEdit.firstname objOneStudentForEdit.lastname objOneStudentForEdit.patronymic']");
+                //$(".availableAccountStudent").find("option:contains('Yura Druschits Aleksandrovich')").attr("selected", "selected");
                 $('.jsInputIdStudent').val(objOneStudentForEdit.idStudent);
                 $('.jsInputStatusStudent').val(objOneStudentForEdit.statuspractice);
+                //$(".availableAccountStudent").find("option:contains('Yura Druschits Aleksandrovich')").attr("selected", "selected");
+
+
+
                 $('.jsInputGroup').val(objOneStudentForEdit.groupStudent);
                 $('.jsInputAverageScore').val(objOneStudentForEdit.averagescore);
                 $('.jsInputBudget').val(objOneStudentForEdit.isbudget);
                 $('.jsInputAdress').val(objOneStudentForEdit.adress);
                 $('.jsInputPhone').val(objOneStudentForEdit.phone);
                 $('.jsInputComment').val(objOneStudentForEdit.comment);
-                $('.availableFacultiesStudent option').filter(function() {return this.text === facultyNameForAddToSelect;}).prop("selected", true);
-                $(".availableSpecialities option").filter(function() {return this.text === specialityNameForAddToSelect;}).prop("selected", true);
+
+                $('.availableSpecialities').find("option:contains('II')").attr("selected", "selected");
+
             }
         });
     }
@@ -577,11 +514,7 @@ $(document).ready(function () {
             mimeType: 'application/json',
             data: {data1 :  requestIdForEdit},
             success: function (objOneRequestForEdit) {
-                var accountHeadForAddToSelect = objOneRequestForEdit.firstnameHeadOfPractice + " " +
-                    objOneRequestForEdit.lastnameHeadOfPractice + " " + objOneRequestForEdit.patronymicHeadOfPractice,
-                    specialityNameForAddToSelect = objOneRequestForEdit.nameSpeciality,
-                    facultyNameForAddToSelect = objOneRequestForEdit.nameFaculty;
-                    getAvailableSpeciality(objOneRequestForEdit.facultyId);
+                console.log(typeof objOneRequestForEdit);
 
                 $('.jsInputIdRequest').val(objOneRequestForEdit.idRequest);
                 $('.jsInputStatusRequest').val(objOneRequestForEdit.statuspractice);
@@ -591,9 +524,8 @@ $(document).ready(function () {
                 $('.jsInputMinAverageScore').val(objOneRequestForEdit.minaverage);
                 $('.jsInputTotalQuantity').val(objOneRequestForEdit.totalquantity);
                 $('.jsInputStatusPractice').val(objOneRequestForEdit.statuspractice);
-                $('.availableFacultiesRequest option').filter(function() {return this.text === facultyNameForAddToSelect;}).prop("selected", true);
-                $('.availableSpecialities option').filter(function() {return this.text === specialityNameForAddToSelect;}).prop("selected", true);
-                $('.availableHeadsOfPractice option').filter(function() {return this.text === accountHeadForAddToSelect;}).prop("selected", true);
+
+
             }
         });
     }
@@ -658,22 +590,20 @@ $(document).ready(function () {
         SizeCheckboxOfTableStudent++;
         console.log(SizeCheckboxOfTableStudent);
         if (SizeCheckboxOfTableStudent > 1) {
-            $('.jsBtnGroupStudent > div > button.jsOpenModalStudentForEdit').prop('disabled', true);
-            $('.jsBtnGroupStudent > div > button.jsBtnReleaseStudent').prop('disabled', true);
-            $('.jsBtnGroupStudent > div > button.jsBtnDeleteStudent').prop('disabled', false);
-        } else $('.jsBtnGroupStudent > div > button').prop('disabled', false);
+            $('.jsOpenModalStudentForEdit').prop('disabled', true);
+            $('.jsBtnDeleteStudent').prop('disabled', false);
+            $('.jsBtnAboutStudent').prop('disabled', true);
+        } else $('button').prop('disabled', false);
     });
     $studentsTable.on('uncheck.bs.table', function (e) {
         SizeCheckboxOfTableStudent--;
         console.log(SizeCheckboxOfTableStudent);
         if (SizeCheckboxOfTableStudent > 1) {
-            $('.jsBtnGroupStudent > div > button.jsOpenModalStudentForEdit').prop('disabled', true);
-            $('.jsBtnGroupStudent > div > button.jsBtnReleaseStudent').prop('disabled', true);
-            $('.jsBtnGroupStudent > div > button.jsBtnDeleteStudent').prop('disabled', false);
+            $('.jsOpenModalStudentForEdit').prop('disabled', true);
+            $('.jsBtnDeleteStudent').prop('disabled', false);
+            $('.jsBtnAboutStudent').prop('disabled', true);
         } else if (SizeCheckboxOfTableStudent === 1) {
-            $('.jsBtnGroupStudent > div > button').prop('disabled', false);
-        } else $('.jsBtnGroupStudent > div > button').prop('disabled', true);
+            $('button').prop('disabled', false);
+        } else $('button').prop('disabled', true);
     });
-
-
 });

@@ -8,8 +8,6 @@ public interface StudentService {
     List<StudentEntity> findAllStudents();
     List<StudentEntity> findAllStudentsByAvailable();
     StudentEntity findOneStudent(Integer idStudent);
-    Integer getIdLastCreatedStudent();
-
     void addStudent(StudentEntity studentEntity);
     void deleteStudentList(List<StudentEntity> studentEntities);
     void deleteStudentById(Integer idStudent);

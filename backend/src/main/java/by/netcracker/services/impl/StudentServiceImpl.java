@@ -40,11 +40,6 @@ public class StudentServiceImpl implements StudentService {
         return this.studentRepository.findOne(idStudent);
     }
 
-    @Override
-    public Integer getIdLastCreatedStudent() {
-        return this.studentRepository.getIdLastCreatedStudent();
-    }
-
 
     @Override
     public void addStudent(StudentEntity studentEntity) {
@@ -68,13 +63,13 @@ public class StudentServiceImpl implements StudentService {
         String properties = null;
         switch (sort) {
             case "firstname":
-                properties = "accountEntityByStudent.firstname";
+                properties = "accountId.firstname";
                 break;
             case "lastname":
-                properties = "accountEntityByStudent.lastname";
+                properties = "accountId.lastname";
                 break;
             case "patronymic":
-                properties = "accountEntityByStudent.patronymic";
+                properties = "accountId.patronymic";
                 break;
             case "namespeciality":
                 properties = "specialityEntityByStudent.namespeciality";

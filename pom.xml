@@ -95,16 +95,7 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>4.3.11.Final</version>
         </dependency>
-
-        <!--md5(шифровка-->
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.9</version>
-        </dependency>
     </dependencies>
-
-
 
     <build>
         <pluginManagement>

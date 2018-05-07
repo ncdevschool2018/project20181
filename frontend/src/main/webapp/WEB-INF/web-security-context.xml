@@ -10,24 +10,19 @@
                     login-page="/authorization"
                     authentication-failure-url="/authorization?error"
                     username-parameter="username"
-                    password-parameter="password" />
-    <!-<http auto-config="true" use-expressions="false">
-        <form-login login-processing-url="/static/j_spring_security_check"
-        login-page="/authorization" authentication-failure-url="/authorization?authorization_error=t"/>
-    </http>-->
+                    password-parameter="password" />-->
+    <http  use-expressions="true">
+        <form-login login-page="/authorization"/>
+        <logout logout-url="/logout" logout-success-url="/authorization" />
+        <csrf disabled="true" />
+    </http>
 
-     <http  use-expressions="true">
-         <form-login login-page="/authorization"/>
-         <logout logout-url="/logout" logout-success-url="/authorization" />
-         <csrf disabled="true" />
-     </http>
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="customUserDetailsService">
+            <password-encoder hash="md5" />
+        </authentication-provider>
+    </authentication-manager>
 
-     <authentication-manager alias="authenticationManager">
-         <authentication-provider user-service-ref="customUserDetailsService">
-             <password-encoder hash="md5" />
-         </authentication-provider>
-     </authentication-manager>
+    <beans:bean id="customUserDetailsService" class="by.netcracker.security.impl.CustomUserDetailsService"/>
 
-     <beans:bean id="customUserDetailsService" class="by.netcracker.security.impl.CustomUserDetailsService"/>
-
- </beans:beans>
+</beans:beans>

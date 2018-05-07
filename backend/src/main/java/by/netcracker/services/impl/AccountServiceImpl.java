@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -15,8 +14,8 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
 
     private AccountRepository accountRepository;
-    private static final String USER_ROLE_STUDENT = "ROLE-STUDENT";
-    private static final String USER_ROLE_HEAD = "ROLE-HEAD";
+    private static final String USER_ROLE_STUDENT = "student";
+    private static final String USER_ROLE_HEAD = "head";
 
     @Autowired
     public void setAccountRepository(AccountRepository accountRepository) {
@@ -46,6 +45,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public List<AccountEntity> findAllStudents() {
+        return this.accountRepository.findByRole(USER_ROLE_STUDENT);
+    }
+
+    @Override
     public List<AccountEntity> findUserByUserName(String username) {
         return this.accountRepository.findByLogin(username);
     }
@@ -57,12 +61,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<AccountEntity> getAllStudents() {
-        List<AccountEntity> accountEntities = this.accountRepository.findByRole(USER_ROLE_STUDENT);
-        List<AccountEntity> accountEntitiesWhereSizeStudent = new ArrayList<>();
-        for(AccountEntity account : accountEntities)
-            if (account.getStudentsById().size() == 0)
-                accountEntitiesWhereSizeStudent.add(account);
-        return accountEntitiesWhereSizeStudent;
+        return this.accountRepository.findByRole(USER_ROLE_STUDENT);
     }
 
     @Override

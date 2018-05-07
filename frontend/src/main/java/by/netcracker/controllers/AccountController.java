@@ -3,7 +3,6 @@ package by.netcracker.controllers;
 import by.netcracker.entities.AccountEntity;
 import by.netcracker.models.AccountViewModel;
 import by.netcracker.services.AccountService;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
@@ -66,10 +65,8 @@ public class AccountController {
 
     @RequestMapping(value = "/createHeadOfPractice", method = RequestMethod.POST)
     @ResponseBody
-    public boolean createHeadOfPractice(@RequestBody AccountEntity accountEntity){
-        String md5Hex = DigestUtils.md5Hex(accountEntity.getPassword());
-        accountEntity.setPassword(md5Hex);
+    public AccountEntity createHeadOfPractice(@RequestBody AccountEntity accountEntity){
         accountService.addHeadOfPractice(accountEntity);
-        return true;
+        return accountEntity;
     }
 }

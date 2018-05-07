@@ -7,9 +7,11 @@ import by.netcracker.services.SpecialityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -35,10 +37,9 @@ public class SpecialityController {
 
 
     @RequestMapping(value = "/specialtyList", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public List<SpecialityViewModel> getAllSpecialitiesForTypeahead(@RequestParam("facultyId") String idFaculty) {
-        List<SpecialityEntity> facultyEntities = this.specialityService.getAllSpecialitiesByIdFaculty(Integer.valueOf(idFaculty));
+    public List<SpecialityViewModel> getAllSpecialitiesForTypeahead() {
+        List<SpecialityEntity> facultyEntities = this.specialityService.getAllSpecialities();
         return (List<SpecialityViewModel>) this.conversionService.convert(facultyEntities,specialityEntityTypeDescriptor,specialityViewModelTypeDescriptor);
     }
 
@@ -46,8 +47,8 @@ public class SpecialityController {
 
     @RequestMapping(value = "/createSpecialty", method = RequestMethod.POST)
     @ResponseBody
-    public boolean createSpecialty(@RequestBody SpecialityEntity specialtyEntity){
+    public SpecialityEntity createSpecialty(@RequestBody SpecialityEntity specialtyEntity){
         specialityService.addSpeciality(specialtyEntity);
-        return true;
+        return specialtyEntity;
     }
 }
