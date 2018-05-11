@@ -47,6 +47,12 @@ public class SpecialityController {
     @RequestMapping(value = "/createSpecialty", method = RequestMethod.POST)
     @ResponseBody
     public boolean createSpecialty(@RequestBody SpecialityEntity specialtyEntity){
+        List<SpecialityEntity> specialityEntities = this.specialityService.getAllSpecialities();
+        for (SpecialityEntity speciality : specialityEntities){
+            if(speciality.getNamespeciality().toUpperCase().equals(specialtyEntity.getNamespeciality().toUpperCase())){
+                return false;
+            }
+        }
         specialityService.addSpeciality(specialtyEntity);
         return true;
     }

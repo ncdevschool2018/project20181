@@ -8,12 +8,14 @@ import by.netcracker.enumiration.ViewName;
 import by.netcracker.models.StudentViewModel;
 
 
+import by.netcracker.security.impl.CustomUser;
 import by.netcracker.services.RequestService;
 import by.netcracker.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -43,25 +45,26 @@ public class StudentController {
     private final TypeDescriptor studentEntityTypeDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(StudentEntity.class));
     private final TypeDescriptor studentViewModelTypeDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(StudentViewModel.class));
 
-    @RequestMapping(value = "/students-view-head", method = RequestMethod.GET)
+    @RequestMapping(value = "/studentsViewHead", method = RequestMethod.GET)
     public ModelAndView getStudentInformationHead(){
         ModelAndView studentListMAV = new ModelAndView();
-
+        CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         studentListMAV.setViewName(ViewName.VIEW_NAME_HEAD);
         studentListMAV.addObject("studentListForMAV", this.studentService.findAllStudents());
         return studentListMAV;
     }
 
-    @RequestMapping(value = "/students-view-student", method = RequestMethod.GET)
-    public ModelAndView getStudentInformationStudent(){
+    @RequestMapping(value = "/studentsViewStudent", method = RequestMethod.GET)
+    public ModelAndView getAboutOneStudentInformationStudent(){
         ModelAndView studentListMAV = new ModelAndView();
-
+        CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         studentListMAV.setViewName(ViewName.VIEW_NAME_USER);
-        studentListMAV.addObject("studentListForMAV", this.studentService.findAllStudents());
+        studentListMAV.addObject("objAboutStudent",this.studentService.findOneStudentByAccountId(Integer.valueOf(customUser.getIdAccount())));
+
         return studentListMAV;
     }
 
-    @RequestMapping(value = "/students-view/{id}")
+    @RequestMapping(value = "/studentView/{id}")
     public ModelAndView getStudentInformationByOne(@PathVariable("id") int id){
         ModelAndView studentOneMAV = new ModelAndView();
         studentOneMAV.setViewName(ViewName.VIEW_NAME_USER);
@@ -69,7 +72,7 @@ public class StudentController {
         return studentOneMAV;
     }
 
-    @RequestMapping(value = "/students-view-admin", method = RequestMethod.GET)
+    @RequestMapping(value = "/studentsViewAdmin", method = RequestMethod.GET)
     public ModelAndView getStudentInformationAdmin() {
         ModelAndView studentListMAV = new ModelAndView();
 
@@ -92,7 +95,7 @@ public class StudentController {
     @RequestMapping(value = "/studentListForSelect", method = RequestMethod.GET)
     @ResponseBody
     public List<StudentViewModel> getAllStudentsForSelect(){
-        List<StudentEntity> allStudents = studentService.findAllStudentsByAvailable();
+        List<StudentEntity> allStudents = studentService.findAllStudents();
         return (List<StudentViewModel>) this.conversionService.convert(allStudents, studentEntityTypeDescriptor,studentViewModelTypeDescriptor);
     }
 
@@ -107,11 +110,13 @@ public class StudentController {
     @ResponseBody
     public StudentViewModel addStudent(@RequestBody StudentEntity studentEntity) {
         this.studentService.addStudent(studentEntity);
-        if(studentEntity.getIdStudent() != 0) {
+        if(studentEntity.getIdStudent() == 0) { //save
             Integer idStud = this.studentService.getIdLastCreatedStudent();
             return this.conversionService.convert(this.studentService.findOneStudent(idStud), StudentViewModel.class);
         }
-        else return this.conversionService.convert(studentEntity,StudentViewModel.class);
+        else { //edit
+            return this.conversionService.convert(this.studentService.findOneStudent(studentEntity.getIdStudent()),StudentViewModel.class);
+        }
     }
 
     @RequestMapping(value = "/loadStudentForEdit", method = RequestMethod.GET)
@@ -127,20 +132,19 @@ public class StudentController {
     public List<StudentViewModel> deleteStudentList(@RequestBody List<StudentEntity> studentEntities){
 
         int[] masForDeleteStudent = new int[studentEntities.size()];
-        int i = 0;
+
         for(StudentEntity stud : studentEntities){
-            masForDeleteStudent[i] = stud.getIdStudent();
-            i++;
+            masForDeleteStudent[studentEntities.indexOf(stud)] = stud.getIdStudent();
         }
 
-        for(i = 0; i < masForDeleteStudent.length; i++){
+        for(int i = 0; i < masForDeleteStudent.length; i++){
             StudentEntity studentEntity = this.studentService.findOneStudent(masForDeleteStudent[i]);
 
             for(RequestEntity request : studentEntity.getRequest_companies()){
                 request.setStatuspractice(RequestStatus.AVAILABLE_REQUEST);
                 this.requestService.addRequest(request);
             }
-            studentEntity.getRequest_companies().clear(); //освободение от практики
+            studentEntity.getRequest_companies().clear(); //освобождение от практики
             this.studentService.addStudent(studentEntity);
             this.studentService.deleteStudentById(masForDeleteStudent[i]);
         }
@@ -171,19 +175,7 @@ public class StudentController {
     @RequestMapping(value = "/aboutStudent", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public ModelAndView aboutStudent(@RequestParam("studentId") String idStudent){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("objAboutStudent", this.studentService.findOneStudent(Integer.valueOf(idStudent)));
-        modelAndView.setViewName(ViewName.VIEW_NAME_USER);
-        return modelAndView;
+    public String aboutStudent(@RequestParam("studentId") String idStudent){
+        return idStudent;
     }
-
-    /*@RequestMapping(value = "/students-view-student", method = RequestMethod.GET)
-    public ModelAndView getStudentInformationStudent(){
-        ModelAndView studentListMAV = new ModelAndView();
-
-        studentListMAV.setViewName(ViewName.VIEW_NAME_USER);
-        studentListMAV.addObject("studentListForMAV", this.studentService.findAllStudents());
-        return studentListMAV;
-    }*/
 }

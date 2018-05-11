@@ -66,13 +66,13 @@ public class LoginUserServiceImpl implements LoginUserService {
         if (!CollectionUtils.isEmpty(authorities)) {
             String authority = authorities.get(0).getAuthority();
             if (authority.equalsIgnoreCase(AccountRole.ROLE_STUDENT)) {
-                return "redirect:/students-view-student";
+                return "redirect:/studentsViewStudent";
             }
             if(authority.equalsIgnoreCase(AccountRole.ROLE_HEAD)){
-                return "redirect:/students-view-head";
+                return "redirect:/studentsViewHead";
             }
             if (authority.equalsIgnoreCase(AccountRole.ROLE_ADMIN)) {
-                return "redirect:/students-view-admin";
+                return "redirect:/studentsViewAdmin";
             }
         }
         return "redirect:/authorization";

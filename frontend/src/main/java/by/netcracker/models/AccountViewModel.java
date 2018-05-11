@@ -17,8 +17,8 @@ public class AccountViewModel extends CustomUser {
 
     public AccountViewModel(){}
 
-    public AccountViewModel(String username, String password, List<GrantedAuthority> authorities) {
-        super(username, password, authorities);
+    public AccountViewModel(String idAccount,String username, String password, List<GrantedAuthority> authorities) {
+        super(idAccount,username, password, authorities);
     }
 
     public String getIdAccount() {

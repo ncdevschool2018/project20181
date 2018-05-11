@@ -45,8 +45,14 @@ public class FacultyController {
     @RequestMapping(value = "/faculty", method = RequestMethod.POST)
     @ResponseBody
     public boolean AddFaculty(@RequestBody FacultyViewModel facultyViewModel) {
-        FacultyEntity faculty = this.conversionService.convert(facultyViewModel, FacultyEntity.class);
-        this.facultyService.addFaculty(faculty);
+        FacultyEntity facultyEntity = this.conversionService.convert(facultyViewModel, FacultyEntity.class);
+        List<FacultyEntity> facultyEntities = this.facultyService.getAllFaculties();
+        for (FacultyEntity faculty : facultyEntities){
+            if (faculty.getNamefaculty().toUpperCase().equals(facultyEntity.getNamefaculty().toUpperCase())){
+                return false;
+            }
+        }
+        this.facultyService.addFaculty(facultyEntity);
         return true;
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Set;
@@ -41,25 +42,46 @@ public class RequestController {
 
 
 
+    @RequestMapping(value = "/studentsViewAdminRequest", method = RequestMethod.GET)
+    public ModelAndView getStudentInformationAdmin() {
+        ModelAndView requestListMAV = new ModelAndView();
+        requestListMAV.addObject("account", new RequestEntity());
+        requestListMAV.setViewName("adminRequest");
+        return requestListMAV;
+    }
+
+
+
     @RequestMapping(value = "/assignStudentOnPractice", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public void assignOneStudentOnPractice(@RequestParam("student") String idStudent, @RequestParam("practice") String idRequest){
+    public boolean assignOneStudentOnPractice(@RequestParam("student") String idStudent, @RequestParam("practice") String idRequest){
         RequestEntity requestEntity = this.requestService.findOneRequest(Integer.valueOf(idRequest));
         StudentEntity studentEntity = this.studentService.findOneStudent(Integer.valueOf(idStudent));
-
-        if(requestEntity.getTotalquantity() - requestEntity.getStudents().size() > 0) {
-            if(requestEntity.getTotalquantity() - requestEntity.getStudents().size() == 1)
-                requestEntity.setStatuspractice(RequestStatus.NOT_AVAILABLE_REQUEST); //если остался один запрос, на который распределиться чел
-            else  requestEntity.setStatuspractice(RequestStatus.AVAILABLE_REQUEST);
-
-            this.requestService.addRequest(requestEntity);
-
-            studentEntity.getRequest_companies().add(requestEntity);
-            /*HHH*/
-            studentEntity.setStatuspractice(StudentStatus.ON_PRACTICE_STUDENT);
-            studentService.addStudent(studentEntity);
+    for(RequestEntity request : studentEntity.getRequest_companies()){
+        if(request.equals(requestEntity)){
+            return false;
         }
+    }
+        if(studentEntity.getSpecialityId().equals(requestEntity.getSpecialityId()) && studentEntity.getAveragescore() >= requestEntity.getMinaverage()){
+            if(requestEntity.getTotalquantity() - requestEntity.getStudents().size() > 0) { //если total пока != available
+                if(requestEntity.getTotalquantity() - requestEntity.getStudents().size() == 1)
+                    requestEntity.setStatuspractice(RequestStatus.NOT_AVAILABLE_REQUEST); //если остался один запрос, на который распределиться чел
+                else {
+                    requestEntity.setStatuspractice(RequestStatus.AVAILABLE_REQUEST);
+                }
+
+                this.requestService.addRequest(requestEntity);
+                studentEntity.getRequest_companies().add(requestEntity);
+
+                studentEntity.setStatuspractice(StudentStatus.compareDate(requestEntity.getDatefrom(),requestEntity.getDateto()));
+                //studentEntity.setStatuspractice(StudentStatus.ON_PRACTICE_STUDENT);
+                this.studentService.addStudent(studentEntity);
+                return true;
+            }
+            return false;
+        }
+        else { return false; }
     }
 
     @RequestMapping(value = "/reassignStudentOnPractice", method = RequestMethod.POST)
@@ -86,7 +108,7 @@ public class RequestController {
             this.requestService.addRequest(requestEntity);
 
             studentEntity.getRequest_companies().add(requestEntity);
-            /*HHH*/
+            //hhh
             studentEntity.setStatuspractice(StudentStatus.ON_PRACTICE_STUDENT);
             studentService.addStudent(studentEntity);
         }
@@ -128,6 +150,7 @@ public class RequestController {
     public boolean deleteRequestList(@RequestBody List<RequestViewModel> requestViewModels){
         int[] masForDeleteRequest = new int[requestViewModels.size()];
         int i = 0;
+        boolean isConfirmDelete = false;
 
         for (RequestViewModel request : requestViewModels){
             masForDeleteRequest[i] = Integer.parseInt(request.getIdRequest());
@@ -140,13 +163,15 @@ public class RequestController {
 
             for (StudentEntity studentEntity : setStudentEntities){
                 studentEntity.getRequest_companies().remove(requestEntity);
-                studentEntity.setStatuspractice(StudentStatus.AVAILABLE_STUDENT);
+                if(studentEntity.getRequest_companies().size() == 0) { //если студент на двух практиках, и одна из практик удаляется
+                    studentEntity.setStatuspractice(StudentStatus.AVAILABLE_STUDENT);
+                }
                 this.studentService.addStudent(studentEntity);
             }
             this.requestService.deleteRequestById(masForDeleteRequest[i]);
-            return true;
+            isConfirmDelete = true;
         }
-        return false;
+        return isConfirmDelete;
         //this.requestService.deleteRequestList((List<RequestEntity>) this.conversionService.convert(requestViewModels,requestViewModelTypeDescriptor,requestEntityTypeDescriptor));
     }
 }

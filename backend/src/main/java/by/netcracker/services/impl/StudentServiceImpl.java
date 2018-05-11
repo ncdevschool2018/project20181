@@ -41,6 +41,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public StudentEntity findOneStudentByAccountId(Integer idAccount) {
+        return this.studentRepository.findByAccountId(idAccount);
+    }
+
+    @Override
     public Integer getIdLastCreatedStudent() {
         return this.studentRepository.getIdLastCreatedStudent();
     }

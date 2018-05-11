@@ -40,7 +40,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     private CustomUser buildUserForAuthentication(AccountEntity accountEntity, List<GrantedAuthority> authorities) {
-        AccountViewModel accountViewModel = new AccountViewModel(accountEntity.getLogin(), accountEntity.getPassword(), authorities);
+        AccountViewModel accountViewModel = new AccountViewModel(String.valueOf(accountEntity.getId()),accountEntity.getLogin(), accountEntity.getPassword(), authorities);
         accountViewModel.setFirstname(accountEntity.getFirstname());
         accountViewModel.setLastname(accountEntity.getLastname());
         accountViewModel.setPatronymic(accountEntity.getPatronymic());

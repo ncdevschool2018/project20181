@@ -1,6 +1,8 @@
 package by.netcracker.controllers;
 
 import by.netcracker.entities.AccountEntity;
+import by.netcracker.enumiration.AccountRole;
+import by.netcracker.enumiration.ViewName;
 import by.netcracker.models.AccountViewModel;
 import by.netcracker.services.AccountService;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -31,7 +33,14 @@ public class AccountController {
 
     @RequestMapping(value = "/authorization", method = RequestMethod.GET)
     public ModelAndView authorization(ModelAndView modelAndView){
-        modelAndView.setViewName("authorization");
+        modelAndView.setViewName(ViewName.VIEW_NAME_AUTHORIZATION);
+        modelAndView.addObject("account", new AccountEntity());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public ModelAndView registration(ModelAndView modelAndView){
+        modelAndView.setViewName(ViewName.VIEW_NAME_REGISTRATION);
         modelAndView.addObject("account", new AccountEntity());
         return modelAndView;
     }
@@ -69,7 +78,9 @@ public class AccountController {
     public boolean createHeadOfPractice(@RequestBody AccountEntity accountEntity){
         String md5Hex = DigestUtils.md5Hex(accountEntity.getPassword());
         accountEntity.setPassword(md5Hex);
-        accountService.addHeadOfPractice(accountEntity);
+        accountEntity.setRole(AccountRole.ROLE_HEAD);
+        accountService.addAccount(accountEntity);
         return true;
     }
+
 }

@@ -15,6 +15,7 @@
         <form-login login-page="/authorization"/>
         <logout logout-url="/logout" logout-success-url="/authorization" />
         <csrf disabled="true" />
+
     </http>
 
     <authentication-manager alias="authenticationManager">

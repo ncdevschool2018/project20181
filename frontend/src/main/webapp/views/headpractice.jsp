@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <%@include file="parts/meta.jsp"%>
@@ -10,8 +9,7 @@
 <body>
 <jsp:include page="parts/header.jsp"/>
 <jsp:include page="parts/navigation.jsp"/>
-<sec:authentication var="user" property="principal"/>
-You are logged as ${user.username}
+
 
     <table data-click-to-select="true"
            data-pagination="true"

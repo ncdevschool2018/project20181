@@ -15,7 +15,7 @@ public class AccountEntityToAccountViewModelConverter implements Converter<Accou
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(accountEntity.getRole()));
 
-        AccountViewModel accountViewModel = new AccountViewModel(accountEntity.getLogin(),accountEntity.getPassword(),authorities);
+        AccountViewModel accountViewModel = new AccountViewModel(String.valueOf(accountEntity.getId()),accountEntity.getLogin(),accountEntity.getPassword(),authorities);
 
         accountViewModel.setIdAccount(String.valueOf(accountEntity.getId()));
         accountViewModel.setFirstname(accountEntity.getFirstname());

@@ -11,6 +11,7 @@ public class CustomUser implements UserDetails, CredentialsContainer {
 
     private static final long serialVersionUID = 410L;
 
+    private String idAccount;
     private String password;
     private String username;
     private List<GrantedAuthority> authorities;
@@ -24,12 +25,13 @@ public class CustomUser implements UserDetails, CredentialsContainer {
 
     }
 
-    public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        this(username, password, true, true, true, true, authorities);
+    public CustomUser(String idAccount, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        this(idAccount,username, password, true, true, true, true, authorities);
     }
 
-    public CustomUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+    public CustomUser(String idAccount, String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
         if (username != null && !"".equals(username) && password != null) {
+            this.idAccount = idAccount;
             this.username = username;
             this.password = password;
             this.enabled = enabled;
@@ -40,6 +42,14 @@ public class CustomUser implements UserDetails, CredentialsContainer {
         } else {
             throw new IllegalArgumentException("Cannot pass null or empty values to constructor");
         }
+    }
+
+    public String getIdAccount() {
+        return idAccount;
+    }
+
+    public void setIdAccount(String idAccount) {
+        this.idAccount = idAccount;
     }
 
     @Override

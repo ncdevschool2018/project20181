@@ -26,7 +26,7 @@ public class StudentEntityToStudentViewModel implements Converter<StudentEntity,
             studentViewModel.setFirstname(accountEntity.getFirstname());
             studentViewModel.setLastname(accountEntity.getLastname());
             studentViewModel.setPatronymic(accountEntity.getPatronymic());
-
+        }
             SpecialityEntity specialityEntity = studentEntity.getSpecialityEntityByStudent();
             if(specialityEntity != null){
                 studentViewModel.setSpecialityId(String.valueOf(specialityEntity.getId()));
@@ -38,7 +38,7 @@ public class StudentEntityToStudentViewModel implements Converter<StudentEntity,
                     studentViewModel.setFacultyName(facultyEntity.getNamefaculty());
                 }
             }
-        }
+
 
         return studentViewModel;
     }

@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="<c:url value="/index.jsp"/>">
@@ -10,16 +12,22 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-            </ul>
+                <ul class="navbar-nav mr-auto">
+                    <sec:authorize access="isAuthenticated() and principal.username=='admin'">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="<c:url value="/studentsViewAdmin"/>">Students <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<c:url value="/studentsViewAdminRequest"/>">Requests</a>
+                    </li>
+                    </sec:authorize>
+                </ul>
+
             <form class="form-inline my-2 my-lg-0">
-                <span style="font-size: 30px; font-family: 'Lobster'; margin-right: 150px ">Welcome to Practice </span>
+                <sec:authorize access="isAuthenticated()">
+                    <sec:authentication var="user" property="principal"/>
+                    <span style="font-size: 30px; font-family: 'Lobster'; margin-right: 150px ">Welcome to Practice, ${user.username} </span>
+                </sec:authorize>
                 <a href="<c:url value="/authorization"/>">
                     <span style="color: #443c7b">
                         <i class="fa fa-sign-out" aria-hidden="true" style="font-size:200%"></i>

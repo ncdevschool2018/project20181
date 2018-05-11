@@ -1,17 +1,52 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <%@include file="parts/meta.jsp"%>
     <title>User-view Page</title>
     <link rel="stylesheet" href="../resources/css/user-view-page.css">
+    <style type="text/css">
+        .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border-color: #ccc;
+        }
+
+        .tg td {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: #ccc;
+            color: #333;
+            background-color: #fff;
+        }
+
+        .tg th {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: normal;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: #ccc;
+            color: #333;
+            background-color: #f0f0f0;
+        }
+
+        .tg .tg-4eph {
+            background-color: #f9f9f9
+        }
+    </style>
 </head>
 <body>
 <jsp:include page="/views/parts/header.jsp"/>
 <jsp:include page="/views/parts/navigation.jsp"/>
-<sec:authentication var="user" property="principal"/>
-You are logged as ${user.username}
 <div class="container">
     <div class="row">
         <div class="col-md-4">
@@ -50,29 +85,52 @@ You are logged as ${user.username}
         </div>
         <div class="col-md-8">
             <div class="form-horizontal">
-                <h4>История профиля</h4>
+                <h4>History of Profile</h4>
                 <table class="table table-th-block">
                     <tbody>
-                    <tr><td class="active">Зарегистрирован:</td><td>12-06-2016</td></tr>
-                    <tr><td class="active">Факультет:</td><td>${objAboutStudent.specialityEntityByStudent.facultyByFaculty.namefaculty}</td></tr>
-                    <tr><td class="active">Группа:</td><td>${objAboutStudent.groupStudent}</td></tr>
-                    <tr><td class="active">Дата практики:</td><td></td></tr>
-                    <tr><td class="active">Специальность:</td><td>${objAboutStudent.specialityEntityByStudent.namespeciality}</td></tr>
-                    <tr><td class="active">Бюджет:</td><td>${objAboutStudent.isbudget}</td></tr>
-                    <tr><td class="active">Средний бал:</td><td>${objAboutStudent.averagescore}</td></tr>
-                    <tr><td class="active">Название компании:</td><td> 7</td></tr>
-                    <tr><td class="active">Статус практики:</td><td>${objAboutStudent.statuspractice}</td></tr>
+                    <tr><td class="active">Faculty:</td><td>${objAboutStudent.specialityEntityByStudent.facultyByFaculty.namefaculty}</td></tr>
+                    <tr><td class="active">Group:</td><td>${objAboutStudent.groupStudent}</td></tr>
+                    <tr><td class="active">Speciality:</td><td>${objAboutStudent.specialityEntityByStudent.namespeciality}</td></tr>
+                    <tr><td class="active">Budget:</td><td>${objAboutStudent.isbudget}</td></tr>
+                    <tr><td class="active">Average score:</td><td>${objAboutStudent.averagescore}</td></tr>
+                    <tr><td class="active">Status of Student:</td><td>${objAboutStudent.statuspractice}</td></tr>
+                    <tr><td class="active"><h5>Comment : </h5></td><td>${objAboutStudent.comment}</td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <div class="row">
-            <div class="col-md-12">
-                <h5>Комментарий : </h5>
-                ${objAboutStudent.comment}
-            </div>
-    </div>
+</div>
+<hr>
+<div class="container">
+    <c:if test="${!empty objAboutStudent.request_companies}">
+        <table class="tg">
+            <tr>
+                <th width="100">ID</th>
+                <th width="140">Name of Company</th>
+                <th width="120">Date From</th>
+                <th width="120">Date to</th>
+                <th width="140">Name of Head</th>
+                <th width="140">Surname of Head</th>
+                <th width="140">Patronymic of Head</th>
+                <th width="140">Available Speciality</th>
+                <th width="100">Available Faculty</th>
+            </tr>
+            <c:forEach items="${objAboutStudent.request_companies}" var="requests_of_student">
+                <tr>
+                    <td>${requests_of_student.idRequest}</td>
+                    <td>${requests_of_student.namecompany}</td>
+                    <td>${requests_of_student.datefrom}</td>
+                    <td>${requests_of_student.dateto}</td>
+                    <td>${requests_of_student.accountEntity.firstname}</td>
+                    <td>${requests_of_student.accountEntity.lastname}</td>
+                    <td>${requests_of_student.accountEntity.patronymic}</td>
+                    <td>${requests_of_student.specialityEntity.facultyByFaculty.namefaculty}</td>
+                    <td>${requests_of_student.specialityEntity.namespeciality}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
 </div>
 <jsp:include page="parts/footer.jsp"/>
 </body>

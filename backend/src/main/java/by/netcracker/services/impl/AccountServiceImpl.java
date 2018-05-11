@@ -23,26 +23,10 @@ public class AccountServiceImpl implements AccountService {
         this.accountRepository = accountRepository;
     }
 
-    @Override
-    public AccountEntity authorizationAccount(AccountEntity accountEntity){
-        List<AccountEntity> listaccounts = (List<AccountEntity>) this.accountRepository.findAll();
-            for(AccountEntity ac: listaccounts) {
-                if (ac.getEmail().equals(accountEntity.getEmail())) {
-                    if (ac.getPassword().equals(accountEntity.getPassword())) {
-                        this.accountRepository.save(ac);
-                        return ac;
-                    }
-                }
-            }
-
-        accountEntity.setRole("error");
-        return accountEntity;
-    }
 
     @Override
-    public void addHeadOfPractice(AccountEntity accountEntityByHeadOfPractice) {
-        accountEntityByHeadOfPractice.setRole(USER_ROLE_HEAD);
-        this.accountRepository.save(accountEntityByHeadOfPractice);
+    public void addAccount(AccountEntity accountEntity) {
+        this.accountRepository.save(accountEntity);
     }
 
     @Override
@@ -73,6 +57,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountEntity getStudentById(int id) {
         return this.accountRepository.findOne(id);
+    }
+
+    @Override
+    public Integer getIdLastCreatedAccount() {
+        return this.accountRepository.getIdLastCreatedAccount();
     }
 
 }

@@ -31,12 +31,12 @@
 
                 <div class="form-group">
 
-                    <input name="j_username" class="form-control jsInputUsername" placeholder="Username" id="username">
+                    <input name="j_username" class="form-control jsInputUsername" placeholder="Username" id="username" type="text">
                     <i class="fa fa-envelope"></i>
                 </div>
                 <div class="form-group help">
 
-                    <input name="j_password" class="form-control jsInputPassword" placeholder="Password" id="password" type="">
+                    <input name="j_password" class="form-control jsInputPassword" placeholder="Password" id="password" type="password">
                     <i class="fa fa-lock"></i>
                     <a href="#" class="fa fa-question-circle"></a>
                 </div>
@@ -60,7 +60,7 @@
         <div class="col-md-3"></div>
         <div class="col-md-3">Don't have an account?</div>
         <div class="col-md-3">
-            <a href="<c:url value="/views/registration.jsp"/>">Signup</a>
+            <a href="<c:url value="/registration"/>">Signup</a>
         </div>
         <div class="col-md-3"></div>
     </div>
