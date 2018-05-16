@@ -1,8 +1,12 @@
 package by.netcracker.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 
 @Entity
@@ -21,6 +25,14 @@ public class AccountEntity {
     private Collection<RequestEntity> practicesById;
 
 
+    private String confirmPassword;
+    @Transient
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 
     @Id
     @Column(name = "idaccounts")
@@ -33,6 +45,8 @@ public class AccountEntity {
     }
 
     @Basic
+    @NotEmpty(message="Username cannot be empty")
+    @Size(min=1,max=8,message="Size should be between 1 to 8")
     @Column(name = "login")
     public String getLogin() {
         return login;
@@ -43,6 +57,7 @@ public class AccountEntity {
     }
 
     @Basic
+    @NotEmpty(message="Password cannot be empty")
     @Column(name = "password")
     public String getPassword() {
         return password;
@@ -53,6 +68,8 @@ public class AccountEntity {
     }
 
     @Basic
+    @NotEmpty(message="Email Address cannot be empty")
+    @Email(message="Please enter a valid email address")
     @Column(name = "email")
     public String getEmail() {
         return email;
@@ -74,6 +91,9 @@ public class AccountEntity {
 
 
     @Basic
+    @NotEmpty(message="FirstName cannot be empty")
+    @Size(min=1,max=8,message="Size should be between 1 to 8")
+    @Pattern(regexp="^[a-zA-Z]+$",message="The field should not contain numbers")
     @Column(name = "name")
     public String getFirstname() {
         return firstname;
@@ -84,6 +104,9 @@ public class AccountEntity {
     }
 
     @Basic
+    @NotEmpty(message="LastName cannot be empty")
+    @Size(min=1,max=8,message="Size should be between 1 to 8")
+    @Pattern(regexp="^[a-zA-Z]+$",message="The field should not contain numbers")
     @Column(name = "surname")
     public String getLastname() {
         return lastname;
@@ -94,6 +117,9 @@ public class AccountEntity {
     }
 
     @Basic
+    @NotEmpty(message="Patronymic cannot be empty")
+    @Size(min=1,max=8,message="Size should be between 1 to 8")
+    @Pattern(regexp="^[a-zA-Z ,.'-]+$",message="The field should not contain numbers")
     @Column(name = "patronymic")
     public String getPatronymic() {
         return patronymic;

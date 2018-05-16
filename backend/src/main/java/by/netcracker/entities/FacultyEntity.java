@@ -1,6 +1,9 @@
 package by.netcracker.entities;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 
 @Entity
@@ -21,6 +24,8 @@ public class FacultyEntity {
     }
 
     @Basic
+    @NotEmpty(message="Faculty cannot be empty")
+    @Size(min=1,max=3,message="Size should be between 1 to 8")
     @Column(name = "name_faculty", nullable = false)
     public String getNamefaculty() {
         return namefaculty;

@@ -1,8 +1,11 @@
 package by.netcracker.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -28,6 +31,8 @@ public class SpecialityEntity {
     }
 
     @Basic
+    @NotEmpty(message="Faculty cannot be empty")
+    @Size(min=1,max=3,message="Size should be between 1 to 8")
     @Column(name = "name_spec", nullable = false)
     public String getNamespeciality() {
         return namespeciality;

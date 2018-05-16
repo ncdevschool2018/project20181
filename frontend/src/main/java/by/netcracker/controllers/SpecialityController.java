@@ -9,8 +9,10 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -46,14 +48,21 @@ public class SpecialityController {
 
     @RequestMapping(value = "/createSpecialty", method = RequestMethod.POST)
     @ResponseBody
-    public boolean createSpecialty(@RequestBody SpecialityEntity specialtyEntity){
+    public boolean createSpecialty(@Valid @RequestBody SpecialityEntity specialtyEntity, BindingResult result){
         List<SpecialityEntity> specialityEntities = this.specialityService.getAllSpecialities();
-        for (SpecialityEntity speciality : specialityEntities){
-            if(speciality.getNamespeciality().toUpperCase().equals(specialtyEntity.getNamespeciality().toUpperCase())){
-                return false;
+
+        if(!result.hasErrors()){
+            for (SpecialityEntity speciality : specialityEntities){
+                if(speciality.getNamespeciality().toUpperCase().equals(specialtyEntity.getNamespeciality().toUpperCase())){
+                    return false;
+                }
             }
+
+            specialityService.addSpeciality(specialtyEntity);
+            return true;
         }
-        specialityService.addSpeciality(specialtyEntity);
-        return true;
+        else {
+            return false;
+        }
     }
 }
