@@ -48,4 +48,9 @@ public class RequestServiceImpl implements RequestService {
     public void deleteRequestById(Integer idRequest) {
         this.requestRepository.delete(idRequest);
     }
+
+    @Override
+    public List<RequestEntity> requestEntitiesAfterCurentDate() {
+        return this.requestRepository.requestEntitiesAfterCurentDate();
+    }
 }

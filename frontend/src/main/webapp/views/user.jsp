@@ -51,17 +51,6 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-horizontal">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-outline-default">
-                        <span style="font-size: 30px"><i class="fa fa-facebook"></i></span>
-                    </button>
-                    <button type="button" class="btn btn-outline-default">
-                        <span style="font-size: 30px"><i class="fa fa-twitter-square"></i></span>
-                    </button>
-                    <button type="button" class="btn btn-outline-default">
-                        <span style="font-size: 30px"><i class="fa fa-vk" aria-hidden="true"></i></span>
-                    </button>
-                </div>
                 <hr>
                 <div>
                     <img src="/resources/img/user.png" alt="" width="200" height="200" class="img-circle">

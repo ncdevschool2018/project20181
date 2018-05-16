@@ -30,15 +30,17 @@
                 <span class="heading">SIGN IN</span>
 
                 <div class="form-group">
-
-                    <input name="j_username" class="form-control jsInputUsername" placeholder="Username" id="username" type="text">
                     <i class="fa fa-envelope"></i>
+                    <input name="j_username" class="form-control jsInputUsername" placeholder="Username" id="username" type="text">
+                    <div class="alert alert-danger jsUsernameIncorrectNotification" role="alert" style="display: none"></div>
                 </div>
                 <div class="form-group help">
-
-                    <input name="j_password" class="form-control jsInputPassword" placeholder="Password" id="password" type="password">
                     <i class="fa fa-lock"></i>
-                    <a href="#" class="fa fa-question-circle"></a>
+                    <input name="j_password" class="form-control jsInputPassword" placeholder="Password" id="password" type="password">
+                    <div class="alert alert-danger jsPasswordIncorrectNotification" role="alert" style="display: none"></div>
+                </div>
+                <div class="alert alert-danger jsCredentialsIncorrectNotification" role="alert" style="display: none">
+                    Username or Password is incorrect!
                 </div>
                 <div class="form-group">
                     <div class="main-checkbox">
@@ -58,15 +60,16 @@
 <div class="container" align="center">
     <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-3">Don't have an account?</div>
+        <div class="col-md-3" style="color: #00b4ef">Don't have an account?</div>
         <div class="col-md-3">
-            <a href="<c:url value="/registration"/>">Signup</a>
+            <a class="btn btn-outline-info" href="<c:url value="/registration"/>">Signup</a>
         </div>
         <div class="col-md-3"></div>
     </div>
 </div>
 
-<script src="../resources/js/admin-page.js"></script>
+<script src="../resources/js/authorization.js"></script>
+<script src="../resources/js/validation-and-maskJQuery.js"></script>
 
 </body>
 </html>

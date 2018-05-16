@@ -81,11 +81,11 @@ public class StudentServiceImpl implements StudentService {
             case "patronymic":
                 properties = "accountEntityByStudent.patronymic";
                 break;
-            case "namespeciality":
-                properties = "specialityEntityByStudent.specialityName";
+            case "specialityName":
+                properties = "specialityEntityByStudent.namespeciality";
                 break;
-            case "namefaculty":
-                properties = "specialityEntityByStudent.facultyByFaculty.facultyName";
+            case "facultyName":
+                properties = "specialityEntityByStudent.facultyByFaculty.namefaculty";
                 break;
             case "groupStudent":
                 properties = "groupStudent";

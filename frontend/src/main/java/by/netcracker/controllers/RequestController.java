@@ -84,6 +84,15 @@ public class RequestController {
         else { return false; }
     }
 
+    @RequestMapping(value = "/loadStudentForReassign", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public List<RequestViewModel> getOneStudentForLoadReassignStudent(@RequestParam("dataStudentReassign") String idStudent){
+        StudentEntity studentEntity = this.studentService.findOneStudent(Integer.valueOf(idStudent));
+        List<RequestEntity> requestEntities = (List<RequestEntity>) studentEntity.getRequest_companies();
+        return (List<RequestViewModel>) this.conversionService.convert(requestEntities, requestEntityTypeDescriptor, requestViewModelTypeDescriptor);
+    }
+
     @RequestMapping(value = "/reassignStudentOnPractice", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
@@ -137,7 +146,7 @@ public class RequestController {
         return this.conversionService.convert(requestEntity, RequestViewModel.class);
     }
 
-    @RequestMapping(value = "/createRequest", method = RequestMethod.POST)
+    @RequestMapping(value = "/createOrEditRequest", method = RequestMethod.POST)
     @ResponseBody
     public RequestEntity AddRequest(@RequestBody RequestEntity requestEntity) {
         //RequestEntity requestEntity = this.conversionService.convert(requestViewModel, RequestEntity.class);
@@ -173,5 +182,19 @@ public class RequestController {
         }
         return isConfirmDelete;
         //this.requestService.deleteRequestList((List<RequestEntity>) this.conversionService.convert(requestViewModels,requestViewModelTypeDescriptor,requestEntityTypeDescriptor));
+    }
+
+
+
+    @RequestMapping(value = "/checkStatusStudent", method = RequestMethod.POST)
+    public void checkStatusStudent(){
+        List<RequestEntity> requestEntities = this.requestService.requestEntitiesAfterCurentDate();
+        for (RequestEntity request: requestEntities){
+            Set<StudentEntity> studentEntities = request.getStudents();
+            for (StudentEntity student: studentEntities){
+                student.setStatuspractice(StudentStatus.ON_PRACTICE_STUDENT);
+                this.studentService.addStudent(student);
+            }
+        }
     }
 }

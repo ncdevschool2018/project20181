@@ -44,8 +44,6 @@
     </a>
 </div>
 
-<a href="<c:url value="/authorization"/>" target="_blank">Login</a>
-
 
 
 <jsp:include page="views/parts/footer.jsp"/>

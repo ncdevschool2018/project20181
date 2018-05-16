@@ -54,7 +54,7 @@
                     <td>${student.specialityEntityByStudent.namespeciality}</td>
                     <td>${student.specialityEntityByStudent.facultyByFaculty.namefaculty}</td>
                     <td>
-                        <a href="/students-view/${student.idStudent}" target="_blank">
+                        <a href="/studentView/${student.idStudent}" target="_blank">
                             <button type="button" class="btn btn-info"><i class="fa fa-info" aria-hidden="true"></i>   Info</button>
                         </a>
                     </td>
@@ -63,7 +63,6 @@
         </c:if>
         </tbody>
     </table>
-<script src="../resources/js/admin-page.js"></script>
 <br>
 <br>
 <br>

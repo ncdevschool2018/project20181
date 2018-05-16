@@ -3,176 +3,8 @@
 <html>
 <head>
     <%@include file="parts/meta.jsp"%>
-    <title>Admin</title>
-        <style>
-            button.btn:hover {
-                -webkit-transform: scale(1.1);
-                -moz-transform: scale(1.1);
-                -o-transform: scale(1.1);
-            }
-            button.btn {
-                -webkit-transform: scale(0.8);
-                -moz-transform: scale(0.8);
-                -o-transform: scale(0.8);
-                -webkit-transition-duration: 5s;
-                -moz-transition-duration: 5s;
-                -o-transition-duration: 5s;
-                width: 10em;
-                height: 2.5em;
-            }
-            #divForTypeaheadRequest,
-            #divForTypeaheadStudent{
-                position: relative;
-                *z-index: 1;
-                margin: 50px 0;
-            }
-
-            .typeahead{
-                width: 396px;
-                height: 30px;
-                padding: 8px 12px;
-                font-size: 24px;
-                line-height: 30px;
-                border: 2px solid #ccc;
-                -webkit-border-radius: 8px;
-                -moz-border-radius: 8px;
-                border-radius: 8px;
-                outline: none;
-            }
-
-            .typeahead {
-                background-color: #fff;
-            }
-
-            .typeahead:focus {
-                border: 2px solid #0097cf;
-            }
-
-            .container {
-                max-width: 750px;
-                margin: 0 auto;
-                text-align: center;
-            }
-
-            .tt-menu,
-            .gist {
-                text-align: left;
-            }
-
-            a {
-                color: #03739c;
-                text-decoration: none;
-            }
-
-            a:hover {
-                text-decoration: underline;
-            }
-
-            .table-of-contents li {
-                display: inline-block;
-                *display: inline;
-                zoom: 1;
-            }
-
-            .table-of-contents li a {
-                font-size: 16px;
-                color: #999;
-            }
-
-            .typeahead,
-            .tt-query,
-            .tt-hint {
-                width: 460px;
-                height: 40px;
-                padding: 8px 12px;
-                font-size: 18px;
-                line-height: 30px;
-                border: 2px solid #ccc;
-                -webkit-border-radius: 8px;
-                -moz-border-radius: 8px;
-                border-radius: 8px;
-                outline: none;
-            }
-
-            .typeahead {
-                background-color: #fff;
-            }
-
-            .typeahead:focus {
-                border: 2px solid #0097cf;
-            }
-
-            .tt-query {
-                -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-                -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-                box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-            }
-
-            .tt-hint {
-                color: #999
-            }
-
-            .tt-menu {
-                width: 422px;
-                margin: 12px 0;
-                padding: 8px 0;
-                background-color: #fff;
-                border: 1px solid #ccc;
-                border: 1px solid rgba(0, 0, 0, 0.2);
-                -webkit-border-radius: 8px;
-                -moz-border-radius: 8px;
-                border-radius: 8px;
-                -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-                -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-                box-shadow: 0 5px 10px rgba(0,0,0,.2);
-            }
-
-            .tt-suggestion {
-                padding: 3px 20px;
-                font-size: 16px;
-                line-height: 20px;
-            }
-
-            .tt-suggestion:hover {
-                cursor: pointer;
-                color: #fff;
-                background-color: #0097cf;
-            }
-
-            .tt-suggestion.tt-cursor {
-                color: #fff;
-                background-color: #0097cf;
-
-            }
-
-            .tt-suggestion p {
-                margin: 0;
-            }
-
-            .gist {
-                font-size: 14px;
-            }
-
-            #custom-templates .empty-message {
-                padding: 5px 10px;
-                text-align: center;
-            }
-
-            #multiple-datasets .league-name {
-                margin: 0 20px 5px 20px;
-                padding: 3px 0;
-                border-bottom: 1px solid #ccc;
-            }
-
-            #scrollable-dropdown-menu .tt-menu {
-                max-height: 150px;
-                overflow-y: auto;
-            }
-
-            #rtl-support .tt-menu {
-                text-align: right;
-            }
-        </style>
+    <title>Admin Students</title>
+    <link rel="stylesheet" href="../resources/css/admin-page.css">
 </head>
 
 <body>
@@ -229,7 +61,7 @@
                         <th data-field="facultyName" data-sortable="true">Faculty</th>
                     </tr>
                     </thead>
-                    <tbody id="body_student_table">
+                    <tbody>
                     <c:if test="${not empty studentListForMAV}">
                         <c:forEach items="${studentListForMAV}" var="student">
                             <tr>
@@ -291,7 +123,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
             </div>
             <div class="modal-body">
-                <div id="sos"></div>
+                <div id="info" class="success"></div>
+                <div id="error" class="error"></div>
                 <div class="form-group">
                     <input  class="form-control jsInputSpeciality" placeholder="Speciality" type="text">
                 </div>
@@ -315,8 +148,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
             </div>
             <div class="modal-body">
-                <div id="fof1"></div>
-                <input  class="form-control jsInputFaculty" placeholder="Faculty" type="text">
+                <input  class="form-control jsInputFaculty" placeholder="Faculty" type="text" id="name">
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -335,8 +167,6 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
             </div>
             <div class="modal-body">
-                <div id="hoh"></div>
-                <div id="hoh1"></div>
                 <div class="form-group jsDivIdStudentforEdit">
                     <label>Id Student : </label>
                     <input type="text" class="form-control jsInputIdStudent" placeholder="Id Student" readonly/>
@@ -402,7 +232,6 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
             </div>
             <div class="modal-body">
-                <div id="mom"></div>
                 <div class="form-group">
                     <div id="divForTypeaheadStudent">
                         <input class="typeahead" id="jsInputTypeaheadStudent" type="text" placeholder="Search Student..." autocomplete="off">

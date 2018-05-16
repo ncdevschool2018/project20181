@@ -5,6 +5,7 @@ import by.netcracker.enumiration.RequestStatus;
 import by.netcracker.enumiration.StudentStatus;
 import by.netcracker.entities.StudentEntity;
 import by.netcracker.enumiration.ViewName;
+import by.netcracker.models.RequestViewModel;
 import by.netcracker.models.StudentViewModel;
 
 
@@ -21,7 +22,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class StudentController {
@@ -49,8 +53,19 @@ public class StudentController {
     public ModelAndView getStudentInformationHead(){
         ModelAndView studentListMAV = new ModelAndView();
         CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<StudentEntity> studentEntities = this.studentService.findAllStudents();
+        List<StudentEntity> studentEntitiesForAvailableHead = new ArrayList<StudentEntity>();
+        Set<RequestEntity> requestEntities;
+        for(StudentEntity student : studentEntities){
+            requestEntities = student.getRequest_companies();
+            for (RequestEntity request : requestEntities){
+                if(String.valueOf(request.getHeadOfPracticeId()).equals(customUser.getIdAccount())){
+                        studentEntitiesForAvailableHead.add(student);
+                }
+            }
+        }
         studentListMAV.setViewName(ViewName.VIEW_NAME_HEAD);
-        studentListMAV.addObject("studentListForMAV", this.studentService.findAllStudents());
+        studentListMAV.addObject("studentListForMAV", studentEntitiesForAvailableHead);
         return studentListMAV;
     }
 
@@ -126,6 +141,7 @@ public class StudentController {
         StudentEntity studentEntity = this.studentService.findOneStudent(Integer.valueOf(idStudent));
         return this.conversionService.convert(studentEntity,StudentViewModel.class);
     }
+
 
     @RequestMapping(value = "/deleteStudent", method = RequestMethod.POST)
     @ResponseBody

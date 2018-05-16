@@ -1,5 +1,6 @@
 body{
-    background:url(../img/login.jpg);
+    background: url(../img/authorize.jpg) no-repeat center center fixed;
+    background-size: cover;
 }
 
 .form-horizontal{

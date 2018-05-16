@@ -27,12 +27,20 @@
                 <sec:authorize access="isAuthenticated()">
                     <sec:authentication var="user" property="principal"/>
                     <span style="font-size: 30px; font-family: 'Lobster'; margin-right: 150px ">Welcome to Practice, ${user.username} </span>
+                    <a href="<c:url value="/index.jsp"/>">
+                        <span style="color: #050505">
+                            <i class="fa fa-sign-out" aria-hidden="true" style="font-size:200%"></i>
+                        </span>
+                    </a>
                 </sec:authorize>
-                <a href="<c:url value="/authorization"/>">
-                    <span style="color: #443c7b">
-                        <i class="fa fa-sign-out" aria-hidden="true" style="font-size:200%"></i>
-                    </span>
-                </a>
+                <sec:authorize access="isAnonymous()">
+                    <sec:authentication var="user" property="principal"/>
+                        <a href="<c:url value="/authorization"/>">
+                            <span style="color: #050505">
+                                <i class="fa fa-sign-in" aria-hidden="true" style="font-size:200%"></i>
+                            </span>
+                        </a>
+                </sec:authorize>
             </form>
         </div>
     </div>

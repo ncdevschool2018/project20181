@@ -10,4 +10,6 @@ public interface RequestService {
     void addRequest(RequestEntity requestEntity);
     void deleteRequestList(List<RequestEntity> requestEntities);
     void deleteRequestById(Integer idRequest);
+
+    List<RequestEntity> requestEntitiesAfterCurentDate();
 }

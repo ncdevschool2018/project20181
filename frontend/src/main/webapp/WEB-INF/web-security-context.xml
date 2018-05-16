@@ -12,9 +12,18 @@
                     username-parameter="username"
                     password-parameter="password" />-->
     <http  use-expressions="true">
-        <form-login login-page="/authorization"/>
+        <form-login login-page="/authorization"/><!--checck delete -->
         <logout logout-url="/logout" logout-success-url="/authorization" />
-        <csrf disabled="true" />
+
+        <!--<intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
+       <intercept-url pattern="/headpractice" access="hasRole('ROLE_HEAD')"/>
+       <intercept-url pattern="/user" access="hasRole('ROLE_STUDENT')"/>-->
+       <intercept-url pattern="/authorization" access="isAnonymous()"/>
+
+       <csrf disabled="true" />
+
+       <!--siann-->
+
 
     </http>
 

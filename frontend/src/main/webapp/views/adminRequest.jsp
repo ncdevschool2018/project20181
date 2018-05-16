@@ -3,24 +3,8 @@
 <html>
 <head>
     <%@include file="parts/meta.jsp"%>
-    <title>Admin</title>
-    <style>
-        button.btn:hover {
-            -webkit-transform: scale(1.1);
-            -moz-transform: scale(1.1);
-            -o-transform: scale(1.1);
-        }
-        button.btn {
-            -webkit-transform: scale(0.8);
-            -moz-transform: scale(0.8);
-            -o-transform: scale(0.8);
-            -webkit-transition-duration: 5s;
-            -moz-transition-duration: 5s;
-            -o-transition-duration: 5s;
-            width: 10em;
-            height: 2.5em;
-        }
-    </style>
+    <title>Admin Requests</title>
+    <link rel="stylesheet" href="../resources/css/admin-page.css">
 </head>
 
 <body>
@@ -62,12 +46,15 @@
                     <th data-field="statuspractice">Status</th>
                     <th data-field="nameSpeciality" data-sortable="true">Speciality</th>
                     <th data-field="nameFaculty" data-sortable="true">Faculty</th>
+                    <th data-field="lastnameHeadOfPractice" data-sortable="true">Head</th>
                 </tr>
                 </thead>
             </table >
 </div>
-
-
+<br>
+<br>
+<br>
+<jsp:include page="parts/footer.jsp"/>
 <!-- МО Создание запроса -->
 <div id="modalRequest" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -78,7 +65,6 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
             </div>
             <div class="modal-body">
-                <div id="ror"></div>
                 <div class="form-group jsDivIdRequestforEdit">
                     <label>Id Request : </label>
                     <input type="text" class="form-control jsInputIdRequest" placeholder="Id Request" readonly/>
@@ -129,7 +115,6 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
             </div>
             <div class="modal-body">
-                <div id="hop"></div>
                 <div class="form-group">
                     <input  class="form-control jsInputNameHeadOfPractice" placeholder="Name Head Of Practice" type="text">
                 </div>
@@ -158,6 +143,6 @@
 </div>
 
 <script src="../resources/js/admin-page.js"></script>
+<script src="../resources/js/validation-and-maskJQuery.js"></script>
 
-<jsp:include page="parts/footer.jsp"/>
 </body>

@@ -2,15 +2,14 @@ package by.netcracker.controllers;
 
 import by.netcracker.entities.FacultyEntity;
 import by.netcracker.models.FacultyViewModel;
+
 import by.netcracker.services.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -55,4 +54,6 @@ public class FacultyController {
         this.facultyService.addFaculty(facultyEntity);
         return true;
     }
+
+
 }

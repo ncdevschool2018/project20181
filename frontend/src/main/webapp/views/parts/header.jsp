@@ -4,8 +4,11 @@
 <script src="../../resources/bootstrap/js/popper.min.js"></script>
 <script src="../../resources/bootstrap/js/bootstrap.min.js"></script>
 <script src="../../resources/bootstrap/js/bootstrap-table.js"></script>
+<script src="../../resources/bootstrap/js/jquery.validate.min.js"></script>
 <script src="../../resources/bootstrap/js/jquery.mask.min.js"></script>
 <script src="../../resources/bootstrap/js/typeahead.bundle.min.js"></script>
+
+<script src="../../resources/js/constant-atribut-html.js"></script>
 
 
 <link href="../../resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">

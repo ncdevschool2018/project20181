@@ -1,170 +1,60 @@
+
+
 $(document).ready(function () {
-    /*var MODAL_ELEMENT = {
-        MODAL_REQUEST: '#modalRequest',
-        MODAL_STUDENT: '#modalStudent',
-        MODAL_FACULTY: '#modalFaculty',
-        MODAL_SPECIALITY: '#modalSpeciality',
-        MODAL_HEAD: '#modalHeadOfPractice',
-        MODAL_MULTI: '#modalMultiSelect'
-    };*/
-    var TABLE_ELEMENTS = {
-        STUDENTS_TABLE: '.jsStudentsTable',
-        REQUESTS_TABLE: '.jsRequestsTable',
-        STUDENT_TABLE_MAV: '.jsStudentTableForMAV'
-    };
-
-    var BTN_ELEMENT = {
-        BTN_LOGIN: '.jsBtnLogin',
-        BTN_REGISTRATION: '.jsBtnRegistration',
-        BTN_ABOUT_STUDENT: '.jsBtnAboutStudent',
-        BTN_DELETE_STUDENT: '.jsBtnDeleteStudent',
-        BTN_RELEASE_STUDENT: '.jsBtnReleaseStudent',
-        BTN_ADD_SPECIALITY: '.jsBtnAddSpeciality',
-        BTN_ADD_FACULTY: '.jsBtnAddFaculty',
-        BTN_ADD_OR_EDIT_STUDENT: '.jsBtnAddAndEditStudent',
-        BTN_RESET_STUDENT: '.jsBtnResetStudent',
-        BTN_ASSIGN_STUDENT_ON_PRACTICE: '.jsBtnAssignStudentOnPractice',
-        BTN_REASSIGN_STUDENT_ON_PRACTICE: '.jsBtnReAssignStudentOnPractice',
-        BTN_DELETE_REQUEST: '.jsBtnDeleteRequest',
-        BTN_ADD_HEAD: '.jsBtnAddHeadOfPractice',
-        BTN_ADD_OR_EDIT_REQUEST: '.jsBtnAddAndEditRequest',
-        BTN_RESET_REQUEST: '.jsBtnResetRequest',
-
-        BTN_OPEN_MODAL_FACULTY: '.jsOpenModalFaculty',
-        BTN_OPEN_MODAL_SPECIALITY: '.jsOpenModalSpeciality',
-        BTN_OPEN_MODAL_STUDENT: '.jsOpenModalStudent',
-        BTN_OPEN_MODAL_STUDENT_FOR_EDIT: '.jsOpenModalStudentForEdit',
-        BTN_OPEN_MODAL_MULTI_SELECT: '.jsOpenModalMultiSelect',
-        BTN_OPEN_MODAL_MULTI_SELECT_FOR_REASSIGN: '.jsOpenModalMultiSelectForReassign',
-        BTN_OPEN_MODAL_HEAD: '.jsOpenModalHeadOfPractice',
-        BTN_OPEN_MODAL_REQUEST: '.jsOpenModalRequest',
-        BTN_OPEN_MODAL_REQUEST_FOR_EDIT: '.jsOpenModalRequestForEdit'
-    };
-
-    var INPUT_ELEMENT = {
-        INPUT_NAME_FACULTY: '.jsInputFaculty',
-        INPUT_NAME_SPECIALITY: '.jsInputSpeciality',
-
-        INPUT_ID_STUDENT: '.jsInputIdStudent',
-        INPUT_STATUS_STUDENT: '.jsInputStatusStudent',
-        INPUT_NAME_GROUP: '.jsInputGroup',
-        INPUT_AVERAGE_SCORE: '.jsInputAverageScore',
-        INPUT_ADRESS: '.jsInputAdress',
-        INPUT_PHONE: '.jsInputPhone',
-        INPUT_COMMENT: '.jsInputComment'
-
-
-
-
-    };
-
-    var  ATRIBUT_HTML = {
-        $studentsTable : $(TABLE_ELEMENTS.STUDENTS_TABLE),
-        $requestsTable : $(TABLE_ELEMENTS.REQUESTS_TABLE),
-        $studentsTableForMAV : $(TABLE_ELEMENTS.STUDENT_TABLE_MAV),
-
-        $buttonLogin : $(BTN_ELEMENT.BTN_LOGIN),
-        $buttonRegistration : $(BTN_ELEMENT.BTN_REGISTRATION),
-        $buttonAboutStudent : $(BTN_ELEMENT.BTN_ABOUT_STUDENT),
-        $buttonDeleteStudent : $(BTN_ELEMENT.BTN_DELETE_STUDENT),
-        $buttonReleaseStudent : $(BTN_ELEMENT.BTN_RELEASE_STUDENT),
-        $buttonAddSpeciality : $(BTN_ELEMENT.BTN_ADD_SPECIALITY),
-        $buttonAddFaculty : $(BTN_ELEMENT.BTN_ADD_FACULTY),
-        $buttonAddOrEditStudent : $(BTN_ELEMENT.BTN_ADD_OR_EDIT_STUDENT),
-        $buttonResetStudent : $(BTN_ELEMENT.BTN_RESET_STUDENT),
-        $buttonAssignStudentOnPractice : $(BTN_ELEMENT.BTN_ASSIGN_STUDENT_ON_PRACTICE),
-        $buttonReassignStudentOnPractice : $(BTN_ELEMENT.BTN_REASSIGN_STUDENT_ON_PRACTICE),
-        $buttonDeleteRequest : $(BTN_ELEMENT.BTN_DELETE_REQUEST),
-        $buttonAddHead : $(BTN_ELEMENT.BTN_ADD_HEAD),
-        $buttonAddOrEditRequest : $(BTN_ELEMENT.BTN_ADD_OR_EDIT_REQUEST),
-        $buttonResetRequest : $(BTN_ELEMENT.BTN_RESET_REQUEST),
-
-
-        $buttonOpenModalFaculty : $(BTN_ELEMENT.BTN_OPEN_MODAL_FACULTY),
-        $buttonOpenModalSpeciality : $(BTN_ELEMENT.BTN_OPEN_MODAL_SPECIALITY),
-        $buttonOpenModalHead : $(BTN_ELEMENT.BTN_OPEN_MODAL_HEAD),
-        $buttonOpenModalStudentForSave : $(BTN_ELEMENT.BTN_OPEN_MODAL_STUDENT),
-        $buttonOpenModalStudentForEdit : $(BTN_ELEMENT.BTN_OPEN_MODAL_STUDENT_FOR_EDIT),
-        $buttonOpenModalRequestForSave : $(BTN_ELEMENT.BTN_OPEN_MODAL_REQUEST),
-        $buttonOpenModalRequestForEdit : $(BTN_ELEMENT.BTN_OPEN_MODAL_REQUEST_FOR_EDIT),
-        $buttonOpenModalMultuSelectForAssign : $(BTN_ELEMENT.BTN_OPEN_MODAL_MULTI_SELECT),
-        $buttonOpenModalMultuSelectForReassign : $(BTN_ELEMENT.BTN_OPEN_MODAL_MULTI_SELECT_FOR_REASSIGN),
-
-
-
-
-        $inputNameFaculty: $(INPUT_ELEMENT.INPUT_NAME_FACULTY),
-        $inputNameSpeciality: $(INPUT_ELEMENT.INPUT_NAME_SPECIALITY),
-
-        $inputIdStudent: $(INPUT_ELEMENT.INPUT_ID_STUDENT),
-        $inputStatusStudent: $(INPUT_ELEMENT.INPUT_STATUS_STUDENT),
-        $inputNameGroup: $(INPUT_ELEMENT.INPUT_NAME_GROUP),
-        $inputAverageScore: $(INPUT_ELEMENT.INPUT_AVERAGE_SCORE),
-        $inputAdress: $(INPUT_ELEMENT.INPUT_ADRESS),
-        $inputPhone: $(INPUT_ELEMENT.INPUT_PHONE),
-        $inputComment: $(INPUT_ELEMENT.INPUT_COMMENT)
-        /*$modalRequest : $(MODAL_ELEMENT.MODAL_REQUEST),
-        $modalStudent : $(MODAL_ELEMENT.MODAL_STUDENT),
-        $modalFaculty : $(MODAL_ELEMENT.MODAL_FACULTY),
-        $modalSpeciality : $(MODAL_ELEMENT.MODAL_SPECIALITY),
-        $modalHead : $(MODAL_ELEMENT.MODAL_HEAD),
-        $modalMulti : $(MODAL_ELEMENT.MODAL_MULTI)*/
-    };
-
-    window.ATRUBUT_HTML = ATRIBUT_HTML;
-
-
-    //Authorization(POST)
-    $('.jsBtnLogin').click(function (event) {
-        event.stopPropagation();
-
-        $.ajax({
-            url: 'authorize',
-            type: 'POST',
-            contentType: "application/json",
-            data: JSON.stringify({
-                username: $('.jsInputUsername').val(),
-                password: $('.jsInputPassword').val()
-            }),
-            success: function (xhr) {
-                console.log(xhr.status);
-                window.location.href = "/home"
-            },
-            error: function (xhr, textStatus) {
-                xhr.status == 401 ? alert('Credentials are not correct.'): alert('Something went wrong, try again later.');
-            }
-        });
-    });
-    //Registration POST
-    $('.jsBtnRegistration').click(function (event) {
-        event.stopPropagation();
-        var objAccountStudentSave = {
-            firstname: $('.jsInputNameStudent').val(),
-            lastname: $('.jsInputSurnameStudent').val(),
-            patronymic: $('.jsInputPatronymicStudent').val(),
-            email: $('.jsInputEmailStudent').val(),
-            login: $('.jsInputLoginStudent').val(),
-            password: $('.jsInputFirstPasswordForCompare').val()
-        };
-
-        $.ajax({
-            url: 'createStudentAccount',
-            type: 'POST',
-            dataType: 'json',
-            contentType: "application/json",
-            mimeType: 'application/json',
-            data: JSON.stringify(objAccountStudentSave),
-            success: window.location.href = "/authorization"
-        });
-    });
-
-
-
-
 //--------------------------------------------------------BUSINESS LOGIC-----------------------------------------------------------------------------------------------------------------------
 
+    /*ATRUBUT_HTML.$buttonAddFaculty
+        .mouseenter(function() {
+        // get the form values
+        var name = ATRUBUT_HTML.$inputNameFaculty.val();
+
+        $.ajax({
+            type: "POST",
+            url: "checkFaculty",
+            data: "name=" + name,
+            success: function(response){
+                // we have the response
+                if(response.status == "SUCCESS"){
+                    userInfo = "<ol>";
+                    for(i =0 ; i < response.result.length ; i++){
+                        userInfo += "<br><li><b>Name</b> : " + response.result[i].name +
+                            ";<b> Education</b> : " + response.result[i].education;
+                    }
+                    userInfo += "</ol>";
+                    $('#info').html("User has been added to the list successfully. " + userInfo);
+                    $('#name').val('');
+                    $('#education').val('');
+                    $('#error').hide('slow');
+                    $('#info').show('slow');
+                }else{
+                    errorInfo = "";
+                    for(i =0 ; i < response.result.length ; i++){
+                        errorInfo += "<br>" + (i + 1) +". " + response.result[i].code;
+                    }
+                    $('#error').html("Please correct following errors: " + errorInfo);
+                    $('#info').hide('slow');
+                    $('#error').show('slow');
+                }
+            },
+            error: function(e){
+                alert('Error: ' + e);
+            }
+        });
+    });*/
+
+    $.ajax({
+        url: 'checkStatusStudent',
+        type: 'POST',
+        dataType: 'json',
+        contentType: "application/json",
+        mimeType: 'application/json',
+        data: ''
+    });
+
+
+
     // Add Faculty(Post)(viewmodel)
-    $('.jsBtnAddFaculty').click(function (event) {
+    ATRUBUT_HTML.$buttonAddFaculty.click(function (event) {
         event.stopPropagation();
         var objFacultySave = {
             namefaculty: ATRUBUT_HTML.$inputNameFaculty.val()
@@ -182,12 +72,16 @@ $(document).ready(function () {
                     alert("Adding Faculty was successful");
                     $('#modalFaculty').modal('hide');
                 }
-                else {alert("Adding Faculty was unsuccessful. That's faculty is existing")}
+                else {
+                    alert("Adding Faculty was unsuccessful. That's faculty is existing")}
+            },
+            error: function (xhr,textStatus) {
+                console.log(xhr.status);
             }
         });
     });
     // Add Speciality(Post)(entity)
-    $('.jsBtnAddSpeciality').click(function (event) {
+    ATRUBUT_HTML.$buttonAddSpeciality.click(function (event) {
         event.stopPropagation();
         var objSpecialitySave = {
             namespeciality: ATRUBUT_HTML.$inputNameSpeciality.val(),
@@ -203,6 +97,9 @@ $(document).ready(function () {
             data: JSON.stringify(objSpecialitySave),
             success: function (confirmAddSpeciality) {
                 if(confirmAddSpeciality === true) {
+                    $('#error').html("Please correct following errors: ");
+                    $('#info').hide('slow');
+                    $('#error').show('slow');
                     alert("Adding Speciality was successful");
                     $('#modalSpeciality').modal('hide');
                 }
@@ -211,28 +108,27 @@ $(document).ready(function () {
         });
     });
     // Add and Edit Request(Post)(viewmodel)
-    $('.jsBtnAddAndEditRequest').click(function (event) {
+    ATRUBUT_HTML.$buttonAddOrEditRequest.click(function (event) {
         event.stopPropagation();
         var objRequestSave = {
-            idRequest:$('.jsInputIdRequest').val(),
-            namecompany: $('.jsInputNameCompany').val(),
-            datefrom: $('.jsInputDateFrom').val(),
-            dateto: $('.jsInputDateTo').val(),
-            statuspractice:$('.jsinputstatusrequest').val(),
-            minaverage: $('.jsInputMinAverageScore').val(),
-            totalquantity: $('.jsInputTotalQuantity').val(),
+            idRequest: ATRUBUT_HTML.$inputIdRequest.val(),
+            namecompany: ATRUBUT_HTML.$inputNameCompany.val(),
+            datefrom: ATRUBUT_HTML.$inputDateFrom.val(),
+            dateto: ATRUBUT_HTML.$inputDateTo.val(),
+            statuspractice: ATRUBUT_HTML.$inputStatusRequest.val(),
+            minaverage: ATRUBUT_HTML.$inputMinAverageScore.val(),
+            totalquantity: ATRUBUT_HTML.$inputTotalQuantity.val(),
             specialityId: $('#modalRequest').find('.availableSpecialities option:selected').attr("class"),
             headOfPracticeId: $('#modalRequest').find('.availableHeadsOfPractice option:selected').attr("class")
         };
         $.ajax({
-            url: 'createRequest',
+            url: 'createOrEditRequest',
             type: 'POST',
             dataType: 'json',
             contentType: "application/json",
             mimeType: 'application/json',
             data: JSON.stringify(objRequestSave),
             success: function (objRequestSave) {
-                $('#ror').text(objRequestSave.specialityId + objRequestSave.dateto + objRequestSave.statuspractice +objRequestSave.headOfPracticeId);
                 ListAllRequests();
                 $('.jsBtnResetRequest').trigger('click');
                 ATRUBUT_HTML.$requestsTable.trigger('uncheck-all.bs.table');
@@ -241,7 +137,7 @@ $(document).ready(function () {
         });
     });
     // Add and Edit Student(Post)(entity)
-    $('.jsBtnAddAndEditStudent').click(function (event) {
+    ATRUBUT_HTML.$buttonAddOrEditStudent.click(function (event) {
             event.stopPropagation();
             var objStudSave = {
                 idStudent: ATRUBUT_HTML.$inputIdStudent.val(),
@@ -287,15 +183,15 @@ $(document).ready(function () {
             });
         });
     //Add Head Of Practice
-    $('.jsBtnAddHeadOfPractice').click(function (event) {
+    ATRUBUT_HTML.$buttonAddHead.click(function (event) {
         event.stopPropagation();
         var objHeadOfPracticeSave = {
-            firstname: $('.jsInputNameHeadOfPractice').val(),
-            lastname: $('.jsInputSurnameHeadOfPractice').val(),
-            patronymic: $('.jsInputPatronymicHeadOfPractice').val(),
-            email: $('.jsInputEmailHeadOfPractice').val(),
-            login: $('.jsInputLoginHeadOfPractice').val(),
-            password: $('.jsInputPasswordHeadOfPractice').val()
+            firstname: ATRUBUT_HTML.$inputNameHead.val(),
+            lastname: ATRUBUT_HTML.$inputSurnameHead.val(),
+            patronymic: ATRUBUT_HTML.$inputPatronymicHead.val(),
+            email: ATRUBUT_HTML.$inputEmailHead.val(),
+            login: ATRUBUT_HTML.$inputUsernameHead.val(),
+            password: ATRUBUT_HTML.$inputPasswordHead.val()
         };
 
         $.ajax({
@@ -315,7 +211,7 @@ $(document).ready(function () {
         });
     });
     //Delete Student(Post)
-    $('.jsBtnDeleteStudent').click(function () {
+    ATRUBUT_HTML.$buttonDeleteStudent.click(function () {
     var studentIdForDelete = ATRUBUT_HTML.$studentsTableForMAV.bootstrapTable('getSelections');
     console.log(studentIdForDelete);
 
@@ -344,7 +240,7 @@ $(document).ready(function () {
 
     });
     //Delete Request(Post)
-    $('.jsBtnDeleteRequest').click(function () {
+    ATRUBUT_HTML.$buttonDeleteRequest.click(function () {
         var requestIdForDelete = ATRUBUT_HTML.$requestsTable.bootstrapTable('getSelections');
         console.log(requestIdForDelete);
 
@@ -367,7 +263,7 @@ $(document).ready(function () {
 
     });
     //Release Student from Practice
-    $('.jsBtnReleaseStudent').click(function () {
+    ATRUBUT_HTML.$buttonReleaseStudent.click(function () {
         var studentIdForRelease = ATRUBUT_HTML.$studentsTableForMAV.bootstrapTable('getSelections')[0].idStudent;
         console.log(studentIdForRelease);
 
@@ -388,7 +284,7 @@ $(document).ready(function () {
         });
     });
     //Assign Student on Practice
-    $('.jsBtnAssignStudentOnPractice').click(function (event) {
+    ATRUBUT_HTML.$buttonAssignStudentOnPractice.click(function (event) {
        var studentIdForRequest = $('#modalMultiSelect').find('.availableStudent option:selected').attr("class"),
        requestIdForStudent = $('#modalMultiSelect').find('.availableRequest option:selected').attr("class");
        var studentFromTypeahead = $('#jsInputTypeaheadStudent').val();
@@ -416,7 +312,7 @@ $(document).ready(function () {
         });
     });
     //Reassign Student on Practice
-    $('.jsBtnReAssignStudentOnPractice').click(function (event) {
+    ATRUBUT_HTML.$buttonReassignStudentOnPractice.click(function (event) {
         var studentIdForRequest = $('#modalMultiSelect').find('.availableStudent option:selected').attr("class"),
             requestIdForStudent = $('#modalMultiSelect').find('.availableRequest option:selected').attr("class");
         console.log(studentIdForRequest, requestIdForStudent);
@@ -433,7 +329,7 @@ $(document).ready(function () {
         });
     });
     //AboutStudent?????
-    $('.jsBtnAboutStudent').click(function (event) {
+    ATRUBUT_HTML.$buttonAboutStudent.click(function (event) {
         var studentIdForRelease = ATRUBUT_HTML.$studentsTableForMAV.bootstrapTable('getSelections')[0].idStudent;
 
         $.ajax({
@@ -454,34 +350,35 @@ $(document).ready(function () {
 
 //--------------------------------------------------------RESET-----------------------------------------------------------------------------------------------------------------------
     //Очистка полей в модальном окне студента
-    $('.jsBtnResetStudent').on('click',function (event) {
+    ATRUBUT_HTML.$buttonResetStudent.on('click',function (event) {
         $('#modalStudent').find("input,textarea,select").val('');
-        $('.jsInputStatusStudent').val("Available");
+        ATRUBUT_HTML.$inputStatusStudent.val("Available");
     });
     //Очистка полей в модальном окне запроса
-    $('.jsBtnResetRequest').on('click',function (event) {
+    ATRUBUT_HTML.$buttonResetRequest.on('click',function (event) {
         $('#modalRequest').find("input,textarea,select").val('');
-        $('.jsinputstatusrequest').val("Available");
+        ATRUBUT_HTML.$inputStatusRequest.val("Available");
     });
 //--------------------------------------------------------OPEN MODAL-----------------------------------------------------------------------------------------------------------------------
 
-    $('.jsOpenModalMultiSelect').click(function () {
+    ATRUBUT_HTML.$buttonOpenModalMultuSelectForAssign.click(function () {
 
        getAvailableStudent();
         getAvailableRequest();
         //typeaheadStudent();
     });
 
-    $('.jsOpenModalMultiSelectForReassign').click(function () {
-        getAvailableStudent();
-        getAvailableRequest();
+    ATRUBUT_HTML.$buttonOpenModalMultuSelectForReassign.click(function () {
+        //getAvailableStudent();
+        //getAvailableRequest();
         //typeaheadStudent();
+        LoadStudentForReassign();
     });
 
-    $('.jsOpenModalSpeciality').click(function () {
+    ATRUBUT_HTML.$buttonOpenModalSpeciality.click(function () {
         getAvailableFaculty();
     });
-    $('.jsOpenModalRequest').click(function () {
+    ATRUBUT_HTML.$buttonOpenModalRequestForSave.click(function () {
         $('.jsTitleEditRequest').hide();
         $('.jsDivIdRequestforEdit').show();
         $('.jsTitleAddRequest').show();
@@ -489,7 +386,7 @@ $(document).ready(function () {
         getAvailableFaculty();
         $('.availableFacultiesRequest').trigger('change');
     });
-    $('.jsOpenModalRequestForEdit').click(function () {
+    ATRUBUT_HTML.$buttonOpenModalRequestForEdit.click(function () {
         $('.jsTitleEditRequest').show();
         $('.jsDivIdRequestforEdit').show();
         $('.jsTitleAddRequest').hide();
@@ -499,7 +396,7 @@ $(document).ready(function () {
 
 
     });
-    $('.jsOpenModalStudent').click(function () {
+    ATRUBUT_HTML.$buttonOpenModalStudentForSave.click(function () {
         $('.jsTitleEditStudent').hide();
         $('.jsDivIdStudentforEdit').show();
         $('.jsTitleAddStudent').show();
@@ -507,7 +404,7 @@ $(document).ready(function () {
         getAvailableFaculty();
         $('.availableFacultiesStudent').trigger('change');
     });
-    $('.jsOpenModalStudentForEdit').click(function () {
+    ATRUBUT_HTML.$buttonOpenModalStudentForEdit.click(function () {
         $('.jsTitleAddStudent').hide();
         $('.jsTitleEditStudent').show();
         $('.jsDivFormGroupShowforEdit').show();
@@ -516,7 +413,6 @@ $(document).ready(function () {
         LoadStudentEntityForEditStudent();
     });
 
-    ListAllStudents();
     ListAllRequests();
 //--------------------------------------------------------TRIGGERS-----------------------------------------------------------------------
     $('.availableFacultiesStudent').on('change', function () {
@@ -729,6 +625,27 @@ $(document).ready(function () {
             }
         });
     }
+    //Load to typeahead Student For Reassign
+    function LoadStudentForReassign() {
+        var  studentIdForReassign = ATRUBUT_HTML.$studentsTableForMAV.bootstrapTable('getSelections')[0].idStudent;
+
+        $.ajax({
+            async: false,
+            url: 'loadStudentForReassign',
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: {dataStudentReassign :  studentIdForReassign},
+            success: function (requestList) {
+                requestList ? function () {
+                    requestList.some(function (requestList) {
+                        console.log(requestList);
+                    });
+                }() : false;
+            }
+        });
+    }
 //--------------------------------------------------------TYPEAHEAD-----------------------------------------------------------------------------------------------------------------------
     var substringMatcher = function(strs) {
         return function findMatches(q, cb) {
@@ -750,7 +667,7 @@ $(document).ready(function () {
 
     var students = [];
     var practice = [];
-    $(".jsOpenModalMultiSelect").click(function (event) {
+    ATRUBUT_HTML.$buttonOpenModalMultuSelectForAssign.click(function (event) {
         $.ajax({
             async : false,
             url: 'studentListForSelect',
@@ -810,7 +727,7 @@ $(document).ready(function () {
 
 //--------------------------------------------------------Bootstrap Table-----------------------------------------------------------------------------------------------------------------------
     // bootstrap-table documentation http://bootstrap-table.wenzhixin.net.cn/documentation
-    function ListAllStudents() {
+    /*function ListAllStudents() {
         $.ajax({
             url: 'studentList',
             type: 'GET',
@@ -822,7 +739,7 @@ $(document).ready(function () {
                 ATRUBUT_HTML.$studentsTable.on('click-row.bs.table');
             }
         });
-    }
+    }*/
     function ListAllRequests() {
         $.ajax({
             url: 'requestList',
@@ -843,10 +760,10 @@ $(document).ready(function () {
     var SizeCheckboxOfTableStudent = 0;
     if (SizeCheckboxOfTableStudent === 0) {
         console.log(SizeCheckboxOfTableStudent);
-        $('.jsOpenModalStudentForEdit').prop('disabled', true);
-        $('.jsBtnReleaseStudent').prop('disabled', true);
-        $('.jsBtnAboutStudent').prop('disabled', true);
-        $('.jsBtnDeleteStudent').prop('disabled', true);
+        ATRUBUT_HTML.$buttonOpenModalStudentForEdit.prop('disabled', true);
+        ATRUBUT_HTML.$buttonReleaseStudent.prop('disabled', true);
+        ATRUBUT_HTML.$buttonAboutStudent.prop('disabled', true);
+        ATRUBUT_HTML.$buttonDeleteStudent.prop('disabled', true);
     }
     ATRUBUT_HTML.$studentsTableForMAV.on('check-all.bs.table', function (e) {
         var allStudent = ATRUBUT_HTML.$studentsTableForMAV.bootstrapTable('getAllSelections');
@@ -856,84 +773,84 @@ $(document).ready(function () {
         });
         console.log(SizeCheckboxOfTableStudent);
         if (SizeCheckboxOfTableStudent > 1) {
-            $('.jsOpenModalStudentForEdit').prop('disabled', true);
-            $('.jsBtnReleaseStudent').prop('disabled', true);
-            $('.jsBtnAboutStudent').prop('disabled', true);
-            $('.jsBtnDeleteStudent').prop('disabled', false);
+            ATRUBUT_HTML.$buttonOpenModalStudentForEdit.prop('disabled', true);
+            ATRUBUT_HTML.$buttonReleaseStudent.prop('disabled', true);
+            ATRUBUT_HTML.$buttonAboutStudent.prop('disabled', true);
+            ATRUBUT_HTML.$buttonDeleteStudent.prop('disabled', false);
         }
         else {
-            $('.jsOpenModalStudentForEdit').prop('disabled', false);
-            $('.jsBtnReleaseStudent').prop('disabled', false);
-            $('.jsBtnAboutStudent').prop('disabled', false);
-            $('.jsBtnDeleteStudent').prop('disabled', false);
+            ATRUBUT_HTML.$buttonOpenModalStudentForEdit.prop('disabled', false);
+            ATRUBUT_HTML.$buttonReleaseStudent.prop('disabled', false);
+            ATRUBUT_HTML.$buttonAboutStudent.prop('disabled', false);
+            ATRUBUT_HTML.$buttonDeleteStudent.prop('disabled', false);
         }
     });
     ATRUBUT_HTML.$studentsTableForMAV.on('check.bs.table', function (e) {
         SizeCheckboxOfTableStudent++;
         console.log(SizeCheckboxOfTableStudent);
         if (SizeCheckboxOfTableStudent > 1) {
-            $('.jsOpenModalStudentForEdit').prop('disabled', true);
-            $('.jsBtnReleaseStudent').prop('disabled', true);
-            $('.jsBtnAboutStudent').prop('disabled', true);
-            $('.jsBtnDeleteStudent').prop('disabled', false);
+            ATRUBUT_HTML.$buttonOpenModalStudentForEdit.prop('disabled', true);
+            ATRUBUT_HTML.$buttonReleaseStudent.prop('disabled', true);
+            ATRUBUT_HTML.$buttonAboutStudent.prop('disabled', true);
+            ATRUBUT_HTML.$buttonDeleteStudent.prop('disabled', false);
         }
         else {
-            $('.jsOpenModalStudentForEdit').prop('disabled', false);
-            $('.jsBtnReleaseStudent').prop('disabled', false);
-            $('.jsBtnAboutStudent').prop('disabled', false);
-            $('.jsBtnDeleteStudent').prop('disabled', false);
+            ATRUBUT_HTML.$buttonOpenModalStudentForEdit.prop('disabled', false);
+            ATRUBUT_HTML.$buttonReleaseStudent.prop('disabled', false);
+            ATRUBUT_HTML.$buttonAboutStudent.prop('disabled', false);
+            ATRUBUT_HTML.$buttonDeleteStudent.prop('disabled', false);
         }
     });
     ATRUBUT_HTML.$studentsTableForMAV.on('uncheck-all.bs.table', function (e) {
         SizeCheckboxOfTableStudent = 0;
         console.log(SizeCheckboxOfTableStudent);
         if (SizeCheckboxOfTableStudent > 1) {
-            $('.jsOpenModalStudentForEdit').prop('disabled', true);
-            $('.jsBtnReleaseStudent').prop('disabled', true);
-            $('.jsBtnAboutStudent').prop('disabled', true);
-            $('.jsBtnDeleteStudent').prop('disabled', false);
+            ATRUBUT_HTML.$buttonOpenModalStudentForEdit.prop('disabled', true);
+            ATRUBUT_HTML.$buttonReleaseStudent.prop('disabled', true);
+            ATRUBUT_HTML.$buttonAboutStudent.prop('disabled', true);
+            ATRUBUT_HTML.$buttonDeleteStudent.prop('disabled', false);
         }
         else if (SizeCheckboxOfTableStudent === 1) {
-            $('.jsOpenModalStudentForEdit').prop('disabled', false);
-            $('.jsBtnReleaseStudent').prop('disabled', false);
-            $('.jsBtnAboutStudent').prop('disabled', false);
-            $('.jsBtnDeleteStudent').prop('disabled', false);
+            ATRUBUT_HTML.$buttonOpenModalStudentForEdit.prop('disabled', false);
+            ATRUBUT_HTML.$buttonReleaseStudent.prop('disabled', false);
+            ATRUBUT_HTML.$buttonAboutStudent.prop('disabled', false);
+            ATRUBUT_HTML.$buttonDeleteStudent.prop('disabled', false);
         }
         else {
-            $('.jsOpenModalStudentForEdit').prop('disabled', true);
-            $('.jsBtnReleaseStudent').prop('disabled', true);
-            $('.jsBtnAboutStudent').prop('disabled', true);
-            $('.jsBtnDeleteStudent').prop('disabled', true);
+            ATRUBUT_HTML.$buttonOpenModalStudentForEdit.prop('disabled', true);
+            ATRUBUT_HTML.$buttonReleaseStudent.prop('disabled', true);
+            ATRUBUT_HTML.$buttonAboutStudent.prop('disabled', true);
+            ATRUBUT_HTML.$buttonDeleteStudent.prop('disabled', true);
         }
     });
     ATRUBUT_HTML.$studentsTableForMAV.on('uncheck.bs.table', function (e) {
         SizeCheckboxOfTableStudent--;
         console.log(SizeCheckboxOfTableStudent);
         if (SizeCheckboxOfTableStudent > 1) {
-            $('.jsOpenModalStudentForEdit').prop('disabled', true);
-            $('.jsBtnReleaseStudent').prop('disabled', true);
-            $('.jsBtnAboutStudent').prop('disabled', true);
-            $('.jsBtnDeleteStudent').prop('disabled', false);
+            ATRUBUT_HTML.$buttonOpenModalStudentForEdit.prop('disabled', true);
+            ATRUBUT_HTML.$buttonReleaseStudent.prop('disabled', true);
+            ATRUBUT_HTML.$buttonAboutStudent.prop('disabled', true);
+            ATRUBUT_HTML.$buttonDeleteStudent.prop('disabled', false);
         }
         else if (SizeCheckboxOfTableStudent === 1) {
-            $('.jsOpenModalStudentForEdit').prop('disabled', false);
-            $('.jsBtnReleaseStudent').prop('disabled', false);
-            $('.jsBtnAboutStudent').prop('disabled', false);
-            $('.jsBtnDeleteStudent').prop('disabled', false);
+            ATRUBUT_HTML.$buttonOpenModalStudentForEdit.prop('disabled', false);
+            ATRUBUT_HTML.$buttonReleaseStudent.prop('disabled', false);
+            ATRUBUT_HTML.$buttonAboutStudent.prop('disabled', false);
+            ATRUBUT_HTML.$buttonDeleteStudent.prop('disabled', false);
         }
         else {
-            $('.jsOpenModalStudentForEdit').prop('disabled', true);
-            $('.jsBtnReleaseStudent').prop('disabled', true);
-            $('.jsBtnAboutStudent').prop('disabled', true);
-            $('.jsBtnDeleteStudent').prop('disabled', true);
+            ATRUBUT_HTML.$buttonOpenModalStudentForEdit.prop('disabled', true);
+            ATRUBUT_HTML.$buttonReleaseStudent.prop('disabled', true);
+            ATRUBUT_HTML.$buttonAboutStudent.prop('disabled', true);
+            ATRUBUT_HTML.$buttonDeleteStudent.prop('disabled', true);
         }
     });
     //Table Of Request
     var SizeCheckboxOfTableRequest = 0;
     if (SizeCheckboxOfTableRequest === 0) {
         console.log(SizeCheckboxOfTableRequest);
-        $('.jsOpenModalRequestForEdit').prop('disabled', true);
-        $('.jsBtnDeleteRequest').prop('disabled', true);
+        ATRUBUT_HTML.$buttonOpenModalRequestForEdit.prop('disabled', true);
+        ATRUBUT_HTML.$buttonDeleteRequest.prop('disabled', true);
     }
     ATRUBUT_HTML.$requestsTable.on('check-all.bs.table', function (e) {
         var allRequest = ATRUBUT_HTML.$requestsTable.bootstrapTable('getAllSelections');
@@ -943,56 +860,56 @@ $(document).ready(function () {
         });
         console.log(SizeCheckboxOfTableRequest);
         if (SizeCheckboxOfTableRequest > 1) {
-            $('.jsOpenModalRequestForEdit').prop('disabled', true);
-            $('.jsBtnDeleteRequest').prop('disabled', false);
+            ATRUBUT_HTML.$buttonOpenModalRequestForEdit.prop('disabled', true);
+            ATRUBUT_HTML.$buttonDeleteRequest.prop('disabled', false);
         }
         else {
-            $('.jsOpenModalRequestForEdit').prop('disabled', false);
-            $('.jsBtnDeleteRequest').prop('disabled', false);
+            ATRUBUT_HTML.$buttonOpenModalRequestForEdit.prop('disabled', false);
+            ATRUBUT_HTML.$buttonDeleteRequest.prop('disabled', false);
         }
     });
     ATRUBUT_HTML.$requestsTable.on('check.bs.table', function (e) {
         SizeCheckboxOfTableRequest++;
         console.log(SizeCheckboxOfTableRequest);
         if (SizeCheckboxOfTableRequest > 1) {
-            $('.jsOpenModalRequestForEdit').prop('disabled', true);
-            $('.jsBtnDeleteRequest').prop('disabled', false);
+            ATRUBUT_HTML.$buttonOpenModalRequestForEdit.prop('disabled', true);
+            ATRUBUT_HTML.$buttonDeleteRequest.prop('disabled', false);
         }
         else {
-            $('.jsOpenModalRequestForEdit').prop('disabled', false);
-            $('.jsBtnDeleteRequest').prop('disabled', false);
+            ATRUBUT_HTML.$buttonOpenModalRequestForEdit.prop('disabled', false);
+            ATRUBUT_HTML.$buttonDeleteRequest.prop('disabled', false);
         }
     });
     ATRUBUT_HTML.$requestsTable.on('uncheck-all.bs.table', function (e) {
         SizeCheckboxOfTableRequest = 0;
         console.log(SizeCheckboxOfTableRequest);
         if (SizeCheckboxOfTableRequest > 1) {
-            $('.jsOpenModalRequestForEdit').prop('disabled', true);
-            $('.jsBtnDeleteRequest').prop('disabled', false);
+            ATRUBUT_HTML.$buttonOpenModalRequestForEdit.prop('disabled', true);
+            ATRUBUT_HTML.$buttonDeleteRequest.prop('disabled', false);
         }
         else if (SizeCheckboxOfTableRequest === 1) {
-            $('.jsOpenModalRequestForEdit').prop('disabled', false);
-            $('.jsBtnDeleteRequest').prop('disabled', false);
+            ATRUBUT_HTML.$buttonOpenModalRequestForEdit.prop('disabled', false);
+            ATRUBUT_HTML.$buttonDeleteRequest.prop('disabled', false);
         }
         else {
-            $('.jsOpenModalRequestForEdit').prop('disabled', true);
-            $('.jsBtnDeleteRequest').prop('disabled', true);
+            ATRUBUT_HTML.$buttonOpenModalRequestForEdit.prop('disabled', true);
+            ATRUBUT_HTML.$buttonDeleteRequest.prop('disabled', true);
         }
     });
     ATRUBUT_HTML.$requestsTable.on('uncheck.bs.table', function (e) {
         SizeCheckboxOfTableRequest--;
         console.log(SizeCheckboxOfTableRequest);
         if (SizeCheckboxOfTableRequest > 1) {
-            $('.jsOpenModalRequestForEdit').prop('disabled', true);
-            $('.jsBtnDeleteRequest').prop('disabled', false);
+            ATRUBUT_HTML.$buttonOpenModalRequestForEdit.prop('disabled', true);
+            ATRUBUT_HTML.$buttonDeleteRequest.prop('disabled', false);
         }
         else if (SizeCheckboxOfTableRequest === 1) {
-            $('.jsOpenModalRequestForEdit').prop('disabled', false);
-            $('.jsBtnDeleteRequest').prop('disabled', false);
+            ATRUBUT_HTML.$buttonOpenModalRequestForEdit.prop('disabled', false);
+            ATRUBUT_HTML.$buttonDeleteRequest.prop('disabled', false);
         }
         else {
-            $('.jsOpenModalRequestForEdit').prop('disabled', true);
-            $('.jsBtnDeleteRequest').prop('disabled', true);
+            ATRUBUT_HTML.$buttonOpenModalRequestForEdit.prop('disabled', true);
+            ATRUBUT_HTML.$buttonDeleteRequest.prop('disabled', true);
         }
     });
 
